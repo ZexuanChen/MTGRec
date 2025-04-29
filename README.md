@@ -20,7 +20,7 @@ accelerate==1.0.1
 
 ## Datasets
 
-You can find all the datasets we used in [Google Drive](https://drive.google.com/file/d/1MAlKxygadJiVMiYHZRM14i7pnPd8J44w/view?usp=drive_link). Please download the file and unzip it to the current folder. Each dataset contains the following files:
+You can find all the datasets we used in [Google Drive](https://drive.google.com/file/d/1MAlKxygadJiVMiYHZRM14i7pnPd8J44w/view?usp=sharing). Please download the file and unzip it to the current folder. Each dataset contains the following files:
 
 ```
 dataset_name/
