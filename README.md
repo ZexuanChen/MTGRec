@@ -18,20 +18,31 @@ transformers==4.45.2
 accelerate==1.0.1
 ```
 
-## Datasets
+[//]: # (## Datasets)
 
-You can find all the datasets we used in [Google Drive](https://drive.google.com/file/d/1MAlKxygadJiVMiYHZRM14i7pnPd8J44w/view?usp=sharing). Please download the file and unzip it to the current folder. Each dataset contains the following files:
+[//]: # ()
+[//]: # (You can find all the datasets we used in [Google Drive]&#40;https://drive.google.com/file/d/1MAlKxygadJiVMiYHZRM14i7pnPd8J44w/view?usp=sharing&#41;. Please download the file and unzip it to the current folder. Each dataset contains the following files:)
 
-```
-dataset_name/
-├── metadata.sentence.json
-├── all_item_seqs.json
-├── id_mapping.json
-└── rqvae/
-    ├── sentence-t5-base_256,256,256,256_9950.sem_ids
-    ├── ...
-    └── sentence-t5-base_256,256,256,256_10000.sem_ids
-```
+[//]: # ()
+[//]: # (```)
+
+[//]: # (dataset_name/)
+
+[//]: # (├── metadata.sentence.json)
+
+[//]: # (├── all_item_seqs.json)
+
+[//]: # (├── id_mapping.json)
+
+[//]: # (└── rqvae/)
+
+[//]: # (    ├── sentence-t5-base_256,256,256,256_9950.sem_ids)
+
+[//]: # (    ├── ...)
+
+[//]: # (    └── sentence-t5-base_256,256,256,256_10000.sem_ids)
+
+[//]: # (```)
 
 ## Quick Start
 
