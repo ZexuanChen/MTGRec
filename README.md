@@ -1,5 +1,10 @@
 # MTGRec
 
+[//]: # (This is the official PyTorch implementation for the paper:)
+
+[//]: # ()
+[//]: # (> Multi-Identifier Item Tokenization for Generative Recommender Pre-training)
+
 ## Overview
 
 In this paper, we propose **MTGRec**, which leverages <u>M</u>ulti-identifier item <u>T</u>okenization to augment token sequence data for <u>G</u>enerative <u>Rec</u>ommender pre-training. Specifically, our approach makes two key contributions: *multi-identifier item tokenization* and *curriculum recommender pre-training*. For multi-identifier item tokenization, we adopt the Residual-Quantized Variational AutoEncoder (RQ-VAE) as the backbone of item tokenizers and consider model checkpoints from adjacent epochs as semantically relevant tokenizers. This enables us to associate each item with multiple identifiers and tokenize a single item interaction sequence into several token sequences as different data groups. For curriculum recommender pre-training, we design a data curriculum scheme through data influence estimation.  During recommender pre-training, we dynamically adjust the sampling probability of each data group according to the influence of the data from each item tokenizer, where the influence estimation is achieved via first-order gradient approximation. Finally, we fine-tune the pre-trained model using a single item identifier to ensure accurate item identification during recommendation. 
