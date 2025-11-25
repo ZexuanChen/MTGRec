@@ -14,10 +14,10 @@ L=6
 SATGE=[60,20,20,20,20,20,20]
 
 for TAU in "${TAU_LIST[@]}"; do
-    CUDA_VISIBLE_DEVICES=0,1,2,3 \
+    CUDA_VISIBLE_DEVICES=0,1,2 \
     accelerate launch \
         --main_process_port 12232 \
-        --num_processes 4 pretrain.py \
+        --num_processes 3 pretrain.py \
         --dataset=$DATASET \
         --config_file=config/ptconfig.yaml \
         --token_prefix=$TOKEN \
@@ -44,10 +44,10 @@ L=5
 SATGE=[60,20,20,20,20,20,20]
 
 for TAU in "${TAU_LIST[@]}"; do
-    CUDA_VISIBLE_DEVICES=0,1,2,3 \
+    CUDA_VISIBLE_DEVICES=0,1,2 \
     accelerate launch \
         --main_process_port 12232 \
-        --num_processes 4 pretrain.py \
+        --num_processes 3 pretrain.py \
         --dataset=$DATASET \
         --config_file=config/ptconfig.yaml \
         --token_prefix=$TOKEN \
@@ -66,28 +66,28 @@ done
 
 
 
-DATASET=Video_Games
-TOKEN=rqvae/sentence-t5-base_256,256,256,256
+# DATASET=Video_Games
+# TOKEN=rqvae/sentence-t5-base_256,256,256,256
 
-L=7
-SATGE=[60,20,20,20,20,20,20]
+# L=7
+# SATGE=[60,20,20,20,20,20,20]
 
-for TAU in "${TAU_LIST[@]}"; do
-    CUDA_VISIBLE_DEVICES=0,1,2,3 \
-    accelerate launch \
-        --main_process_port 12232 \
-        --num_processes 4 pretrain.py \
-        --dataset=$DATASET \
-        --config_file=config/ptconfig.yaml \
-        --token_prefix=$TOKEN \
-        --lr=0.005 \
-        --epochs=200 \
-        --num_layers=$L \
-        --num_decoder_layers=$L \
-        --save_interval=10 \
-        --val_delay=199 \
-        --epoch_per_stage=$SATGE \
-        --sem_id_epochs=$IDS25 \
-        --tau=$TAU
-done
+# for TAU in "${TAU_LIST[@]}"; do
+#     CUDA_VISIBLE_DEVICES=0 \
+#     accelerate launch \
+#         --main_process_port 12232 \
+#         --num_processes 1 pretrain.py \
+#         --dataset=$DATASET \
+#         --config_file=config/ptconfig.yaml \
+#         --token_prefix=$TOKEN \
+#         --lr=0.005 \
+#         --epochs=200 \
+#         --num_layers=$L \
+#         --num_decoder_layers=$L \
+#         --save_interval=10 \
+#         --val_delay=199 \
+#         --epoch_per_stage=$SATGE \
+#         --sem_id_epochs=$IDS25 \
+#         --tau=$TAU
+# done
 

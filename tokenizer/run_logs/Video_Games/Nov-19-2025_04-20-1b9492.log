@@ -1,0 +1,39 @@
+Wed 19 Nov 2025 04:20:59 INFO  Device: cuda
+Wed 19 Nov 2025 04:20:59 INFO  Config: {'data_dir': '../datasets/Video_Games', 'log_dir': 'run_logs/', 'rand_seed': 2024, 'reproducibility': True, 'lr': 0.001, 'learner': 'adagrad', 'scheduler_type': 'constant', 'weight_decay': 0.0, 'warmup_steps': 0, 'batch_size': 2048, 'epochs': 10000, 'verbose_step': 100, 'verbose_delay': 8000, 'save_limit': 100, 'ckpt_name': 'rqvae', 'sent_emb_model': 'sentence-transformers/sentence-t5-base', 'sent_emb_batch_size': 512, 'sent_emb_dim': 768, 'sent_emb_pca': 128, 'n_codebooks': 3, 'codebook_size': 256, 'hidden_sizes': [2048, 1024, 512, 256, 128], 'dropout': 0.0, 'beta': 0.25, 'vq_type': 'ema', 'run_local_time': 'Nov-19-2025_04-20', 'dataset': 'Video_Games', 'device': device(type='cuda'), 'use_ddp': False, 'accelerator': <accelerate.accelerator.Accelerator object at 0x70e0924b34c0>}
+Wed 19 Nov 2025 04:20:59 INFO  [TOKENIZER] Encoding sentence embeddings...
+Wed 19 Nov 2025 04:21:00 INFO  Use pytorch device_name: cuda:0
+Wed 19 Nov 2025 04:21:00 INFO  Load pretrained SentenceTransformer: sentence-transformers/sentence-t5-base
+Wed 19 Nov 2025 04:21:00 WARNING  '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: f57b38cc-c89b-442f-b339-f0320b24fe9f)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/sentence-t5-base/resolve/main/./modules.json
+Wed 19 Nov 2025 04:21:00 WARNING  Retrying in 1s [Retry 1/5].
+Wed 19 Nov 2025 04:21:01 WARNING  '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: f5245ea9-6797-49f7-9248-25c384f68dae)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/sentence-t5-base/resolve/main/./modules.json
+Wed 19 Nov 2025 04:21:01 WARNING  Retrying in 2s [Retry 2/5].
+Wed 19 Nov 2025 04:21:03 WARNING  '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 65b1c8b3-24cf-4cda-a3d3-20bc3fe8f5a8)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/sentence-t5-base/resolve/main/./modules.json
+Wed 19 Nov 2025 04:21:03 WARNING  Retrying in 4s [Retry 3/5].
+Wed 19 Nov 2025 04:21:07 WARNING  '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 1a7b241f-9564-4a5a-b2a8-1798613eb330)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/sentence-t5-base/resolve/main/./modules.json
+Wed 19 Nov 2025 04:21:07 WARNING  Retrying in 8s [Retry 4/5].
+Wed 19 Nov 2025 04:21:15 WARNING  '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 0d785e4f-1e7f-4651-aad7-0e40e6c47507)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/sentence-t5-base/resolve/main/./modules.json
+Wed 19 Nov 2025 04:21:15 WARNING  Retrying in 8s [Retry 5/5].
+Wed 19 Nov 2025 04:21:23 WARNING  '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: d1c98b48-47e6-4304-8cc6-da114a24e4b4)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/sentence-t5-base/resolve/main/./modules.json
+Wed 19 Nov 2025 04:21:23 WARNING  No sentence-transformers model found with name sentence-transformers/sentence-t5-base. Creating a new one with mean pooling.
+Wed 19 Nov 2025 04:21:24 WARNING  '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: a2e8c51e-b1ce-45ee-8de5-9105d0204dbd)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/sentence-t5-base/resolve/main/adapter_config.json
+Wed 19 Nov 2025 04:21:24 WARNING  Retrying in 1s [Retry 1/5].
+Wed 19 Nov 2025 04:21:25 WARNING  '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: a55f9e10-14a5-49bc-ad90-22cb7c15f87a)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/sentence-t5-base/resolve/main/adapter_config.json
+Wed 19 Nov 2025 04:21:25 WARNING  Retrying in 2s [Retry 2/5].
+Wed 19 Nov 2025 04:21:27 WARNING  '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: e8407384-435d-4622-87e1-ef3770fa3edb)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/sentence-t5-base/resolve/main/adapter_config.json
+Wed 19 Nov 2025 04:21:27 WARNING  Retrying in 4s [Retry 3/5].
+Wed 19 Nov 2025 04:21:31 WARNING  '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: c592039e-70e6-4142-8624-e83ff52c75af)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/sentence-t5-base/resolve/main/adapter_config.json
+Wed 19 Nov 2025 04:21:31 WARNING  Retrying in 8s [Retry 4/5].
+Wed 19 Nov 2025 04:21:40 WARNING  '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: a210a16c-e983-47d2-b11c-47f6b0a2e660)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/sentence-t5-base/resolve/main/adapter_config.json
+Wed 19 Nov 2025 04:21:40 WARNING  Retrying in 8s [Retry 5/5].
+Wed 19 Nov 2025 04:21:48 WARNING  '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: f1bf434f-8fb7-40ce-a3cf-1bfcc0f3a2a8)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/sentence-t5-base/resolve/main/adapter_config.json
+Wed 19 Nov 2025 04:21:48 WARNING  '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: cc8e7a4a-7291-40c6-9fcf-3f077a277714)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/sentence-t5-base/resolve/main/config.json
+Wed 19 Nov 2025 04:21:48 WARNING  Retrying in 1s [Retry 1/5].
+Wed 19 Nov 2025 04:21:49 WARNING  '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 0bd96be7-0bc5-47de-a65e-b88588368905)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/sentence-t5-base/resolve/main/config.json
+Wed 19 Nov 2025 04:21:49 WARNING  Retrying in 2s [Retry 2/5].
+Wed 19 Nov 2025 04:21:52 WARNING  '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: af43d7c2-05d0-46f8-bd6b-fab7899ecd46)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/sentence-t5-base/resolve/main/config.json
+Wed 19 Nov 2025 04:21:52 WARNING  Retrying in 4s [Retry 3/5].
+Wed 19 Nov 2025 04:21:56 WARNING  '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: bb542dc6-92b4-4270-ad67-b4404a6cf4fd)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/sentence-t5-base/resolve/main/config.json
+Wed 19 Nov 2025 04:21:56 WARNING  Retrying in 8s [Retry 4/5].
+Wed 19 Nov 2025 04:22:04 WARNING  '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 0797a7a2-2f89-48d2-88e9-c9858575b4fd)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/sentence-t5-base/resolve/main/config.json
+Wed 19 Nov 2025 04:22:04 WARNING  Retrying in 8s [Retry 5/5].
+Wed 19 Nov 2025 04:22:13 WARNING  '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 8d786be0-e9a1-4214-8401-29c95b26bfec)')' thrown while requesting HEAD https://huggingface.co/sentence-transformers/sentence-t5-base/resolve/main/config.json

@@ -14,7 +14,6 @@ from utils import *
 
 
 def extend_tokens(all_item_tokens, id2item, codebook_size):
-   
     tokens2item = defaultdict(list)
     item2tokens = {}
     max_conflict = 0

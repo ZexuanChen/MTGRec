@@ -1,0 +1,174 @@
+Mon 24 Nov 2025 20:33:41 INFO  Device: cuda
+Mon 24 Nov 2025 20:33:41 INFO  Config: {'rand_seed': 2024, 'reproducibility': True, 'num_proc': 1, 'data_dir': 'datasets/Musical_Instruments', 'log_dir': 'run_logs/', 'tensorboard_log_dir': 'tensorboard/', 'ckpt_dir': 'ckpt/Musical_Instruments/Nov-24-2025_20-33-4e8939', 'stage': 'pretrain', 'pretrained_model': '', 'epoch_per_stage': [60, 20, 20, 20, 20, 20, 20], 'tau': 1.0, 'load_best_for_next_stage': False, 'train_batch_size': 256, 'eval_batch_size': 256, 'lr': 0.005, 'weight_decay': 0.05, 'warmup_steps': 10000, 'steps': None, 'epochs': 200, 'max_grad_norm': 1.0, 'eval_interval': 1, 'save_interval': 10, 'patience': 50, 'topk': [5, 10], 'metrics': ['ndcg', 'recall'], 'val_metric': 'ndcg@10', 'val_ratio': 1.0, 'val_delay': 199, 'n_codebooks': 3, 'codebook_size': 256, 'expand_final': True, 'token_prefix': 'rqvae/sentence-t5-base_256,256,256,256', 'token_suffix': 'sem_ids', 'n_user_tokens': 1, 'max_item_seq_len': 20, 'num_beams': 20, 'test_num_beams': None, 'num_layers': 6, 'num_decoder_layers': 6, 'd_model': 128, 'd_ff': 512, 'num_heads': 4, 'd_kv': 64, 'dropout_rate': 0.1, 'activation_function': 'relu', 'feed_forward_proj': 'relu', 'results_dir': None, 'sem_id_epochs': [9976, 9977, 9978, 9979, 9980, 9981, 9982, 9983, 9984, 9985, 9986, 9987, 9988, 9989, 9990, 9991, 9992, 9993, 9994, 9995, 9996, 9997, 9998, 9999, 10000], 'run_local_time': 'Nov-24-2025_20-33', 'ckpt_name': 'Nov-24-2025_20-33-4e8939', 'dataset': 'Musical_Instruments', 'device': device(type='cuda'), 'use_ddp': True, 'accelerator': <accelerate.accelerator.Accelerator object at 0x73ae269ab9d0>}
+Mon 24 Nov 2025 20:33:41 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9976.sem_ids...
+Mon 24 Nov 2025 20:33:41 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9977.sem_ids...
+Mon 24 Nov 2025 20:33:41 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9978.sem_ids...
+Mon 24 Nov 2025 20:33:41 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9979.sem_ids...
+Mon 24 Nov 2025 20:33:41 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9980.sem_ids...
+Mon 24 Nov 2025 20:33:42 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9981.sem_ids...
+Mon 24 Nov 2025 20:33:42 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9982.sem_ids...
+Mon 24 Nov 2025 20:33:42 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9983.sem_ids...
+Mon 24 Nov 2025 20:33:42 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9984.sem_ids...
+Mon 24 Nov 2025 20:33:42 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9985.sem_ids...
+Mon 24 Nov 2025 20:33:42 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9986.sem_ids...
+Mon 24 Nov 2025 20:33:42 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9987.sem_ids...
+Mon 24 Nov 2025 20:33:42 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9988.sem_ids...
+Mon 24 Nov 2025 20:33:43 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9989.sem_ids...
+Mon 24 Nov 2025 20:33:43 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9990.sem_ids...
+Mon 24 Nov 2025 20:33:43 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9991.sem_ids...
+Mon 24 Nov 2025 20:33:43 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9992.sem_ids...
+Mon 24 Nov 2025 20:33:43 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9993.sem_ids...
+Mon 24 Nov 2025 20:33:43 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9994.sem_ids...
+Mon 24 Nov 2025 20:33:43 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9995.sem_ids...
+Mon 24 Nov 2025 20:33:43 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9996.sem_ids...
+Mon 24 Nov 2025 20:33:44 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9997.sem_ids...
+Mon 24 Nov 2025 20:33:44 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9998.sem_ids...
+Mon 24 Nov 2025 20:33:44 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9999.sem_ids...
+Mon 24 Nov 2025 20:33:44 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_10000.sem_ids...
+Mon 24 Nov 2025 20:33:48 INFO  MTGRec(
+  (t5): T5ForConditionalGeneration(
+    (shared): Embedding(1027, 128)
+    (encoder): T5Stack(
+      (embed_tokens): Embedding(1027, 128)
+      (block): ModuleList(
+        (0): T5Block(
+          (layer): ModuleList(
+            (0): T5LayerSelfAttention(
+              (SelfAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+                (relative_attention_bias): Embedding(32, 4)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (1): T5LayerFF(
+              (DenseReluDense): T5DenseActDense(
+                (wi): Linear(in_features=128, out_features=512, bias=False)
+                (wo): Linear(in_features=512, out_features=128, bias=False)
+                (dropout): Dropout(p=0.1, inplace=False)
+                (act): ReLU()
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (1-5): 5 x T5Block(
+          (layer): ModuleList(
+            (0): T5LayerSelfAttention(
+              (SelfAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (1): T5LayerFF(
+              (DenseReluDense): T5DenseActDense(
+                (wi): Linear(in_features=128, out_features=512, bias=False)
+                (wo): Linear(in_features=512, out_features=128, bias=False)
+                (dropout): Dropout(p=0.1, inplace=False)
+                (act): ReLU()
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+      )
+      (final_layer_norm): T5LayerNorm()
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (decoder): T5Stack(
+      (embed_tokens): Embedding(1027, 128)
+      (block): ModuleList(
+        (0): T5Block(
+          (layer): ModuleList(
+            (0): T5LayerSelfAttention(
+              (SelfAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+                (relative_attention_bias): Embedding(32, 4)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (1): T5LayerCrossAttention(
+              (EncDecAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (2): T5LayerFF(
+              (DenseReluDense): T5DenseActDense(
+                (wi): Linear(in_features=128, out_features=512, bias=False)
+                (wo): Linear(in_features=512, out_features=128, bias=False)
+                (dropout): Dropout(p=0.1, inplace=False)
+                (act): ReLU()
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (1-5): 5 x T5Block(
+          (layer): ModuleList(
+            (0): T5LayerSelfAttention(
+              (SelfAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (1): T5LayerCrossAttention(
+              (EncDecAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (2): T5LayerFF(
+              (DenseReluDense): T5DenseActDense(
+                (wi): Linear(in_features=128, out_features=512, bias=False)
+                (wo): Linear(in_features=512, out_features=128, bias=False)
+                (dropout): Dropout(p=0.1, inplace=False)
+                (act): ReLU()
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+      )
+      (final_layer_norm): T5LayerNorm()
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (lm_head): Linear(in_features=128, out_features=1027, bias=False)
+  )
+)
+Mon 24 Nov 2025 20:33:48 INFO  #Embedding parameters: 131456
+#Non-embedding parameters: 3936512
+#Total trainable parameters: 4067968
+
+Mon 24 Nov 2025 20:34:36 INFO  [Epoch 1] Train Loss: 3.934970931475421
+Mon 24 Nov 2025 20:35:22 INFO  [Epoch 2] Train Loss: 2.8400730447596816
+Mon 24 Nov 2025 20:36:10 INFO  [Epoch 3] Train Loss: 2.5750615514186492
+Mon 24 Nov 2025 20:36:57 INFO  [Epoch 4] Train Loss: 2.462335962847055
+Mon 24 Nov 2025 20:37:45 INFO  [Epoch 5] Train Loss: 2.3853761700980636

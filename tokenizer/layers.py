@@ -50,6 +50,7 @@ class RQLayer(nn.Module):
 
 
     def __init__(self, n_codebooks, codebook_size, latent_size, vq_type="ema", beta=0.25, decay=0.99, eps=1e-5):
+        # beta,decay,eps的作用是什么？ beta是VQ-VAE的损失系数，decay是EMA的衰减系数，eps是防止除0的小常数
         super(RQLayer, self).__init__()
         self.n_codebooks = n_codebooks
         self.latent_size = latent_size
@@ -194,7 +195,9 @@ class VQLayer(nn.Module):
 
 
 class EMAVQLayer(VQLayer):
-
+    """
+    实现用移动指数平均更新单个码本
+    """
     def __init__(self, latent_size, codebook_size, beta=0.25, decay=0.99, eps=1e-5):
         super(EMAVQLayer, self).__init__(latent_size, codebook_size, beta)
 
@@ -203,52 +206,60 @@ class EMAVQLayer(VQLayer):
 
         embed = torch.zeros(self.n_embed, self.dim)
         self.embed = nn.Parameter(embed, requires_grad=False)
-        nn.init.xavier_normal_(self.embed)
-        self.register_buffer("embed_avg", embed.clone())
+        nn.init.xavier_normal_(self.embed) # 初始化embed，这里使用xavier_normal_初始化，是为了保持初始化时的方差一致
+        # 这个register_buffer函数在哪里定义的？ 它是nn.Module的一个方法，用于将一个张量注册为模型的缓冲区（buffer），缓冲区的张量不会被优化器更新。
+        self.register_buffer("embed_avg", embed.clone()) 
         self.register_buffer("cluster_size", torch.ones(self.n_embed))
 
 
     def _copy_init_embed(self, init_embed):
         self.embed.data.copy_(init_embed)
-        self.embed_avg.data.copy_(init_embed)
+        self.embed_avg.data.copy_(init_embed) # 就是前面的self.register_buffer("embed_avg", embed.clone())
         self.cluster_size.data.copy_(torch.ones(self.n_embed, device=init_embed.device))
 
     def get_code_embs(self):
         return self.embed
 
 
-
+    # todo：打断点一步步看维度
     def forward(self, x: torch.Tensor):
 
         latent = x.view(-1, self.dim)
+        latent = x.view(-1, self.dim)
         code_embs = self.get_code_embs()
+        # 计算latent和code_embs的距离，这里使用的是欧氏距离的平方
         dist = (
                 latent.pow(2).sum(1, keepdim=True)
-                - 2 * latent @ code_embs.t()
+                - 2 * latent @ code_embs.t() # .t()转置
                 + code_embs.pow(2).sum(1, keepdim=True).t()
         )
-        _, embed_ind = (-dist).max(1)
+        _, embed_ind = (-dist).max(1) # 取距离最小的code_emb作为该latent向量的编码
 
-        x_q = F.embedding(embed_ind, code_embs).view(x.shape)
-
+        x_q = F.embedding(embed_ind, code_embs).view(x.shape) # F.embedding()函数用于根据索引从嵌入矩阵中提取向量
+        
         if self.training:
-
+            # 计算独热编码和统计信息
             embed_onehot = F.one_hot(embed_ind, self.n_embed).type(latent.dtype)
             embed_onehot_sum = embed_onehot.sum(0)
             embed_sum = embed_onehot.t() @ latent
+            
             if distributed.is_initialized():
                 distributed.all_reduce(embed_onehot_sum, op=distributed.ReduceOp.SUM)
                 distributed.all_reduce(embed_sum, op=distributed.ReduceOp.SUM)
 
+            # 统计未使用的码本数量
             unused_codes = (embed_onehot_sum == 0).sum().item()
 
+            # 指数移动平均更新，具体公式：embed_avg = embed_avg * decay + embed_sum * (1 - decay)
             self.cluster_size.data.mul_(self.decay).add_(
                 embed_onehot_sum, alpha=1 - self.decay
             )
+            
             self.embed_avg.data.mul_(self.decay).add_(
                 embed_sum, alpha=1 - self.decay
             )
 
+            # 归一化更新后的码本向量
             n = self.cluster_size.sum()
             norm_w = (
                 n * (self.cluster_size + self.eps) / (n + self.n_embed * self.eps)

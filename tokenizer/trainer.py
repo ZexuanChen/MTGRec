@@ -165,7 +165,6 @@ class Trainer(object):
     def _save_checkpoint(self, epoch, ckpt_file=None):
 
 
-
         ckpt_path = os.path.join(self.ckpt_dir, ckpt_file) if ckpt_file \
             else os.path.join(self.ckpt_dir, f'{self.ckpt_name}-{epoch+1}.pth')
 

@@ -1,0 +1,401 @@
+Wed 19 Nov 2025 22:00:19 INFO  Device: cuda
+Wed 19 Nov 2025 22:00:19 INFO  Config: {'rand_seed': 2024, 'reproducibility': True, 'num_proc': 1, 'data_dir': 'datasets/Industrial_and_Scientific', 'log_dir': 'run_logs/', 'tensorboard_log_dir': 'tensorboard/', 'ckpt_dir': 'ckpt/Industrial_and_Scientific/Nov-19-2025_22-00-ba0854', 'stage': 'pretrain', 'pretrained_model': '', 'epoch_per_stage': [60, 20, 20, 20, 20, 20, 20], 'tau': 1.0, 'load_best_for_next_stage': False, 'train_batch_size': 256, 'eval_batch_size': 256, 'lr': 0.005, 'weight_decay': 0.05, 'warmup_steps': 10000, 'steps': None, 'epochs': 200, 'max_grad_norm': 1.0, 'eval_interval': 1, 'save_interval': 10, 'patience': 50, 'topk': [5, 10], 'metrics': ['ndcg', 'recall'], 'val_metric': 'ndcg@10', 'val_ratio': 1.0, 'val_delay': 199, 'n_codebooks': 3, 'codebook_size': 256, 'expand_final': True, 'token_prefix': 'rqvae/sentence-t5-base_256,256,256,256', 'token_suffix': 'sem_ids', 'n_user_tokens': 1, 'max_item_seq_len': 20, 'num_beams': 20, 'test_num_beams': None, 'num_layers': 5, 'num_decoder_layers': 5, 'd_model': 128, 'd_ff': 512, 'num_heads': 4, 'd_kv': 64, 'dropout_rate': 0.1, 'activation_function': 'relu', 'feed_forward_proj': 'relu', 'results_dir': None, 'sem_id_epochs': [9986, 9987, 9988, 9989, 9990, 9991, 9992, 9993, 9994, 9995, 9996, 9997, 9998, 9999, 10000], 'run_local_time': 'Nov-19-2025_22-00', 'ckpt_name': 'Nov-19-2025_22-00-ba0854', 'dataset': 'Industrial_and_Scientific', 'device': device(type='cuda'), 'use_ddp': False, 'accelerator': <accelerate.accelerator.Accelerator object at 0x75e8f31ae530>}
+Wed 19 Nov 2025 22:00:19 INFO  [TOKENIZER] Loading semantic IDs from datasets/Industrial_and_Scientific/rqvae/sentence-t5-base_256,256,256,256_9986.sem_ids...
+Wed 19 Nov 2025 22:00:19 INFO  [TOKENIZER] Loading semantic IDs from datasets/Industrial_and_Scientific/rqvae/sentence-t5-base_256,256,256,256_9987.sem_ids...
+Wed 19 Nov 2025 22:00:19 INFO  [TOKENIZER] Loading semantic IDs from datasets/Industrial_and_Scientific/rqvae/sentence-t5-base_256,256,256,256_9988.sem_ids...
+Wed 19 Nov 2025 22:00:19 INFO  [TOKENIZER] Loading semantic IDs from datasets/Industrial_and_Scientific/rqvae/sentence-t5-base_256,256,256,256_9989.sem_ids...
+Wed 19 Nov 2025 22:00:19 INFO  [TOKENIZER] Loading semantic IDs from datasets/Industrial_and_Scientific/rqvae/sentence-t5-base_256,256,256,256_9990.sem_ids...
+Wed 19 Nov 2025 22:00:19 INFO  [TOKENIZER] Loading semantic IDs from datasets/Industrial_and_Scientific/rqvae/sentence-t5-base_256,256,256,256_9991.sem_ids...
+Wed 19 Nov 2025 22:00:20 INFO  [TOKENIZER] Loading semantic IDs from datasets/Industrial_and_Scientific/rqvae/sentence-t5-base_256,256,256,256_9992.sem_ids...
+Wed 19 Nov 2025 22:00:20 INFO  [TOKENIZER] Loading semantic IDs from datasets/Industrial_and_Scientific/rqvae/sentence-t5-base_256,256,256,256_9993.sem_ids...
+Wed 19 Nov 2025 22:00:20 INFO  [TOKENIZER] Loading semantic IDs from datasets/Industrial_and_Scientific/rqvae/sentence-t5-base_256,256,256,256_9994.sem_ids...
+Wed 19 Nov 2025 22:00:20 INFO  [TOKENIZER] Loading semantic IDs from datasets/Industrial_and_Scientific/rqvae/sentence-t5-base_256,256,256,256_9995.sem_ids...
+Wed 19 Nov 2025 22:00:20 INFO  [TOKENIZER] Loading semantic IDs from datasets/Industrial_and_Scientific/rqvae/sentence-t5-base_256,256,256,256_9996.sem_ids...
+Wed 19 Nov 2025 22:00:20 INFO  [TOKENIZER] Loading semantic IDs from datasets/Industrial_and_Scientific/rqvae/sentence-t5-base_256,256,256,256_9997.sem_ids...
+Wed 19 Nov 2025 22:00:20 INFO  [TOKENIZER] Loading semantic IDs from datasets/Industrial_and_Scientific/rqvae/sentence-t5-base_256,256,256,256_9998.sem_ids...
+Wed 19 Nov 2025 22:00:20 INFO  [TOKENIZER] Loading semantic IDs from datasets/Industrial_and_Scientific/rqvae/sentence-t5-base_256,256,256,256_9999.sem_ids...
+Wed 19 Nov 2025 22:00:20 INFO  [TOKENIZER] Loading semantic IDs from datasets/Industrial_and_Scientific/rqvae/sentence-t5-base_256,256,256,256_10000.sem_ids...
+Wed 19 Nov 2025 22:00:23 INFO  MTGRec(
+  (t5): T5ForConditionalGeneration(
+    (shared): Embedding(1027, 128)
+    (encoder): T5Stack(
+      (embed_tokens): Embedding(1027, 128)
+      (block): ModuleList(
+        (0): T5Block(
+          (layer): ModuleList(
+            (0): T5LayerSelfAttention(
+              (SelfAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+                (relative_attention_bias): Embedding(32, 4)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (1): T5LayerFF(
+              (DenseReluDense): T5DenseActDense(
+                (wi): Linear(in_features=128, out_features=512, bias=False)
+                (wo): Linear(in_features=512, out_features=128, bias=False)
+                (dropout): Dropout(p=0.1, inplace=False)
+                (act): ReLU()
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (1-4): 4 x T5Block(
+          (layer): ModuleList(
+            (0): T5LayerSelfAttention(
+              (SelfAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (1): T5LayerFF(
+              (DenseReluDense): T5DenseActDense(
+                (wi): Linear(in_features=128, out_features=512, bias=False)
+                (wo): Linear(in_features=512, out_features=128, bias=False)
+                (dropout): Dropout(p=0.1, inplace=False)
+                (act): ReLU()
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+      )
+      (final_layer_norm): T5LayerNorm()
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (decoder): T5Stack(
+      (embed_tokens): Embedding(1027, 128)
+      (block): ModuleList(
+        (0): T5Block(
+          (layer): ModuleList(
+            (0): T5LayerSelfAttention(
+              (SelfAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+                (relative_attention_bias): Embedding(32, 4)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (1): T5LayerCrossAttention(
+              (EncDecAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (2): T5LayerFF(
+              (DenseReluDense): T5DenseActDense(
+                (wi): Linear(in_features=128, out_features=512, bias=False)
+                (wo): Linear(in_features=512, out_features=128, bias=False)
+                (dropout): Dropout(p=0.1, inplace=False)
+                (act): ReLU()
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (1-4): 4 x T5Block(
+          (layer): ModuleList(
+            (0): T5LayerSelfAttention(
+              (SelfAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (1): T5LayerCrossAttention(
+              (EncDecAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (2): T5LayerFF(
+              (DenseReluDense): T5DenseActDense(
+                (wi): Linear(in_features=128, out_features=512, bias=False)
+                (wo): Linear(in_features=512, out_features=128, bias=False)
+                (dropout): Dropout(p=0.1, inplace=False)
+                (act): ReLU()
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+      )
+      (final_layer_norm): T5LayerNorm()
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (lm_head): Linear(in_features=128, out_features=1027, bias=False)
+  )
+)
+Wed 19 Nov 2025 22:00:23 INFO  #Embedding parameters: 131456
+#Non-embedding parameters: 3280512
+#Total trainable parameters: 3411968
+
+Wed 19 Nov 2025 22:01:33 INFO  [Epoch 1] Train Loss: 3.934067329083841
+Wed 19 Nov 2025 22:02:45 INFO  [Epoch 2] Train Loss: 2.8833061721850566
+Wed 19 Nov 2025 22:03:50 INFO  [Epoch 3] Train Loss: 2.644895129785763
+Wed 19 Nov 2025 22:05:00 INFO  [Epoch 4] Train Loss: 2.5254794460112655
+Wed 19 Nov 2025 22:06:09 INFO  [Epoch 5] Train Loss: 2.4432468064657344
+Wed 19 Nov 2025 22:07:12 INFO  [Epoch 6] Train Loss: 2.387918414562706
+Wed 19 Nov 2025 22:08:20 INFO  [Epoch 7] Train Loss: 2.3473405943611474
+Wed 19 Nov 2025 22:09:29 INFO  [Epoch 8] Train Loss: 2.320242112546455
+Wed 19 Nov 2025 22:10:38 INFO  [Epoch 9] Train Loss: 2.3050280607591462
+Wed 19 Nov 2025 22:11:47 INFO  [Epoch 10] Train Loss: 2.294707593486065
+Wed 19 Nov 2025 22:11:47 INFO  [Epoch 10] Saved model checkpoint to ckpt/Industrial_and_Scientific/Nov-19-2025_22-00-ba0854/Nov-19-2025_22-00-ba0854_10.pth
+Wed 19 Nov 2025 22:12:56 INFO  [Epoch 11] Train Loss: 2.2818465547298823
+Wed 19 Nov 2025 22:14:02 INFO  [Epoch 12] Train Loss: 2.2600397955714246
+Wed 19 Nov 2025 22:15:06 INFO  [Epoch 13] Train Loss: 2.247531039273645
+Wed 19 Nov 2025 22:16:17 INFO  [Epoch 14] Train Loss: 2.2382702344045864
+Wed 19 Nov 2025 22:17:28 INFO  [Epoch 15] Train Loss: 2.226116955749632
+Wed 19 Nov 2025 22:18:34 INFO  [Epoch 16] Train Loss: 2.216862912957124
+Wed 19 Nov 2025 22:19:42 INFO  [Epoch 17] Train Loss: 2.209755195407417
+Wed 19 Nov 2025 22:20:53 INFO  [Epoch 18] Train Loss: 2.204376911788475
+Wed 19 Nov 2025 22:21:56 INFO  [Epoch 19] Train Loss: 2.1996971896783575
+Wed 19 Nov 2025 22:23:04 INFO  [Epoch 20] Train Loss: 2.1921634990868606
+Wed 19 Nov 2025 22:23:04 INFO  [Epoch 20] Saved model checkpoint to ckpt/Industrial_and_Scientific/Nov-19-2025_22-00-ba0854/Nov-19-2025_22-00-ba0854_20.pth
+Wed 19 Nov 2025 22:24:14 INFO  [Epoch 21] Train Loss: 2.188072362049358
+Wed 19 Nov 2025 22:25:25 INFO  [Epoch 22] Train Loss: 2.1830529108291534
+Wed 19 Nov 2025 22:26:32 INFO  [Epoch 23] Train Loss: 2.1800897694009493
+Wed 19 Nov 2025 22:27:40 INFO  [Epoch 24] Train Loss: 2.1763848596670496
+Wed 19 Nov 2025 22:28:47 INFO  [Epoch 25] Train Loss: 2.1729914787716753
+Wed 19 Nov 2025 22:29:52 INFO  [Epoch 26] Train Loss: 2.1706612445707396
+Wed 19 Nov 2025 22:31:03 INFO  [Epoch 27] Train Loss: 2.167117342235535
+Wed 19 Nov 2025 22:32:12 INFO  [Epoch 28] Train Loss: 2.165157719155935
+Wed 19 Nov 2025 22:33:21 INFO  [Epoch 29] Train Loss: 2.1615631324569073
+Wed 19 Nov 2025 22:34:28 INFO  [Epoch 30] Train Loss: 2.158326544630246
+Wed 19 Nov 2025 22:34:28 INFO  [Epoch 30] Saved model checkpoint to ckpt/Industrial_and_Scientific/Nov-19-2025_22-00-ba0854/Nov-19-2025_22-00-ba0854_30.pth
+Wed 19 Nov 2025 22:35:37 INFO  [Epoch 31] Train Loss: 2.1559204844039255
+Wed 19 Nov 2025 22:36:38 INFO  [Epoch 32] Train Loss: 2.1571850084413695
+Wed 19 Nov 2025 22:37:45 INFO  [Epoch 33] Train Loss: 2.1527170531862363
+Wed 19 Nov 2025 22:38:55 INFO  [Epoch 34] Train Loss: 2.15049703923736
+Wed 19 Nov 2025 22:40:07 INFO  [Epoch 35] Train Loss: 2.1491541149109366
+Wed 19 Nov 2025 22:41:14 INFO  [Epoch 36] Train Loss: 2.1460995918183814
+Wed 19 Nov 2025 22:42:21 INFO  [Epoch 37] Train Loss: 2.144139338900724
+Wed 19 Nov 2025 22:43:28 INFO  [Epoch 38] Train Loss: 2.142824235394245
+Wed 19 Nov 2025 22:44:30 INFO  [Epoch 39] Train Loss: 2.1404764135991496
+Wed 19 Nov 2025 22:45:38 INFO  [Epoch 40] Train Loss: 2.138074618155562
+Wed 19 Nov 2025 22:45:38 INFO  [Epoch 40] Saved model checkpoint to ckpt/Industrial_and_Scientific/Nov-19-2025_22-00-ba0854/Nov-19-2025_22-00-ba0854_40.pth
+Wed 19 Nov 2025 22:46:48 INFO  [Epoch 41] Train Loss: 2.136597803962512
+Wed 19 Nov 2025 22:47:58 INFO  [Epoch 42] Train Loss: 2.134208631327772
+Wed 19 Nov 2025 22:49:07 INFO  [Epoch 43] Train Loss: 2.133064547392327
+Wed 19 Nov 2025 22:50:13 INFO  [Epoch 44] Train Loss: 2.1310044733558113
+Wed 19 Nov 2025 22:51:18 INFO  [Epoch 45] Train Loss: 2.1303053050059972
+Wed 19 Nov 2025 22:52:21 INFO  [Epoch 46] Train Loss: 2.1279011322992054
+Wed 19 Nov 2025 22:53:33 INFO  [Epoch 47] Train Loss: 2.125427223096682
+Wed 19 Nov 2025 22:54:41 INFO  [Epoch 48] Train Loss: 2.124545129265372
+Wed 19 Nov 2025 22:55:51 INFO  [Epoch 49] Train Loss: 2.122965990793048
+Wed 19 Nov 2025 22:56:57 INFO  [Epoch 50] Train Loss: 2.122505387100648
+Wed 19 Nov 2025 22:56:57 INFO  [Epoch 50] Saved model checkpoint to ckpt/Industrial_and_Scientific/Nov-19-2025_22-00-ba0854/Nov-19-2025_22-00-ba0854_50.pth
+Wed 19 Nov 2025 22:58:08 INFO  [Epoch 51] Train Loss: 2.121370510792169
+Wed 19 Nov 2025 22:59:11 INFO  [Epoch 52] Train Loss: 2.1180811942093016
+Wed 19 Nov 2025 23:00:19 INFO  [Epoch 53] Train Loss: 2.1182254405002894
+Wed 19 Nov 2025 23:01:29 INFO  [Epoch 54] Train Loss: 2.1154842640705933
+Wed 19 Nov 2025 23:02:40 INFO  [Epoch 55] Train Loss: 2.1125745596144143
+Wed 19 Nov 2025 23:03:49 INFO  [Epoch 56] Train Loss: 2.1121448814634265
+Wed 19 Nov 2025 23:04:54 INFO  [Epoch 57] Train Loss: 2.1099303033877543
+Wed 19 Nov 2025 23:06:01 INFO  [Epoch 58] Train Loss: 2.1102252466472113
+Wed 19 Nov 2025 23:07:06 INFO  [Epoch 59] Train Loss: 2.107181365095724
+Wed 19 Nov 2025 23:08:16 INFO  [Epoch 60] Train Loss: 2.1052630107233843
+Wed 19 Nov 2025 23:08:16 INFO  [Epoch 60] Saved model checkpoint to ckpt/Industrial_and_Scientific/Nov-19-2025_22-00-ba0854/Nov-19-2025_22-00-ba0854_60.pth
+Wed 19 Nov 2025 23:08:16 INFO  Best epoch: 0, Best val score: -1
+Wed 19 Nov 2025 23:08:16 INFO  [Epoch 61] Saved model checkpoint to ckpt/Industrial_and_Scientific/Nov-19-2025_22-00-ba0854/Nov-19-2025_22-00-ba0854.pth
+Wed 19 Nov 2025 23:08:16 INFO  Validation scores for all tokenizers: [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+Wed 19 Nov 2025 23:28:37 INFO  Influence scores: tensor([[0.2465, 0.2200, 0.2543, 0.2216, 0.2158, 0.2286, 0.2049, 0.1812, 0.1687,
+         0.1906, 0.1666, 0.1685, 0.1799, 0.1602, 0.1606],
+        [0.2334, 0.2270, 0.2482, 0.2201, 0.2153, 0.2310, 0.2059, 0.1808, 0.1651,
+         0.1906, 0.1644, 0.1715, 0.1770, 0.1577, 0.1581],
+        [0.2316, 0.2109, 0.2726, 0.2251, 0.2214, 0.2278, 0.2048, 0.1828, 0.1707,
+         0.1922, 0.1696, 0.1702, 0.1832, 0.1620, 0.1612],
+        [0.2269, 0.2107, 0.2538, 0.2421, 0.2137, 0.2284, 0.2058, 0.1827, 0.1769,
+         0.1956, 0.1732, 0.1753, 0.1814, 0.1628, 0.1619],
+        [0.2143, 0.1995, 0.2430, 0.2069, 0.2305, 0.2248, 0.2017, 0.1776, 0.1614,
+         0.1863, 0.1653, 0.1644, 0.1753, 0.1579, 0.1592],
+        [0.2216, 0.2106, 0.2439, 0.2169, 0.2197, 0.2451, 0.2174, 0.1900, 0.1756,
+         0.1998, 0.1761, 0.1812, 0.1861, 0.1689, 0.1673],
+        [0.2184, 0.2067, 0.2427, 0.2147, 0.2178, 0.2386, 0.2240, 0.1927, 0.1768,
+         0.1988, 0.1767, 0.1822, 0.1865, 0.1703, 0.1665],
+        [0.2149, 0.2011, 0.2401, 0.2123, 0.2132, 0.2309, 0.2124, 0.2063, 0.1827,
+         0.1954, 0.1799, 0.1799, 0.1909, 0.1699, 0.1677],
+        [0.2164, 0.1992, 0.2425, 0.2195, 0.2109, 0.2301, 0.2101, 0.1965, 0.2045,
+         0.2007, 0.1902, 0.1853, 0.1933, 0.1777, 0.1760],
+        [0.2102, 0.1962, 0.2352, 0.2096, 0.2079, 0.2266, 0.2053, 0.1813, 0.1728,
+         0.2127, 0.1780, 0.1857, 0.1903, 0.1732, 0.1704],
+        [0.2051, 0.1892, 0.2312, 0.2061, 0.2056, 0.2215, 0.2017, 0.1843, 0.1812,
+         0.1964, 0.1939, 0.1814, 0.1910, 0.1767, 0.1780],
+        [0.2078, 0.1968, 0.2338, 0.2097, 0.2053, 0.2273, 0.2074, 0.1860, 0.1773,
+         0.2060, 0.1825, 0.2001, 0.1952, 0.1793, 0.1752],
+        [0.2053, 0.1894, 0.2332, 0.2019, 0.2037, 0.2191, 0.1993, 0.1834, 0.1723,
+         0.1974, 0.1790, 0.1826, 0.2081, 0.1769, 0.1769],
+        [0.2024, 0.1867, 0.2275, 0.1999, 0.2021, 0.2174, 0.1987, 0.1785, 0.1724,
+         0.1950, 0.1797, 0.1814, 0.1909, 0.1926, 0.1828],
+        [0.2064, 0.1909, 0.2308, 0.2026, 0.2063, 0.2197, 0.1988, 0.1796, 0.1739,
+         0.1975, 0.1854, 0.1817, 0.1955, 0.1865, 0.1998]], device='cuda:0')
+Wed 19 Nov 2025 23:28:37 INFO  Mean influence score: [0.19786770641803741, 0.19640551507472992, 0.19908827543258667, 0.19940923154354095, 0.1912032961845398, 0.20134279131889343, 0.200890451669693, 0.19984221458435059, 0.2035265415906906, 0.19702403247356415, 0.1962081640958786, 0.1992979496717453, 0.1952344924211502, 0.19387632608413696, 0.19703738391399384]
+Wed 19 Nov 2025 23:28:37 INFO  Stage 0 selected prob: [0.06666531413793564, 0.06656789779663086, 0.06674672663211823, 0.06676815450191498, 0.06622249633073807, 0.06689737737178802, 0.06686712056398392, 0.06679706275463104, 0.06704361736774445, 0.06660908460617065, 0.06655476242303848, 0.06676071882247925, 0.06648999452590942, 0.06639974564313889, 0.06660997122526169]
+Wed 19 Nov 2025 23:29:44 INFO  [Epoch 61] Train Loss: 2.103849402445508
+Wed 19 Nov 2025 23:30:55 INFO  [Epoch 62] Train Loss: 2.1015431585274342
+Wed 19 Nov 2025 23:32:04 INFO  [Epoch 63] Train Loss: 2.1007410983635686
+Wed 19 Nov 2025 23:33:14 INFO  [Epoch 64] Train Loss: 2.0984928542234766
+Wed 19 Nov 2025 23:34:23 INFO  [Epoch 65] Train Loss: 2.0968209351376284
+Wed 19 Nov 2025 23:35:30 INFO  [Epoch 66] Train Loss: 2.094849991751468
+Wed 19 Nov 2025 23:36:33 INFO  [Epoch 67] Train Loss: 2.0955419477046004
+Wed 19 Nov 2025 23:37:42 INFO  [Epoch 68] Train Loss: 2.0920571717690297
+Wed 19 Nov 2025 23:38:52 INFO  [Epoch 69] Train Loss: 2.090965061558513
+Wed 19 Nov 2025 23:40:03 INFO  [Epoch 70] Train Loss: 2.0890095609379564
+Wed 19 Nov 2025 23:40:03 INFO  [Epoch 70] Saved model checkpoint to ckpt/Industrial_and_Scientific/Nov-19-2025_22-00-ba0854/Nov-19-2025_22-00-ba0854_70.pth
+Wed 19 Nov 2025 23:41:12 INFO  [Epoch 71] Train Loss: 2.088409361290181
+Wed 19 Nov 2025 23:42:20 INFO  [Epoch 72] Train Loss: 2.0852616977269256
+Wed 19 Nov 2025 23:43:23 INFO  [Epoch 73] Train Loss: 2.085569147284575
+Wed 19 Nov 2025 23:44:29 INFO  [Epoch 74] Train Loss: 2.0816181651719914
+Wed 19 Nov 2025 23:45:38 INFO  [Epoch 75] Train Loss: 2.0812036334060307
+Wed 19 Nov 2025 23:46:48 INFO  [Epoch 76] Train Loss: 2.0800083966001752
+Wed 19 Nov 2025 23:47:57 INFO  [Epoch 77] Train Loss: 2.076891206615553
+Wed 19 Nov 2025 23:49:07 INFO  [Epoch 78] Train Loss: 2.075596528025124
+Wed 19 Nov 2025 23:50:12 INFO  [Epoch 79] Train Loss: 2.0728725326342845
+Wed 19 Nov 2025 23:51:14 INFO  [Epoch 80] Train Loss: 2.071664977378733
+Wed 19 Nov 2025 23:51:14 INFO  [Epoch 80] Saved model checkpoint to ckpt/Industrial_and_Scientific/Nov-19-2025_22-00-ba0854/Nov-19-2025_22-00-ba0854_80.pth
+Wed 19 Nov 2025 23:51:14 INFO  Best epoch: 0, Best val score: -1
+Wed 19 Nov 2025 23:51:15 INFO  [Epoch 81] Saved model checkpoint to ckpt/Industrial_and_Scientific/Nov-19-2025_22-00-ba0854/Nov-19-2025_22-00-ba0854.pth
+Wed 19 Nov 2025 23:51:15 INFO  Validation scores for all tokenizers: [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+Thu 20 Nov 2025 00:11:46 INFO  Influence scores: tensor([[-0.0578, -0.0596, -0.0702, -0.0867, -0.1236, -0.1100, -0.1214, -0.1363,
+         -0.1242, -0.1413, -0.1424, -0.1385, -0.1227, -0.1112, -0.1160],
+        [-0.0678, -0.0468, -0.0713, -0.0841, -0.1191, -0.1025, -0.1140, -0.1316,
+         -0.1228, -0.1366, -0.1393, -0.1305, -0.1197, -0.1081, -0.1132],
+        [-0.0722, -0.0653, -0.0458, -0.0786, -0.1141, -0.1073, -0.1167, -0.1310,
+         -0.1166, -0.1351, -0.1348, -0.1327, -0.1142, -0.1057, -0.1103],
+        [-0.0748, -0.0634, -0.0642, -0.0588, -0.1206, -0.1047, -0.1133, -0.1284,
+         -0.1072, -0.1294, -0.1286, -0.1248, -0.1151, -0.1020, -0.1076],
+        [-0.0775, -0.0651, -0.0660, -0.0874, -0.0912, -0.0986, -0.1080, -0.1250,
+         -0.1149, -0.1303, -0.1271, -0.1273, -0.1113, -0.0975, -0.1010],
+        [-0.0765, -0.0600, -0.0724, -0.0833, -0.1109, -0.0840, -0.0987, -0.1188,
+         -0.1082, -0.1229, -0.1226, -0.1169, -0.1070, -0.0928, -0.0994],
+        [-0.0808, -0.0650, -0.0737, -0.0855, -0.1134, -0.0921, -0.0930, -0.1163,
+         -0.1061, -0.1242, -0.1227, -0.1165, -0.1066, -0.0913, -0.0999],
+        [-0.0826, -0.0696, -0.0743, -0.0870, -0.1163, -0.0985, -0.1037, -0.0997,
+         -0.0983, -0.1265, -0.1184, -0.1177, -0.1008, -0.0907, -0.0977],
+        [-0.0930, -0.0825, -0.0832, -0.0890, -0.1303, -0.1110, -0.1162, -0.1216,
+         -0.0842, -0.1315, -0.1174, -0.1218, -0.1089, -0.0924, -0.0985],
+        [-0.0875, -0.0744, -0.0809, -0.0890, -0.1234, -0.1036, -0.1114, -0.1275,
+         -0.1090, -0.1073, -0.1198, -0.1098, -0.1016, -0.0875, -0.0942],
+        [-0.0895, -0.0778, -0.0805, -0.0884, -0.1204, -0.1036, -0.1099, -0.1191,
+         -0.0946, -0.1201, -0.0978, -0.1098, -0.0964, -0.0785, -0.0819],
+        [-0.0932, -0.0771, -0.0861, -0.0923, -0.1286, -0.1060, -0.1123, -0.1258,
+         -0.1080, -0.1184, -0.1181, -0.0976, -0.0990, -0.0838, -0.0922],
+        [-0.0987, -0.0877, -0.0883, -0.1038, -0.1325, -0.1166, -0.1236, -0.1313,
+         -0.1166, -0.1299, -0.1256, -0.1194, -0.0867, -0.0890, -0.0934],
+        [-0.0968, -0.0847, -0.0890, -0.0996, -0.1288, -0.1113, -0.1173, -0.1302,
+         -0.1095, -0.1262, -0.1177, -0.1139, -0.0998, -0.0637, -0.0794],
+        [-0.0983, -0.0861, -0.0914, -0.1028, -0.1294, -0.1144, -0.1228, -0.1343,
+         -0.1127, -0.1293, -0.1177, -0.1196, -0.1002, -0.0758, -0.0659]],
+       device='cuda:0')
+Thu 20 Nov 2025 00:11:46 INFO  Mean influence score: [0.057373274117708206, 0.05822707712650299, 0.0605081170797348, 0.06181523576378822, 0.0577949620783329, 0.06494755297899246, 0.06432285159826279, 0.0639072135090828, 0.06289352476596832, 0.06100410223007202, 0.062335677444934845, 0.061894435435533524, 0.05650158226490021, 0.05804475396871567, 0.058779027312994]
+Thu 20 Nov 2025 00:11:46 INFO  Stage 1 selected prob: [0.06644567847251892, 0.06650244444608688, 0.06665430963039398, 0.06674149632453918, 0.06647370755672455, 0.06695087254047394, 0.066909059882164, 0.06688126176595688, 0.06681349128484726, 0.06668737530708313, 0.06677623838186264, 0.0667467713356018, 0.06638778746128082, 0.06649031490087509, 0.06653915345668793]
+Thu 20 Nov 2025 00:12:51 INFO  [Epoch 81] Train Loss: 2.071361826864753
+Thu 20 Nov 2025 00:13:55 INFO  [Epoch 82] Train Loss: 2.069825035732562
+Thu 20 Nov 2025 00:15:05 INFO  [Epoch 83] Train Loss: 2.0658431143507245
+Thu 20 Nov 2025 00:16:15 INFO  [Epoch 84] Train Loss: 2.066557266698109
+Thu 20 Nov 2025 00:17:25 INFO  [Epoch 85] Train Loss: 2.0624262748036797
+Thu 20 Nov 2025 00:18:35 INFO  [Epoch 86] Train Loss: 2.061167643764826
+Thu 20 Nov 2025 00:19:44 INFO  [Epoch 87] Train Loss: 2.0586147209790746
+Thu 20 Nov 2025 00:20:46 INFO  [Epoch 88] Train Loss: 2.05692984034696
+Thu 20 Nov 2025 00:21:52 INFO  [Epoch 89] Train Loss: 2.0559289806236434
+Thu 20 Nov 2025 00:23:02 INFO  [Epoch 90] Train Loss: 2.0532022409551725
+Thu 20 Nov 2025 00:23:02 INFO  [Epoch 90] Saved model checkpoint to ckpt/Industrial_and_Scientific/Nov-19-2025_22-00-ba0854/Nov-19-2025_22-00-ba0854_90.pth
+Thu 20 Nov 2025 00:24:12 INFO  [Epoch 91] Train Loss: 2.0522837223499777
+Thu 20 Nov 2025 00:25:22 INFO  [Epoch 92] Train Loss: 2.049513802518995
+Thu 20 Nov 2025 00:26:34 INFO  [Epoch 93] Train Loss: 2.0469385132076234
+Thu 20 Nov 2025 00:27:37 INFO  [Epoch 94] Train Loss: 2.046900440858105
+Thu 20 Nov 2025 00:28:41 INFO  [Epoch 95] Train Loss: 2.0437674505973424
+Thu 20 Nov 2025 00:29:48 INFO  [Epoch 96] Train Loss: 2.0423089635419096
+Thu 20 Nov 2025 00:30:54 INFO  [Epoch 97] Train Loss: 2.0393752027449645
+Thu 20 Nov 2025 00:32:03 INFO  [Epoch 98] Train Loss: 2.0375541752482964
+Thu 20 Nov 2025 00:33:14 INFO  [Epoch 99] Train Loss: 2.036597499110567
+Thu 20 Nov 2025 00:34:24 INFO  [Epoch 100] Train Loss: 2.0340207466694316
+Thu 20 Nov 2025 00:34:24 INFO  [Epoch 100] Saved model checkpoint to ckpt/Industrial_and_Scientific/Nov-19-2025_22-00-ba0854/Nov-19-2025_22-00-ba0854_100.pth
+Thu 20 Nov 2025 00:34:24 INFO  Best epoch: 0, Best val score: -1
+Thu 20 Nov 2025 00:34:24 INFO  [Epoch 101] Saved model checkpoint to ckpt/Industrial_and_Scientific/Nov-19-2025_22-00-ba0854/Nov-19-2025_22-00-ba0854.pth
+Thu 20 Nov 2025 00:34:24 INFO  Validation scores for all tokenizers: [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+Thu 20 Nov 2025 00:54:43 INFO  Influence scores: tensor([[-0.0113, -0.0414, -0.0431, -0.0306, -0.0568, -0.0427, -0.0791, -0.0366,
+         -0.0569, -0.0571, -0.0557, -0.0645, -0.0383, -0.0734, -0.0670],
+        [-0.0258, -0.0296, -0.0482, -0.0313, -0.0562, -0.0379, -0.0745, -0.0348,
+         -0.0582, -0.0563, -0.0559, -0.0584, -0.0396, -0.0750, -0.0683],
+        [-0.0294, -0.0499, -0.0195, -0.0241, -0.0492, -0.0417, -0.0763, -0.0313,
+         -0.0514, -0.0525, -0.0490, -0.0585, -0.0306, -0.0700, -0.0635],
+        [-0.0396, -0.0558, -0.0465, -0.0088, -0.0640, -0.0461, -0.0806, -0.0360,
+         -0.0478, -0.0534, -0.0487, -0.0570, -0.0378, -0.0729, -0.0670],
+        [-0.0389, -0.0539, -0.0451, -0.0377, -0.0285, -0.0361, -0.0703, -0.0292,
+         -0.0543, -0.0519, -0.0459, -0.0583, -0.0327, -0.0653, -0.0575],
+        [-0.0417, -0.0526, -0.0549, -0.0369, -0.0527, -0.0229, -0.0631, -0.0250,
+         -0.0486, -0.0466, -0.0438, -0.0494, -0.0311, -0.0639, -0.0585],
+        [-0.0437, -0.0554, -0.0544, -0.0363, -0.0535, -0.0295, -0.0531, -0.0199,
+         -0.0443, -0.0449, -0.0412, -0.0456, -0.0279, -0.0592, -0.0562],
+        [-0.0486, -0.0636, -0.0583, -0.0405, -0.0599, -0.0394, -0.0678, -0.0046,
+         -0.0375, -0.0499, -0.0380, -0.0483, -0.0233, -0.0603, -0.0561],
+        [-0.0572, -0.0754, -0.0653, -0.0410, -0.0726, -0.0506, -0.0811, -0.0258,
+         -0.0188, -0.0528, -0.0343, -0.0513, -0.0301, -0.0602, -0.0556],
+        [-0.0497, -0.0653, -0.0595, -0.0390, -0.0618, -0.0408, -0.0730, -0.0306,
+         -0.0461, -0.0243, -0.0361, -0.0375, -0.0200, -0.0527, -0.0481],
+        [-0.0602, -0.0774, -0.0683, -0.0464, -0.0681, -0.0499, -0.0813, -0.0305,
+         -0.0382, -0.0471, -0.0194, -0.0456, -0.0235, -0.0520, -0.0429],
+        [-0.0583, -0.0699, -0.0677, -0.0447, -0.0703, -0.0455, -0.0756, -0.0303,
+         -0.0448, -0.0389, -0.0353, -0.0245, -0.0194, -0.0509, -0.0480],
+        [-0.0539, -0.0713, -0.0599, -0.0457, -0.0644, -0.0471, -0.0779, -0.0258,
+         -0.0448, -0.0416, -0.0323, -0.0397,  0.0043, -0.0468, -0.0389],
+        [-0.0652, -0.0827, -0.0750, -0.0562, -0.0741, -0.0560, -0.0858, -0.0398,
+         -0.0511, -0.0521, -0.0387, -0.0480, -0.0239, -0.0332, -0.0386],
+        [-0.0660, -0.0832, -0.0766, -0.0582, -0.0737, -0.0583, -0.0908, -0.0439,
+         -0.0545, -0.0545, -0.0374, -0.0525, -0.0235, -0.0459, -0.0231]],
+       device='cuda:0')
+Thu 20 Nov 2025 00:54:43 INFO  Mean influence score: [0.0293691735714674, 0.030082732439041138, 0.03268880769610405, 0.032529715448617935, 0.030530450865626335, 0.03606458008289337, 0.03606141358613968, 0.035216979682445526, 0.033149830996990204, 0.0332704596221447, 0.03310418874025345, 0.03324304148554802, 0.02991654723882675, 0.028722327202558517, 0.02889055199921131]
+Thu 20 Nov 2025 00:54:43 INFO  Stage 2 selected prob: [0.06647871434688568, 0.06652617454528809, 0.06669977307319641, 0.06668917089700699, 0.06655597686767578, 0.06692531704902649, 0.06692510843276978, 0.0668686181306839, 0.06673053652048111, 0.06673858314752579, 0.06672748923301697, 0.06673675775527954, 0.06651512533426285, 0.06643573194742203, 0.06644691526889801]
+Thu 20 Nov 2025 00:55:54 INFO  [Epoch 101] Train Loss: 2.032291289154939
+Thu 20 Nov 2025 00:57:02 INFO  [Epoch 102] Train Loss: 2.0293483382134925
+Thu 20 Nov 2025 00:58:05 INFO  [Epoch 103] Train Loss: 2.0272803483750876
+Thu 20 Nov 2025 00:59:12 INFO  [Epoch 104] Train Loss: 2.0261687533123287
+Thu 20 Nov 2025 01:00:19 INFO  [Epoch 105] Train Loss: 2.023092253588316
+Thu 20 Nov 2025 01:01:29 INFO  [Epoch 106] Train Loss: 2.0215573632341672
+Thu 20 Nov 2025 01:02:39 INFO  [Epoch 107] Train Loss: 2.0183659766133375
+Thu 20 Nov 2025 01:03:48 INFO  [Epoch 108] Train Loss: 2.017878717794193
+Thu 20 Nov 2025 01:04:52 INFO  [Epoch 109] Train Loss: 2.0138872365547917
+Thu 20 Nov 2025 01:05:59 INFO  [Epoch 110] Train Loss: 2.0114015505069824
+Thu 20 Nov 2025 01:05:59 INFO  [Epoch 110] Saved model checkpoint to ckpt/Industrial_and_Scientific/Nov-19-2025_22-00-ba0854/Nov-19-2025_22-00-ba0854_110.pth
+Thu 20 Nov 2025 01:07:07 INFO  [Epoch 111] Train Loss: 2.010238649220917
+Thu 20 Nov 2025 01:08:15 INFO  [Epoch 112] Train Loss: 2.0086522157501987
+Thu 20 Nov 2025 01:09:25 INFO  [Epoch 113] Train Loss: 2.005760634039331
+Thu 20 Nov 2025 01:10:27 INFO  [Epoch 114] Train Loss: 2.0029312131677086
+Thu 20 Nov 2025 01:11:31 INFO  [Epoch 115] Train Loss: 2.0018298304456423
+Thu 20 Nov 2025 01:12:28 INFO  [Epoch 116] Train Loss: 1.9996335082870769
+Thu 20 Nov 2025 01:13:31 INFO  [Epoch 117] Train Loss: 1.997685825496208
+Thu 20 Nov 2025 01:14:40 INFO  [Epoch 118] Train Loss: 1.9941198634585058
+Thu 20 Nov 2025 01:15:47 INFO  [Epoch 119] Train Loss: 1.990705774759683
+Thu 20 Nov 2025 01:16:57 INFO  [Epoch 120] Train Loss: 1.988974567590736
+Thu 20 Nov 2025 01:16:57 INFO  [Epoch 120] Saved model checkpoint to ckpt/Industrial_and_Scientific/Nov-19-2025_22-00-ba0854/Nov-19-2025_22-00-ba0854_120.pth
+Thu 20 Nov 2025 01:16:57 INFO  Best epoch: 0, Best val score: -1
+Thu 20 Nov 2025 01:16:58 INFO  [Epoch 121] Saved model checkpoint to ckpt/Industrial_and_Scientific/Nov-19-2025_22-00-ba0854/Nov-19-2025_22-00-ba0854.pth
+Thu 20 Nov 2025 01:16:58 INFO  Validation scores for all tokenizers: [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]

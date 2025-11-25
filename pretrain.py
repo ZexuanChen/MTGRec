@@ -201,7 +201,9 @@ if __name__ == '__main__':
 
     config['device'], config['use_ddp'] = init_device()
     config['accelerator'] = Accelerator()
-    torch.distributed.barrier(device_ids=[int(os.environ['LOCAL_RANK'])])
+
+    torch.distributed.barrier(device_ids=[int(os.environ['LOCAL_RANK'])]) # 'LOCAL_RANK' is set by torch.distributed.launch # 会被设置成什么？ 0, 1, 2, ..., config['num_gpus']-1
+    
     
     main(config)
 

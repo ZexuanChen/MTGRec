@@ -6,7 +6,7 @@ import copy
 from utils import log
 import numpy as np
 
-
+# 这个类用于将一个batch的数据转换为模型输入的格式
 class Collator:
 
     def __init__(self, config, tokenizers):

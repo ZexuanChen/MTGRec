@@ -8,16 +8,16 @@ reproducibility: true
 lr: 0.001
 learner: adagrad    # adamw or adagrad
 scheduler_type: constant # constant, linear
-weight_decay: 0.0    # Overwrite weight decay
+weight_decay: 0.0    # Overwrite weight decay # 这是什么参数？ 权重衰减，用于防止过拟合
 warmup_steps: 0
 
 batch_size: 2048
 epochs: 10000
 
 
-verbose_step: 100
-verbose_delay: 8000
-save_limit: 100
+verbose_step: 100 # 每训练100步打印一次日志
+verbose_delay: 8000 # 训练8000步后开始打印日志
+save_limit: 100 # 最多保存100个模型
 ckpt_name: rqvae
 
 

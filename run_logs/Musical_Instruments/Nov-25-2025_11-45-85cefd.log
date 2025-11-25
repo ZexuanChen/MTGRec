@@ -1,0 +1,817 @@
+Tue 25 Nov 2025 11:45:43 INFO  Device: cuda
+Tue 25 Nov 2025 11:45:43 INFO  Config: {'rand_seed': 2024, 'reproducibility': True, 'num_proc': 1, 'data_dir': 'datasets/Musical_Instruments', 'log_dir': 'run_logs/', 'tensorboard_log_dir': 'tensorboard/', 'ckpt_dir': 'ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb', 'stage': 'finetune', 'pretrained_model': './ckpt/Musical_Instruments/Nov-19-2025_05-32-b9dbc8_90.pth', 'train_batch_size': 256, 'eval_batch_size': 128, 'lr': 0.0002, 'weight_decay': 0.05, 'warmup_steps': 0, 'steps': None, 'epochs': 100, 'max_grad_norm': 1.0, 'eval_interval': 1, 'save_interval': None, 'patience': 10, 'topk': [5, 10], 'metrics': ['ndcg', 'recall'], 'val_metric': 'ndcg@10', 'val_ratio': 1.0, 'val_delay': 0, 'n_codebooks': 3, 'codebook_size': 256, 'expand_final': True, 'token_prefix': 'rqvae/sentence-t5-base_256,256,256,256', 'token_suffix': 'sem_ids', 'n_user_tokens': 1, 'max_item_seq_len': 20, 'num_beams': 20, 'test_num_beams': 50, 'num_layers': 6, 'num_decoder_layers': 6, 'd_model': 128, 'd_ff': 512, 'num_heads': 4, 'd_kv': 64, 'dropout_rate': 0.1, 'activation_function': 'relu', 'feed_forward_proj': 'relu', 'results_dir': None, 'sem_id_epochs': [9986, 9987, 9988, 9989, 9990, 9991], 'run_local_time': 'Nov-25-2025_11-45', 'ckpt_name': 'Nov-25-2025_11-45-9c0efb', 'dataset': 'Musical_Instruments', 'device': device(type='cuda'), 'use_ddp': True, 'accelerator': <accelerate.accelerator.Accelerator object at 0x7ed1f2f9faf0>}
+Tue 25 Nov 2025 11:45:43 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9986.sem_ids...
+Tue 25 Nov 2025 11:45:43 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9987.sem_ids...
+Tue 25 Nov 2025 11:45:43 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9988.sem_ids...
+Tue 25 Nov 2025 11:45:43 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9989.sem_ids...
+Tue 25 Nov 2025 11:45:44 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9990.sem_ids...
+Tue 25 Nov 2025 11:45:44 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9991.sem_ids...
+Tue 25 Nov 2025 11:45:45 INFO  MTGRec(
+  (t5): T5ForConditionalGeneration(
+    (shared): Embedding(1027, 128)
+    (encoder): T5Stack(
+      (embed_tokens): Embedding(1027, 128)
+      (block): ModuleList(
+        (0): T5Block(
+          (layer): ModuleList(
+            (0): T5LayerSelfAttention(
+              (SelfAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+                (relative_attention_bias): Embedding(32, 4)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (1): T5LayerFF(
+              (DenseReluDense): T5DenseActDense(
+                (wi): Linear(in_features=128, out_features=512, bias=False)
+                (wo): Linear(in_features=512, out_features=128, bias=False)
+                (dropout): Dropout(p=0.1, inplace=False)
+                (act): ReLU()
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (1-5): 5 x T5Block(
+          (layer): ModuleList(
+            (0): T5LayerSelfAttention(
+              (SelfAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (1): T5LayerFF(
+              (DenseReluDense): T5DenseActDense(
+                (wi): Linear(in_features=128, out_features=512, bias=False)
+                (wo): Linear(in_features=512, out_features=128, bias=False)
+                (dropout): Dropout(p=0.1, inplace=False)
+                (act): ReLU()
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+      )
+      (final_layer_norm): T5LayerNorm()
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (decoder): T5Stack(
+      (embed_tokens): Embedding(1027, 128)
+      (block): ModuleList(
+        (0): T5Block(
+          (layer): ModuleList(
+            (0): T5LayerSelfAttention(
+              (SelfAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+                (relative_attention_bias): Embedding(32, 4)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (1): T5LayerCrossAttention(
+              (EncDecAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (2): T5LayerFF(
+              (DenseReluDense): T5DenseActDense(
+                (wi): Linear(in_features=128, out_features=512, bias=False)
+                (wo): Linear(in_features=512, out_features=128, bias=False)
+                (dropout): Dropout(p=0.1, inplace=False)
+                (act): ReLU()
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (1-5): 5 x T5Block(
+          (layer): ModuleList(
+            (0): T5LayerSelfAttention(
+              (SelfAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (1): T5LayerCrossAttention(
+              (EncDecAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (2): T5LayerFF(
+              (DenseReluDense): T5DenseActDense(
+                (wi): Linear(in_features=128, out_features=512, bias=False)
+                (wo): Linear(in_features=512, out_features=128, bias=False)
+                (dropout): Dropout(p=0.1, inplace=False)
+                (act): ReLU()
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+      )
+      (final_layer_norm): T5LayerNorm()
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (lm_head): Linear(in_features=128, out_features=1027, bias=False)
+  )
+)
+Tue 25 Nov 2025 11:45:45 INFO  #Embedding parameters: 131456
+#Non-embedding parameters: 3936512
+#Total trainable parameters: 4067968
+
+Tue 25 Nov 2025 11:46:17 INFO  [Epoch 1] Train Loss: 3.8937869814663926
+Tue 25 Nov 2025 11:48:46 INFO  [Epoch 1] Val Results: OrderedDict([('ndcg@5', np.float64(0.010784986428916454)), ('ndcg@10', np.float64(0.014274920026461283)), ('recall@5', np.float64(0.016591514460742474)), ('recall@10', np.float64(0.027455212858815987))])
+Tue 25 Nov 2025 11:48:46 INFO  [Epoch 1] Val_0 Results: OrderedDict([('ndcg@5', 0.01091162022203207), ('ndcg@10', 0.013935543596744537), ('recall@5', 0.01687007024884224), ('recall@10', 0.026236528530716896)])
+Tue 25 Nov 2025 11:48:46 INFO  [Epoch 1] Val_1 Results: OrderedDict([('ndcg@5', 0.010946843773126602), ('ndcg@10', 0.014573504216969013), ('recall@5', 0.0169571191072464), ('recall@10', 0.028238652274012566)])
+Tue 25 Nov 2025 11:48:46 INFO  [Epoch 1] Val_2 Results: OrderedDict([('ndcg@5', 0.010960457846522331), ('ndcg@10', 0.014598775655031204), ('recall@5', 0.016939710825681686), ('recall@10', 0.028256062418222427)])
+Tue 25 Nov 2025 11:48:46 INFO  [Epoch 1] Val_3 Results: OrderedDict([('ndcg@5', 0.0109526002779603), ('ndcg@10', 0.014572125859558582), ('recall@5', 0.01697452925145626), ('recall@10', 0.028238652274012566)])
+Tue 25 Nov 2025 11:48:46 INFO  [Epoch 1] Val_4 Results: OrderedDict([('ndcg@5', 0.010925978422164917), ('ndcg@10', 0.014580662362277508), ('recall@5', 0.016904890537261963), ('recall@10', 0.02827347256243229)])
+Tue 25 Nov 2025 11:48:46 INFO  [Epoch 1] Val_5 Results: OrderedDict([('ndcg@5', 0.010012418031692505), ('ndcg@10', 0.013388908468186855), ('recall@5', 0.014902766793966293), ('recall@10', 0.025487909093499184)])
+Tue 25 Nov 2025 11:48:47 INFO  [Epoch 1] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 11:49:18 INFO  [Epoch 2] Train Loss: 3.273814719094649
+Tue 25 Nov 2025 11:51:46 INFO  [Epoch 2] Val Results: OrderedDict([('ndcg@5', np.float64(0.012847106282909712)), ('ndcg@10', np.float64(0.016750044655054808)), ('recall@5', np.float64(0.020192435942590237)), ('recall@10', np.float64(0.03237927767137686))])
+Tue 25 Nov 2025 11:51:46 INFO  [Epoch 2] Val_0 Results: OrderedDict([('ndcg@5', 0.013061107136309147), ('ndcg@10', 0.016530167311429977), ('recall@5', 0.020473893731832504), ('recall@10', 0.03130277246236801)])
+Tue 25 Nov 2025 11:51:46 INFO  [Epoch 2] Val_1 Results: OrderedDict([('ndcg@5', 0.013422961346805096), ('ndcg@10', 0.017378369346261024), ('recall@5', 0.020909138023853302), ('recall@10', 0.03323525935411453)])
+Tue 25 Nov 2025 11:51:46 INFO  [Epoch 2] Val_2 Results: OrderedDict([('ndcg@5', 0.013418679125607014), ('ndcg@10', 0.01734999753534794), ('recall@5', 0.020874319598078728), ('recall@10', 0.03311339020729065)])
+Tue 25 Nov 2025 11:51:46 INFO  [Epoch 2] Val_3 Results: OrderedDict([('ndcg@5', 0.013604792766273022), ('ndcg@10', 0.017543375492095947), ('recall@5', 0.021326972171664238), ('recall@10', 0.03363568335771561)])
+Tue 25 Nov 2025 11:51:46 INFO  [Epoch 2] Val_4 Results: OrderedDict([('ndcg@5', 0.012308784760534763), ('ndcg@10', 0.016513610258698463), ('recall@5', 0.01969045400619507), ('recall@10', 0.03283483162522316)])
+Tue 25 Nov 2025 11:51:46 INFO  [Epoch 2] Val_5 Results: OrderedDict([('ndcg@5', 0.011266312561929226), ('ndcg@10', 0.015184747986495495), ('recall@5', 0.01787983812391758), ('recall@10', 0.030153729021549225)])
+Tue 25 Nov 2025 11:51:46 INFO  [Epoch 2] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 11:52:17 INFO  [Epoch 3] Train Loss: 2.9503505138457493
+Tue 25 Nov 2025 11:54:45 INFO  [Epoch 3] Val Results: OrderedDict([('ndcg@5', np.float64(0.015244379950066408)), ('ndcg@10', np.float64(0.01945513238509496)), ('recall@5', np.float64(0.023581538970271747)), ('recall@10', np.float64(0.03666498325765133))])
+Tue 25 Nov 2025 11:54:45 INFO  [Epoch 3] Val_0 Results: OrderedDict([('ndcg@5', 0.015378608368337154), ('ndcg@10', 0.01913960836827755), ('recall@5', 0.023311687633395195), ('recall@10', 0.03504587337374687)])
+Tue 25 Nov 2025 11:54:45 INFO  [Epoch 3] Val_1 Results: OrderedDict([('ndcg@5', 0.015728432685136795), ('ndcg@10', 0.020197907462716103), ('recall@5', 0.02400807850062847), ('recall@10', 0.037901077419519424)])
+Tue 25 Nov 2025 11:54:45 INFO  [Epoch 3] Val_2 Results: OrderedDict([('ndcg@5', 0.015592783689498901), ('ndcg@10', 0.019980119541287422), ('recall@5', 0.023746931925415993), ('recall@10', 0.03737878426909447)])
+Tue 25 Nov 2025 11:54:45 INFO  [Epoch 3] Val_3 Results: OrderedDict([('ndcg@5', 0.015792401507496834), ('ndcg@10', 0.020172014832496643), ('recall@5', 0.02400807850062847), ('recall@10', 0.03762252256274223)])
+Tue 25 Nov 2025 11:54:45 INFO  [Epoch 3] Val_4 Results: OrderedDict([('ndcg@5', 0.014584441669285297), ('ndcg@10', 0.01901014894247055), ('recall@5', 0.023416146636009216), ('recall@10', 0.037169866263866425)])
+Tue 25 Nov 2025 11:54:45 INFO  [Epoch 3] Val_5 Results: OrderedDict([('ndcg@5', 0.014389611780643463), ('ndcg@10', 0.018230995163321495), ('recall@5', 0.02299831062555313), ('recall@10', 0.03487177565693855)])
+Tue 25 Nov 2025 11:54:46 INFO  [Epoch 3] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 11:55:16 INFO  [Epoch 4] Train Loss: 2.763153879152733
+Tue 25 Nov 2025 11:57:46 INFO  [Epoch 4] Val Results: OrderedDict([('ndcg@5', np.float64(0.01648003530378143)), ('ndcg@10', np.float64(0.021201057670017082)), ('recall@5', np.float64(0.025635891904433567)), ('recall@10', np.float64(0.040344249457120895))])
+Tue 25 Nov 2025 11:57:46 INFO  [Epoch 4] Val_0 Results: OrderedDict([('ndcg@5', 0.01645982265472412), ('ndcg@10', 0.020930275321006775), ('recall@5', 0.024739287793636322), ('recall@10', 0.03868451714515686)])
+Tue 25 Nov 2025 11:57:46 INFO  [Epoch 4] Val_1 Results: OrderedDict([('ndcg@5', 0.01715153641998768), ('ndcg@10', 0.02196471020579338), ('recall@5', 0.026410626247525215), ('recall@10', 0.04140044376254082)])
+Tue 25 Nov 2025 11:57:46 INFO  [Epoch 4] Val_2 Results: OrderedDict([('ndcg@5', 0.017109321430325508), ('ndcg@10', 0.021903039887547493), ('recall@5', 0.02637580782175064), ('recall@10', 0.04129598289728165)])
+Tue 25 Nov 2025 11:57:46 INFO  [Epoch 4] Val_3 Results: OrderedDict([('ndcg@5', 0.017424803227186203), ('ndcg@10', 0.02209879271686077), ('recall@5', 0.026793641969561577), ('recall@10', 0.04134821146726608)])
+Tue 25 Nov 2025 11:57:46 INFO  [Epoch 4] Val_4 Results: OrderedDict([('ndcg@5', 0.015847835689783096), ('ndcg@10', 0.020823359489440918), ('recall@5', 0.02555754780769348), ('recall@10', 0.04105224832892418)])
+Tue 25 Nov 2025 11:57:46 INFO  [Epoch 4] Val_5 Results: OrderedDict([('ndcg@5', 0.014886892400681973), ('ndcg@10', 0.019486168399453163), ('recall@5', 0.023938439786434174), ('recall@10', 0.038284093141555786)])
+Tue 25 Nov 2025 11:57:46 INFO  [Epoch 4] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 11:58:18 INFO  [Epoch 5] Train Loss: 2.635254222706263
+Tue 25 Nov 2025 12:00:47 INFO  [Epoch 5] Val Results: OrderedDict([('ndcg@5', np.float64(0.01688381548350056)), ('ndcg@10', np.float64(0.02207242138683796)), ('recall@5', np.float64(0.026178496579329174)), ('recall@10', np.float64(0.04227673448622227))])
+Tue 25 Nov 2025 12:00:47 INFO  [Epoch 5] Val_0 Results: OrderedDict([('ndcg@5', 0.017231056466698647), ('ndcg@10', 0.021888894960284233), ('recall@5', 0.026132071390748024), ('recall@10', 0.040651820600032806)])
+Tue 25 Nov 2025 12:00:47 INFO  [Epoch 5] Val_1 Results: OrderedDict([('ndcg@5', 0.017546795308589935), ('ndcg@10', 0.022868677973747253), ('recall@5', 0.026985149830579758), ('recall@10', 0.043489616364240646)])
+Tue 25 Nov 2025 12:00:47 INFO  [Epoch 5] Val_2 Results: OrderedDict([('ndcg@5', 0.01754271239042282), ('ndcg@10', 0.022735625505447388), ('recall@5', 0.026880690827965736), ('recall@10', 0.04296732321381569)])
+Tue 25 Nov 2025 12:00:47 INFO  [Epoch 5] Val_3 Results: OrderedDict([('ndcg@5', 0.01764095015823841), ('ndcg@10', 0.022888565436005592), ('recall@5', 0.027037378400564194), ('recall@10', 0.04331551864743233)])
+Tue 25 Nov 2025 12:00:47 INFO  [Epoch 5] Val_4 Results: OrderedDict([('ndcg@5', 0.016262564808130264), ('ndcg@10', 0.021779470145702362), ('recall@5', 0.02599279209971428), ('recall@10', 0.04307178035378456)])
+Tue 25 Nov 2025 12:00:47 INFO  [Epoch 5] Val_5 Results: OrderedDict([('ndcg@5', 0.015078813768923283), ('ndcg@10', 0.020273294299840927), ('recall@5', 0.024042896926403046), ('recall@10', 0.04016434773802757)])
+Tue 25 Nov 2025 12:00:47 INFO  [Epoch 5] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 12:01:19 INFO  [Epoch 6] Train Loss: 2.5591849731806975
+Tue 25 Nov 2025 12:03:50 INFO  [Epoch 6] Val Results: OrderedDict([('ndcg@5', np.float64(0.01766726529846589)), ('ndcg@10', np.float64(0.022658561977247398)), ('recall@5', np.float64(0.027608999672035377)), ('recall@10', np.float64(0.04310950140158335))])
+Tue 25 Nov 2025 12:03:50 INFO  [Epoch 6] Val_0 Results: OrderedDict([('ndcg@5', 0.01690644398331642), ('ndcg@10', 0.021688802167773247), ('recall@5', 0.026027612388134003), ('recall@10', 0.040930379182100296)])
+Tue 25 Nov 2025 12:03:50 INFO  [Epoch 6] Val_1 Results: OrderedDict([('ndcg@5', 0.018292414024472237), ('ndcg@10', 0.02339382842183113), ('recall@5', 0.028412749990820885), ('recall@10', 0.04427305608987808)])
+Tue 25 Nov 2025 12:03:50 INFO  [Epoch 6] Val_2 Results: OrderedDict([('ndcg@5', 0.018130982294678688), ('ndcg@10', 0.02320636622607708), ('recall@5', 0.028047146275639534), ('recall@10', 0.043820399791002274)])
+Tue 25 Nov 2025 12:03:50 INFO  [Epoch 6] Val_3 Results: OrderedDict([('ndcg@5', 0.018380621448159218), ('ndcg@10', 0.023372957482933998), ('recall@5', 0.028447570279240608), ('recall@10', 0.04394226893782616)])
+Tue 25 Nov 2025 12:03:50 INFO  [Epoch 6] Val_4 Results: OrderedDict([('ndcg@5', 0.017260106280446053), ('ndcg@10', 0.02244659699499607), ('recall@5', 0.027594491839408875), ('recall@10', 0.04369853064417839)])
+Tue 25 Nov 2025 12:03:50 INFO  [Epoch 6] Val_5 Results: OrderedDict([('ndcg@5', 0.01703302375972271), ('ndcg@10', 0.021842820569872856), ('recall@5', 0.027124427258968353), ('recall@10', 0.04199237376451492)])
+Tue 25 Nov 2025 12:03:50 INFO  [Epoch 6] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 12:04:21 INFO  [Epoch 7] Train Loss: 2.4915726303246974
+Tue 25 Nov 2025 12:06:51 INFO  [Epoch 7] Val Results: OrderedDict([('ndcg@5', np.float64(0.01717411944021781)), ('ndcg@10', np.float64(0.0223421985283494)), ('recall@5', np.float64(0.02703737871100505)), ('recall@10', np.float64(0.04302825592458248))])
+Tue 25 Nov 2025 12:06:51 INFO  [Epoch 7] Val_0 Results: OrderedDict([('ndcg@5', 0.016592148691415787), ('ndcg@10', 0.021432870998978615), ('recall@5', 0.02581869438290596), ('recall@10', 0.04086073860526085)])
+Tue 25 Nov 2025 12:06:51 INFO  [Epoch 7] Val_1 Results: OrderedDict([('ndcg@5', 0.017571063712239265), ('ndcg@10', 0.023007022216916084), ('recall@5', 0.02745521254837513), ('recall@10', 0.04427305608987808)])
+Tue 25 Nov 2025 12:06:51 INFO  [Epoch 7] Val_2 Results: OrderedDict([('ndcg@5', 0.017515698447823524), ('ndcg@10', 0.022857580333948135), ('recall@5', 0.027350755408406258), ('recall@10', 0.04387262836098671)])
+Tue 25 Nov 2025 12:06:51 INFO  [Epoch 7] Val_3 Results: OrderedDict([('ndcg@5', 0.017749082297086716), ('ndcg@10', 0.022906238213181496), ('recall@5', 0.027594491839408875), ('recall@10', 0.04354184493422508)])
+Tue 25 Nov 2025 12:06:51 INFO  [Epoch 7] Val_4 Results: OrderedDict([('ndcg@5', 0.0169292651116848), ('ndcg@10', 0.02232341282069683), ('recall@5', 0.02728111483156681), ('recall@10', 0.04395967721939087)])
+Tue 25 Nov 2025 12:06:51 INFO  [Epoch 7] Val_5 Results: OrderedDict([('ndcg@5', 0.016687458381056786), ('ndcg@10', 0.021526066586375237), ('recall@5', 0.02672400325536728), ('recall@10', 0.041661590337753296)])
+Tue 25 Nov 2025 12:07:22 INFO  [Epoch 8] Train Loss: 2.4441599420715403
+Tue 25 Nov 2025 12:09:51 INFO  [Epoch 8] Val Results: OrderedDict([('ndcg@5', np.float64(0.01836796508481105)), ('ndcg@10', np.float64(0.023466145619750023)), ('recall@5', np.float64(0.028618766926229)), ('recall@10', np.float64(0.044429743041594826))])
+Tue 25 Nov 2025 12:09:51 INFO  [Epoch 8] Val_0 Results: OrderedDict([('ndcg@5', 0.01785990595817566), ('ndcg@10', 0.022614989429712296), ('recall@5', 0.027263706550002098), ('recall@10', 0.04204460233449936)])
+Tue 25 Nov 2025 12:09:51 INFO  [Epoch 8] Val_1 Results: OrderedDict([('ndcg@5', 0.01892975904047489), ('ndcg@10', 0.02407658100128174), ('recall@5', 0.02937028929591179), ('recall@10', 0.04535246267914772)])
+Tue 25 Nov 2025 12:09:51 INFO  [Epoch 8] Val_2 Results: OrderedDict([('ndcg@5', 0.01880180463194847), ('ndcg@10', 0.02400466986000538), ('recall@5', 0.02909173257648945), ('recall@10', 0.04523059353232384)])
+Tue 25 Nov 2025 12:09:51 INFO  [Epoch 8] Val_3 Results: OrderedDict([('ndcg@5', 0.01900855451822281), ('ndcg@10', 0.024098344147205353), ('recall@5', 0.02945733815431595), ('recall@10', 0.04526541382074356)])
+Tue 25 Nov 2025 12:09:51 INFO  [Epoch 8] Val_4 Results: OrderedDict([('ndcg@5', 0.01787511631846428), ('ndcg@10', 0.023296309635043144), ('recall@5', 0.028412749990820885), ('recall@10', 0.045213181525468826)])
+Tue 25 Nov 2025 12:09:51 INFO  [Epoch 8] Val_5 Results: OrderedDict([('ndcg@5', 0.0177326500415802), ('ndcg@10', 0.022705979645252228), ('recall@5', 0.028116784989833832), ('recall@10', 0.043472204357385635)])
+Tue 25 Nov 2025 12:09:51 INFO  [Epoch 8] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 12:10:23 INFO  [Epoch 9] Train Loss: 2.3994612613057984
+Tue 25 Nov 2025 12:12:53 INFO  [Epoch 9] Val Results: OrderedDict([('ndcg@5', np.float64(0.018099538050591946)), ('ndcg@10', np.float64(0.023333204289277393)), ('recall@5', np.float64(0.028160309108595055)), ('recall@10', np.float64(0.044452955946326256))])
+Tue 25 Nov 2025 12:12:53 INFO  [Epoch 9] Val_0 Results: OrderedDict([('ndcg@5', 0.016861876472830772), ('ndcg@10', 0.021852103993296623), ('recall@5', 0.026306169107556343), ('recall@10', 0.04187050461769104)])
+Tue 25 Nov 2025 12:12:53 INFO  [Epoch 9] Val_1 Results: OrderedDict([('ndcg@5', 0.018910130485892296), ('ndcg@10', 0.024301545694470406), ('recall@5', 0.029126551002264023), ('recall@10', 0.045926984399557114)])
+Tue 25 Nov 2025 12:12:53 INFO  [Epoch 9] Val_2 Results: OrderedDict([('ndcg@5', 0.018798833712935448), ('ndcg@10', 0.024098677560687065), ('recall@5', 0.028969863429665565), ('recall@10', 0.045491740107536316)])
+Tue 25 Nov 2025 12:12:53 INFO  [Epoch 9] Val_3 Results: OrderedDict([('ndcg@5', 0.01877313293516636), ('ndcg@10', 0.023977244272828102), ('recall@5', 0.028760947287082672), ('recall@10', 0.04495203495025635)])
+Tue 25 Nov 2025 12:12:53 INFO  [Epoch 9] Val_4 Results: OrderedDict([('ndcg@5', 0.017748428508639336), ('ndcg@10', 0.023304453119635582), ('recall@5', 0.028169013559818268), ('recall@10', 0.04545691981911659)])
+Tue 25 Nov 2025 12:12:53 INFO  [Epoch 9] Val_5 Results: OrderedDict([('ndcg@5', 0.017504826188087463), ('ndcg@10', 0.02246520109474659), ('recall@5', 0.02762931026518345), ('recall@10', 0.043019551783800125)])
+Tue 25 Nov 2025 12:13:24 INFO  [Epoch 10] Train Loss: 2.3691622199108044
+Tue 25 Nov 2025 12:15:54 INFO  [Epoch 10] Val Results: OrderedDict([('ndcg@5', np.float64(0.018686304489771526)), ('ndcg@10', np.float64(0.024032860063016415)), ('recall@5', np.float64(0.02895825697729985)), ('recall@10', np.float64(0.04560780463119348))])
+Tue 25 Nov 2025 12:15:54 INFO  [Epoch 10] Val_0 Results: OrderedDict([('ndcg@5', 0.01812257058918476), ('ndcg@10', 0.023191986605525017), ('recall@5', 0.02771635912358761), ('recall@10', 0.04350702464580536)])
+Tue 25 Nov 2025 12:15:54 INFO  [Epoch 10] Val_1 Results: OrderedDict([('ndcg@5', 0.01951039955019951), ('ndcg@10', 0.024968404322862625), ('recall@5', 0.030031859874725342), ('recall@10', 0.04704120755195618)])
+Tue 25 Nov 2025 12:15:54 INFO  [Epoch 10] Val_2 Results: OrderedDict([('ndcg@5', 0.019487852230668068), ('ndcg@10', 0.024814339354634285), ('recall@5', 0.02990999072790146), ('recall@10', 0.04650150611996651)])
+Tue 25 Nov 2025 12:15:54 INFO  [Epoch 10] Val_3 Results: OrderedDict([('ndcg@5', 0.019543584436178207), ('ndcg@10', 0.02474956028163433), ('recall@5', 0.02984035201370716), ('recall@10', 0.046048853546381)])
+Tue 25 Nov 2025 12:15:54 INFO  [Epoch 10] Val_4 Results: OrderedDict([('ndcg@5', 0.017809757962822914), ('ndcg@10', 0.023510310798883438), ('recall@5', 0.02837793156504631), ('recall@10', 0.046135902404785156)])
+Tue 25 Nov 2025 12:15:54 INFO  [Epoch 10] Val_5 Results: OrderedDict([('ndcg@5', 0.01764366216957569), ('ndcg@10', 0.022962559014558792), ('recall@5', 0.027873048558831215), ('recall@10', 0.04441233351826668)])
+Tue 25 Nov 2025 12:15:54 INFO  [Epoch 10] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 12:16:25 INFO  [Epoch 11] Train Loss: 2.338038198565791
+Tue 25 Nov 2025 12:18:55 INFO  [Epoch 11] Val Results: OrderedDict([('ndcg@5', np.float64(0.01868484852214654)), ('ndcg@10', np.float64(0.023975484694043796)), ('recall@5', np.float64(0.029187485575675964)), ('recall@10', np.float64(0.0456629345814387))])
+Tue 25 Nov 2025 12:18:55 INFO  [Epoch 11] Val_0 Results: OrderedDict([('ndcg@5', 0.018477464094758034), ('ndcg@10', 0.023429561406373978), ('recall@5', 0.028343111276626587), ('recall@10', 0.04378557950258255)])
+Tue 25 Nov 2025 12:18:55 INFO  [Epoch 11] Val_1 Results: OrderedDict([('ndcg@5', 0.019372230395674706), ('ndcg@10', 0.024783436208963394), ('recall@5', 0.030031859874725342), ('recall@10', 0.04688452184200287)])
+Tue 25 Nov 2025 12:18:55 INFO  [Epoch 11] Val_2 Results: OrderedDict([('ndcg@5', 0.019345518201589584), ('ndcg@10', 0.0247140321880579), ('recall@5', 0.029962221160531044), ('recall@10', 0.04669301211833954)])
+Tue 25 Nov 2025 12:18:55 INFO  [Epoch 11] Val_3 Results: OrderedDict([('ndcg@5', 0.019618505612015724), ('ndcg@10', 0.024812012910842896), ('recall@5', 0.030258186161518097), ('recall@10', 0.04643186554312706)])
+Tue 25 Nov 2025 12:18:55 INFO  [Epoch 11] Val_4 Results: OrderedDict([('ndcg@5', 0.017706969752907753), ('ndcg@10', 0.02324879728257656), ('recall@5', 0.02837793156504631), ('recall@10', 0.045648425817489624)])
+Tue 25 Nov 2025 12:18:55 INFO  [Epoch 11] Val_5 Results: OrderedDict([('ndcg@5', 0.017588403075933456), ('ndcg@10', 0.022865068167448044), ('recall@5', 0.028151603415608406), ('recall@10', 0.04453420266509056)])
+Tue 25 Nov 2025 12:19:27 INFO  [Epoch 12] Train Loss: 2.3116859953774824
+Tue 25 Nov 2025 12:21:56 INFO  [Epoch 12] Val Results: OrderedDict([('ndcg@5', np.float64(0.01864030212163925)), ('ndcg@10', np.float64(0.024303499919672806)), ('recall@5', np.float64(0.02864488090078036)), ('recall@10', np.float64(0.0462461623052756))])
+Tue 25 Nov 2025 12:21:56 INFO  [Epoch 12] Val_0 Results: OrderedDict([('ndcg@5', 0.017964577302336693), ('ndcg@10', 0.023344649001955986), ('recall@5', 0.02728111483156681), ('recall@10', 0.044011909514665604)])
+Tue 25 Nov 2025 12:21:56 INFO  [Epoch 12] Val_1 Results: OrderedDict([('ndcg@5', 0.019377291202545166), ('ndcg@10', 0.0251595638692379), ('recall@5', 0.02973589301109314), ('recall@10', 0.04772019013762474)])
+Tue 25 Nov 2025 12:21:56 INFO  [Epoch 12] Val_2 Results: OrderedDict([('ndcg@5', 0.019262295216321945), ('ndcg@10', 0.024962812662124634), ('recall@5', 0.02956179529428482), ('recall@10', 0.04728494584560394)])
+Tue 25 Nov 2025 12:21:56 INFO  [Epoch 12] Val_3 Results: OrderedDict([('ndcg@5', 0.019424334168434143), ('ndcg@10', 0.024970578029751778), ('recall@5', 0.02956179529428482), ('recall@10', 0.0467800609767437)])
+Tue 25 Nov 2025 12:21:56 INFO  [Epoch 12] Val_4 Results: OrderedDict([('ndcg@5', 0.018438877537846565), ('ndcg@10', 0.024419941008090973), ('recall@5', 0.028900224715471268), ('recall@10', 0.047476451843976974)])
+Tue 25 Nov 2025 12:21:56 INFO  [Epoch 12] Val_5 Results: OrderedDict([('ndcg@5', 0.017374437302350998), ('ndcg@10', 0.022963454946875572), ('recall@5', 0.0268284622579813), ('recall@10', 0.044203415513038635)])
+Tue 25 Nov 2025 12:21:56 INFO  [Epoch 12] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 12:22:28 INFO  [Epoch 13] Train Loss: 2.2892541094235317
+Tue 25 Nov 2025 12:24:57 INFO  [Epoch 13] Val Results: OrderedDict([('ndcg@5', np.float64(0.019215567968785763)), ('ndcg@10', np.float64(0.024566615000367165)), ('recall@5', np.float64(0.029747500084340572)), ('recall@10', np.float64(0.04630999887983004))])
+Tue 25 Nov 2025 12:24:57 INFO  [Epoch 13] Val_0 Results: OrderedDict([('ndcg@5', 0.018071681261062622), ('ndcg@10', 0.02326485514640808), ('recall@5', 0.02792527712881565), ('recall@10', 0.04399449750781059)])
+Tue 25 Nov 2025 12:24:57 INFO  [Epoch 13] Val_1 Results: OrderedDict([('ndcg@5', 0.01926192082464695), ('ndcg@10', 0.024837367236614227), ('recall@5', 0.030066680163145065), ('recall@10', 0.04733717441558838)])
+Tue 25 Nov 2025 12:24:57 INFO  [Epoch 13] Val_2 Results: OrderedDict([('ndcg@5', 0.01930088736116886), ('ndcg@10', 0.024734120815992355), ('recall@5', 0.030136318877339363), ('recall@10', 0.04697157070040703)])
+Tue 25 Nov 2025 12:24:57 INFO  [Epoch 13] Val_3 Results: OrderedDict([('ndcg@5', 0.01935030333697796), ('ndcg@10', 0.02480713278055191), ('recall@5', 0.030084088444709778), ('recall@10', 0.04700639098882675)])
+Tue 25 Nov 2025 12:24:57 INFO  [Epoch 13] Val_4 Results: OrderedDict([('ndcg@5', 0.019744815304875374), ('ndcg@10', 0.02529202774167061), ('recall@5', 0.030345235019922256), ('recall@10', 0.04752868413925171)])
+Tue 25 Nov 2025 12:24:57 INFO  [Epoch 13] Val_5 Results: OrderedDict([('ndcg@5', 0.01956379972398281), ('ndcg@10', 0.024464186280965805), ('recall@5', 0.02992740087211132), ('recall@10', 0.045021675527095795)])
+Tue 25 Nov 2025 12:24:57 INFO  [Epoch 13] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 12:25:28 INFO  [Epoch 14] Train Loss: 2.2674037473734563
+Tue 25 Nov 2025 12:27:57 INFO  [Epoch 14] Val Results: OrderedDict([('ndcg@5', np.float64(0.01966797560453415)), ('ndcg@10', np.float64(0.02520840335637331)), ('recall@5', np.float64(0.030594775763650734)), ('recall@10', np.float64(0.04787107494970163))])
+Tue 25 Nov 2025 12:27:57 INFO  [Epoch 14] Val_0 Results: OrderedDict([('ndcg@5', 0.019040340557694435), ('ndcg@10', 0.02430674247443676), ('recall@5', 0.029248420149087906), ('recall@10', 0.045665837824344635)])
+Tue 25 Nov 2025 12:27:57 INFO  [Epoch 14] Val_1 Results: OrderedDict([('ndcg@5', 0.020355239510536194), ('ndcg@10', 0.02607189491391182), ('recall@5', 0.031337592750787735), ('recall@10', 0.04914779216051102)])
+Tue 25 Nov 2025 12:27:57 INFO  [Epoch 14] Val_2 Results: OrderedDict([('ndcg@5', 0.020298410207033157), ('ndcg@10', 0.025898143649101257), ('recall@5', 0.031250543892383575), ('recall@10', 0.04871254786849022)])
+Tue 25 Nov 2025 12:27:57 INFO  [Epoch 14] Val_3 Results: OrderedDict([('ndcg@5', 0.020611675456166267), ('ndcg@10', 0.026110215112566948), ('recall@5', 0.03156391903758049), ('recall@10', 0.04869513586163521)])
+Tue 25 Nov 2025 12:27:57 INFO  [Epoch 14] Val_4 Results: OrderedDict([('ndcg@5', 0.01897278055548668), ('ndcg@10', 0.0248687993735075), ('recall@5', 0.030414875596761703), ('recall@10', 0.04881700500845909)])
+Tue 25 Nov 2025 12:27:57 INFO  [Epoch 14] Val_5 Results: OrderedDict([('ndcg@5', 0.018729407340288162), ('ndcg@10', 0.023994624614715576), ('recall@5', 0.029753303155303), ('recall@10', 0.04618813097476959)])
+Tue 25 Nov 2025 12:27:57 INFO  [Epoch 14] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 12:28:29 INFO  [Epoch 15] Train Loss: 2.2496487593812273
+Tue 25 Nov 2025 12:30:59 INFO  [Epoch 15] Val Results: OrderedDict([('ndcg@5', np.float64(0.019396543813248474)), ('ndcg@10', np.float64(0.024819546068708103)), ('recall@5', np.float64(0.030281400308012962)), ('recall@10', np.float64(0.04716597807904085))])
+Tue 25 Nov 2025 12:30:59 INFO  [Epoch 15] Val_0 Results: OrderedDict([('ndcg@5', 0.01892843097448349), ('ndcg@10', 0.023928433656692505), ('recall@5', 0.02891763485968113), ('recall@10', 0.044481970369815826)])
+Tue 25 Nov 2025 12:30:59 INFO  [Epoch 15] Val_1 Results: OrderedDict([('ndcg@5', 0.01999055966734886), ('ndcg@10', 0.025585751980543137), ('recall@5', 0.03093716874718666), ('recall@10', 0.04834694042801857)])
+Tue 25 Nov 2025 12:30:59 INFO  [Epoch 15] Val_2 Results: OrderedDict([('ndcg@5', 0.019989600405097008), ('ndcg@10', 0.025447217747569084), ('recall@5', 0.030971987172961235), ('recall@10', 0.047946516424417496)])
+Tue 25 Nov 2025 12:30:59 INFO  [Epoch 15] Val_3 Results: OrderedDict([('ndcg@5', 0.019948864355683327), ('ndcg@10', 0.0253386739641428), ('recall@5', 0.0309197586029768), ('recall@10', 0.04772019013762474)])
+Tue 25 Nov 2025 12:30:59 INFO  [Epoch 15] Val_4 Results: OrderedDict([('ndcg@5', 0.018916597589850426), ('ndcg@10', 0.024754416197538376), ('recall@5', 0.030327826738357544), ('recall@10', 0.048503629863262177)])
+Tue 25 Nov 2025 12:30:59 INFO  [Epoch 15] Val_5 Results: OrderedDict([('ndcg@5', 0.01860520988702774), ('ndcg@10', 0.02386278286576271), ('recall@5', 0.029614025726914406), ('recall@10', 0.04599662125110626)])
+Tue 25 Nov 2025 12:31:30 INFO  [Epoch 16] Train Loss: 2.2350983921076857
+Tue 25 Nov 2025 12:34:00 INFO  [Epoch 16] Val Results: OrderedDict([('ndcg@5', np.float64(0.01988840599854787)), ('ndcg@10', np.float64(0.025298102137943108)), ('recall@5', np.float64(0.030855922338863213)), ('recall@10', np.float64(0.04770858399569988))])
+Tue 25 Nov 2025 12:34:00 INFO  [Epoch 16] Val_0 Results: OrderedDict([('ndcg@5', 0.019107695668935776), ('ndcg@10', 0.024109672755002975), ('recall@5', 0.02947474643588066), ('recall@10', 0.04509131610393524)])
+Tue 25 Nov 2025 12:34:00 INFO  [Epoch 16] Val_1 Results: OrderedDict([('ndcg@5', 0.02043520100414753), ('ndcg@10', 0.02591005153954029), ('recall@5', 0.0317206084728241), ('recall@10', 0.04874736815690994)])
+Tue 25 Nov 2025 12:34:00 INFO  [Epoch 16] Val_2 Results: OrderedDict([('ndcg@5', 0.020527346059679985), ('ndcg@10', 0.025959471240639687), ('recall@5', 0.03185988590121269), ('recall@10', 0.04879959672689438)])
+Tue 25 Nov 2025 12:34:00 INFO  [Epoch 16] Val_3 Results: OrderedDict([('ndcg@5', 0.02051948383450508), ('ndcg@10', 0.025894688442349434), ('recall@5', 0.03156391903758049), ('recall@10', 0.048294711858034134)])
+Tue 25 Nov 2025 12:34:00 INFO  [Epoch 16] Val_4 Results: OrderedDict([('ndcg@5', 0.019652359187602997), ('ndcg@10', 0.025341447442770004), ('recall@5', 0.030815299600362778), ('recall@10', 0.0485384501516819)])
+Tue 25 Nov 2025 12:34:00 INFO  [Epoch 16] Val_5 Results: OrderedDict([('ndcg@5', 0.019088350236415863), ('ndcg@10', 0.024573281407356262), ('recall@5', 0.029701074585318565), ('recall@10', 0.0467800609767437)])
+Tue 25 Nov 2025 12:34:00 INFO  [Epoch 16] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 12:34:31 INFO  [Epoch 17] Train Loss: 2.216702372441173
+Tue 25 Nov 2025 12:37:01 INFO  [Epoch 17] Val Results: OrderedDict([('ndcg@5', np.float64(0.020364798915882904)), ('ndcg@10', np.float64(0.02562353853136301)), ('recall@5', np.float64(0.03155231320609649)), ('recall@10', np.float64(0.047946516424417496))])
+Tue 25 Nov 2025 12:37:01 INFO  [Epoch 17] Val_0 Results: OrderedDict([('ndcg@5', 0.02014354057610035), ('ndcg@10', 0.02517855539917946), ('recall@5', 0.030710840597748756), ('recall@10', 0.04643186554312706)])
+Tue 25 Nov 2025 12:37:01 INFO  [Epoch 17] Val_1 Results: OrderedDict([('ndcg@5', 0.02107986807823181), ('ndcg@10', 0.02642185240983963), ('recall@5', 0.032625917345285416), ('recall@10', 0.049304477870464325)])
+Tue 25 Nov 2025 12:37:01 INFO  [Epoch 17] Val_2 Results: OrderedDict([('ndcg@5', 0.021036088466644287), ('ndcg@10', 0.02635960653424263), ('recall@5', 0.03246922791004181), ('recall@10', 0.04906074330210686)])
+Tue 25 Nov 2025 12:37:01 INFO  [Epoch 17] Val_3 Results: OrderedDict([('ndcg@5', 0.021244119852781296), ('ndcg@10', 0.02647268772125244), ('recall@5', 0.032695554196834564), ('recall@10', 0.04899110272526741)])
+Tue 25 Nov 2025 12:37:01 INFO  [Epoch 17] Val_4 Results: OrderedDict([('ndcg@5', 0.019657645374536514), ('ndcg@10', 0.025136113166809082), ('recall@5', 0.030989397317171097), ('recall@10', 0.04806838557124138)])
+Tue 25 Nov 2025 12:37:01 INFO  [Epoch 17] Val_5 Results: OrderedDict([('ndcg@5', 0.019027531147003174), ('ndcg@10', 0.02417241595685482), ('recall@5', 0.0298229418694973), ('recall@10', 0.04582252353429794)])
+Tue 25 Nov 2025 12:37:01 INFO  [Epoch 17] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 12:37:32 INFO  [Epoch 18] Train Loss: 2.2011716586472487
+Tue 25 Nov 2025 12:40:02 INFO  [Epoch 18] Val Results: OrderedDict([('ndcg@5', np.float64(0.020554342307150364)), ('ndcg@10', np.float64(0.025778361906607945)), ('recall@5', np.float64(0.03182506592323383)), ('recall@10', np.float64(0.04803356590370337))])
+Tue 25 Nov 2025 12:40:02 INFO  [Epoch 18] Val_0 Results: OrderedDict([('ndcg@5', 0.02031329832971096), ('ndcg@10', 0.025211511179804802), ('recall@5', 0.030867528170347214), ('recall@10', 0.04606626182794571)])
+Tue 25 Nov 2025 12:40:02 INFO  [Epoch 18] Val_1 Results: OrderedDict([('ndcg@5', 0.021285075694322586), ('ndcg@10', 0.026693779975175858), ('recall@5', 0.03266073390841484), ('recall@10', 0.04946116730570793)])
+Tue 25 Nov 2025 12:40:02 INFO  [Epoch 18] Val_2 Results: OrderedDict([('ndcg@5', 0.021203603595495224), ('ndcg@10', 0.02644488960504532), ('recall@5', 0.03257368505001068), ('recall@10', 0.048851825296878815)])
+Tue 25 Nov 2025 12:40:02 INFO  [Epoch 18] Val_3 Results: OrderedDict([('ndcg@5', 0.02143348939716816), ('ndcg@10', 0.026608653366565704), ('recall@5', 0.03285224363207817), ('recall@10', 0.04888664558529854)])
+Tue 25 Nov 2025 12:40:02 INFO  [Epoch 18] Val_4 Results: OrderedDict([('ndcg@5', 0.019686175510287285), ('ndcg@10', 0.02532937377691269), ('recall@5', 0.031337592750787735), ('recall@10', 0.048851825296878815)])
+Tue 25 Nov 2025 12:40:02 INFO  [Epoch 18] Val_5 Results: OrderedDict([('ndcg@5', 0.01940441131591797), ('ndcg@10', 0.024381963536143303), ('recall@5', 0.03065861202776432), ('recall@10', 0.04608367010951042)])
+Tue 25 Nov 2025 12:40:02 INFO  [Epoch 18] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 12:40:33 INFO  [Epoch 19] Train Loss: 2.189389705657959
+Tue 25 Nov 2025 12:43:02 INFO  [Epoch 19] Val Results: OrderedDict([('ndcg@5', np.float64(0.020316889509558678)), ('ndcg@10', np.float64(0.025830395209292572)), ('recall@5', np.float64(0.031468166348834835)), ('recall@10', np.float64(0.04862839914858341))])
+Tue 25 Nov 2025 12:43:02 INFO  [Epoch 19] Val_0 Results: OrderedDict([('ndcg@5', 0.02005181275308132), ('ndcg@10', 0.025100406259298325), ('recall@5', 0.03064120188355446), ('recall@10', 0.0463448166847229)])
+Tue 25 Nov 2025 12:43:02 INFO  [Epoch 19] Val_1 Results: OrderedDict([('ndcg@5', 0.021064015105366707), ('ndcg@10', 0.026671333238482475), ('recall@5', 0.032625917345285416), ('recall@10', 0.05008791759610176)])
+Tue 25 Nov 2025 12:43:02 INFO  [Epoch 19] Val_2 Results: OrderedDict([('ndcg@5', 0.020920690149068832), ('ndcg@10', 0.02645762450993061), ('recall@5', 0.03220808133482933), ('recall@10', 0.04944375902414322)])
+Tue 25 Nov 2025 12:43:02 INFO  [Epoch 19] Val_3 Results: OrderedDict([('ndcg@5', 0.02104138769209385), ('ndcg@10', 0.026520609855651855), ('recall@5', 0.032242901623249054), ('recall@10', 0.049304477870464325)])
+Tue 25 Nov 2025 12:43:02 INFO  [Epoch 19] Val_4 Results: OrderedDict([('ndcg@5', 0.019491955637931824), ('ndcg@10', 0.025356044992804527), ('recall@5', 0.030693430453538895), ('recall@10', 0.048938874155282974)])
+Tue 25 Nov 2025 12:43:02 INFO  [Epoch 19] Val_5 Results: OrderedDict([('ndcg@5', 0.019331475719809532), ('ndcg@10', 0.02487635239958763), ('recall@5', 0.030397465452551842), ('recall@10', 0.047650549560785294)])
+Tue 25 Nov 2025 12:43:02 INFO  [Epoch 19] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 12:43:34 INFO  [Epoch 20] Train Loss: 2.1753929710818736
+Tue 25 Nov 2025 12:46:04 INFO  [Epoch 20] Val Results: OrderedDict([('ndcg@5', np.float64(0.020289218053221703)), ('ndcg@10', np.float64(0.026007241879900295)), ('recall@5', np.float64(0.03169739463677009)), ('recall@10', np.float64(0.0495075931151708))])
+Tue 25 Nov 2025 12:46:04 INFO  [Epoch 20] Val_0 Results: OrderedDict([('ndcg@5', 0.019944455474615097), ('ndcg@10', 0.025408053770661354), ('recall@5', 0.030623791739344597), ('recall@10', 0.047650549560785294)])
+Tue 25 Nov 2025 12:46:04 INFO  [Epoch 20] Val_1 Results: OrderedDict([('ndcg@5', 0.02083287201821804), ('ndcg@10', 0.026642154902219772), ('recall@5', 0.03241699934005737), ('recall@10', 0.05052316188812256)])
+Tue 25 Nov 2025 12:46:04 INFO  [Epoch 20] Val_2 Results: OrderedDict([('ndcg@5', 0.020789315924048424), ('ndcg@10', 0.026510169729590416), ('recall@5', 0.0323125384747982), ('recall@10', 0.05017496645450592)])
+Tue 25 Nov 2025 12:46:04 INFO  [Epoch 20] Val_3 Results: OrderedDict([('ndcg@5', 0.02110419236123562), ('ndcg@10', 0.026898525655269623), ('recall@5', 0.03255627676844597), ('recall@10', 0.05062762275338173)])
+Tue 25 Nov 2025 12:46:04 INFO  [Epoch 20] Val_4 Results: OrderedDict([('ndcg@5', 0.01977703534066677), ('ndcg@10', 0.025775384157896042), ('recall@5', 0.03163355961441994), ('recall@10', 0.05027942731976509)])
+Tue 25 Nov 2025 12:46:04 INFO  [Epoch 20] Val_5 Results: OrderedDict([('ndcg@5', 0.019287437200546265), ('ndcg@10', 0.024809163063764572), ('recall@5', 0.03064120188355446), ('recall@10', 0.04778983071446419)])
+Tue 25 Nov 2025 12:46:04 INFO  [Epoch 20] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 12:46:36 INFO  [Epoch 21] Train Loss: 2.1647566231325035
+Tue 25 Nov 2025 12:49:04 INFO  [Epoch 21] Val Results: OrderedDict([('ndcg@5', np.float64(0.020505684117476147)), ('ndcg@10', np.float64(0.02619316770384709)), ('recall@5', np.float64(0.03163355930397908)), ('recall@10', np.float64(0.0493393000215292))])
+Tue 25 Nov 2025 12:49:04 INFO  [Epoch 21] Val_0 Results: OrderedDict([('ndcg@5', 0.020427126437425613), ('ndcg@10', 0.025710856541991234), ('recall@5', 0.031093856319785118), ('recall@10', 0.04752868413925171)])
+Tue 25 Nov 2025 12:49:04 INFO  [Epoch 21] Val_1 Results: OrderedDict([('ndcg@5', 0.02115430124104023), ('ndcg@10', 0.02691403403878212), ('recall@5', 0.03246922791004181), ('recall@10', 0.050401296466588974)])
+Tue 25 Nov 2025 12:49:04 INFO  [Epoch 21] Val_2 Results: OrderedDict([('ndcg@5', 0.021160747855901718), ('ndcg@10', 0.026822613552212715), ('recall@5', 0.03246922791004181), ('recall@10', 0.05010532960295677)])
+Tue 25 Nov 2025 12:49:04 INFO  [Epoch 21] Val_3 Results: OrderedDict([('ndcg@5', 0.021284395828843117), ('ndcg@10', 0.026909107342362404), ('recall@5', 0.03250404819846153), ('recall@10', 0.05001828074455261)])
+Tue 25 Nov 2025 12:49:04 INFO  [Epoch 21] Val_4 Results: OrderedDict([('ndcg@5', 0.019723350182175636), ('ndcg@10', 0.02573595941066742), ('recall@5', 0.03111126646399498), ('recall@10', 0.04984418302774429)])
+Tue 25 Nov 2025 12:49:04 INFO  [Epoch 21] Val_5 Results: OrderedDict([('ndcg@5', 0.019284183159470558), ('ndcg@10', 0.02506643533706665), ('recall@5', 0.030153729021549225), ('recall@10', 0.048138026148080826)])
+Tue 25 Nov 2025 12:49:04 INFO  [Epoch 21] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 12:49:36 INFO  [Epoch 22] Train Loss: 2.1560381276881992
+Tue 25 Nov 2025 12:52:04 INFO  [Epoch 22] Val Results: OrderedDict([('ndcg@5', np.float64(0.020586812868714333)), ('ndcg@10', np.float64(0.026533546547094982)), ('recall@5', np.float64(0.031877295734981693)), ('recall@10', np.float64(0.05027942731976509))])
+Tue 25 Nov 2025 12:52:04 INFO  [Epoch 22] Val_0 Results: OrderedDict([('ndcg@5', 0.019946713000535965), ('ndcg@10', 0.02560088410973549), ('recall@5', 0.030223367735743523), ('recall@10', 0.04770278185606003)])
+Tue 25 Nov 2025 12:52:04 INFO  [Epoch 22] Val_1 Results: OrderedDict([('ndcg@5', 0.021103430539369583), ('ndcg@10', 0.027243787422776222), ('recall@5', 0.032434407621622086), ('recall@10', 0.05144588276743889)])
+Tue 25 Nov 2025 12:52:04 INFO  [Epoch 22] Val_2 Results: OrderedDict([('ndcg@5', 0.021180229261517525), ('ndcg@10', 0.027220753952860832), ('recall@5', 0.03250404819846153), ('recall@10', 0.05120214447379112)])
+Tue 25 Nov 2025 12:52:04 INFO  [Epoch 22] Val_3 Results: OrderedDict([('ndcg@5', 0.021310562267899513), ('ndcg@10', 0.02720075473189354), ('recall@5', 0.032608505338430405), ('recall@10', 0.050853949040174484)])
+Tue 25 Nov 2025 12:52:04 INFO  [Epoch 22] Val_4 Results: OrderedDict([('ndcg@5', 0.020221274346113205), ('ndcg@10', 0.026495708152651787), ('recall@5', 0.03219067305326462), ('recall@10', 0.05161998048424721)])
+Tue 25 Nov 2025 12:52:04 INFO  [Epoch 22] Val_5 Results: OrderedDict([('ndcg@5', 0.019758667796850204), ('ndcg@10', 0.025439390912652016), ('recall@5', 0.03130277246236801), ('recall@10', 0.048851825296878815)])
+Tue 25 Nov 2025 12:52:04 INFO  [Epoch 22] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 12:52:36 INFO  [Epoch 23] Train Loss: 2.1415255570250227
+Tue 25 Nov 2025 12:55:04 INFO  [Epoch 23] Val Results: OrderedDict([('ndcg@5', np.float64(0.021073051107426483)), ('ndcg@10', np.float64(0.026541586654881637)), ('recall@5', np.float64(0.0323647695283095)), ('recall@10', np.float64(0.04939152797063192))])
+Tue 25 Nov 2025 12:55:04 INFO  [Epoch 23] Val_0 Results: OrderedDict([('ndcg@5', 0.02082155831158161), ('ndcg@10', 0.02592046745121479), ('recall@5', 0.031511690467596054), ('recall@10', 0.04744163528084755)])
+Tue 25 Nov 2025 12:55:04 INFO  [Epoch 23] Val_1 Results: OrderedDict([('ndcg@5', 0.021554816514253616), ('ndcg@10', 0.027174901217222214), ('recall@5', 0.032800015062093735), ('recall@10', 0.05027942731976509)])
+Tue 25 Nov 2025 12:55:04 INFO  [Epoch 23] Val_2 Results: OrderedDict([('ndcg@5', 0.02158927731215954), ('ndcg@10', 0.027194039896130562), ('recall@5', 0.03281742334365845), ('recall@10', 0.05026201531291008)])
+Tue 25 Nov 2025 12:55:04 INFO  [Epoch 23] Val_3 Results: OrderedDict([('ndcg@5', 0.021923361346125603), ('ndcg@10', 0.02733614854514599), ('recall@5', 0.03337453678250313), ('recall@10', 0.050209786742925644)])
+Tue 25 Nov 2025 12:55:04 INFO  [Epoch 23] Val_4 Results: OrderedDict([('ndcg@5', 0.02054930478334427), ('ndcg@10', 0.02634224109351635), ('recall@5', 0.0323125384747982), ('recall@10', 0.05034906417131424)])
+Tue 25 Nov 2025 12:55:04 INFO  [Epoch 23] Val_5 Results: OrderedDict([('ndcg@5', 0.01999998837709427), ('ndcg@10', 0.025281721726059914), ('recall@5', 0.03137241303920746), ('recall@10', 0.0478072389960289)])
+Tue 25 Nov 2025 12:55:04 INFO  [Epoch 23] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 12:55:36 INFO  [Epoch 24] Train Loss: 2.1360779790792184
+Tue 25 Nov 2025 12:58:04 INFO  [Epoch 24] Val Results: OrderedDict([('ndcg@5', np.float64(0.021193621990581352)), ('ndcg@10', np.float64(0.02702973783016205)), ('recall@5', np.float64(0.03249534281591574)), ('recall@10', np.float64(0.05070016346871853))])
+Tue 25 Nov 2025 12:58:04 INFO  [Epoch 24] Val_0 Results: OrderedDict([('ndcg@5', 0.020778829231858253), ('ndcg@10', 0.02612285688519478), ('recall@5', 0.03135500103235245), ('recall@10', 0.048033565282821655)])
+Tue 25 Nov 2025 12:58:04 INFO  [Epoch 24] Val_1 Results: OrderedDict([('ndcg@5', 0.021685592830181122), ('ndcg@10', 0.027697740122675896), ('recall@5', 0.03314821049571037), ('recall@10', 0.05193335562944412)])
+Tue 25 Nov 2025 12:58:04 INFO  [Epoch 24] Val_2 Results: OrderedDict([('ndcg@5', 0.02164161577820778), ('ndcg@10', 0.027609162032604218), ('recall@5', 0.03293929249048233), ('recall@10', 0.05156775191426277)])
+Tue 25 Nov 2025 12:58:04 INFO  [Epoch 24] Val_3 Results: OrderedDict([('ndcg@5', 0.021906010806560516), ('ndcg@10', 0.027712995186448097), ('recall@5', 0.03328748792409897), ('recall@10', 0.05139365419745445)])
+Tue 25 Nov 2025 12:58:04 INFO  [Epoch 24] Val_4 Results: OrderedDict([('ndcg@5', 0.020883765071630478), ('ndcg@10', 0.027013594284653664), ('recall@5', 0.03266073390841484), ('recall@10', 0.051776666194200516)])
+Tue 25 Nov 2025 12:58:04 INFO  [Epoch 24] Val_5 Results: OrderedDict([('ndcg@5', 0.020265918225049973), ('ndcg@10', 0.026022078469395638), ('recall@5', 0.0315813310444355), ('recall@10', 0.049495987594127655)])
+Tue 25 Nov 2025 12:58:04 INFO  [Epoch 24] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 12:58:36 INFO  [Epoch 25] Train Loss: 2.124674801901824
+Tue 25 Nov 2025 13:01:04 INFO  [Epoch 25] Val Results: OrderedDict([('ndcg@5', np.float64(0.020810487990578014)), ('ndcg@10', np.float64(0.02668400915960471)), ('recall@5', np.float64(0.03246342483907938)), ('recall@10', np.float64(0.050703064228097595))])
+Tue 25 Nov 2025 13:01:04 INFO  [Epoch 25] Val_0 Results: OrderedDict([('ndcg@5', 0.020562460646033287), ('ndcg@10', 0.02612033486366272), ('recall@5', 0.0317206084728241), ('recall@10', 0.04899110272526741)])
+Tue 25 Nov 2025 13:01:04 INFO  [Epoch 25] Val_1 Results: OrderedDict([('ndcg@5', 0.02162434533238411), ('ndcg@10', 0.027629515156149864), ('recall@5', 0.03363568335771561), ('recall@10', 0.05229895934462547)])
+Tue 25 Nov 2025 13:01:04 INFO  [Epoch 25] Val_2 Results: OrderedDict([('ndcg@5', 0.021559836342930794), ('ndcg@10', 0.027506962418556213), ('recall@5', 0.03340935707092285), ('recall@10', 0.051881127059459686)])
+Tue 25 Nov 2025 13:01:04 INFO  [Epoch 25] Val_3 Results: OrderedDict([('ndcg@5', 0.021890919655561447), ('ndcg@10', 0.027736809104681015), ('recall@5', 0.0337749607861042), ('recall@10', 0.05193335562944412)])
+Tue 25 Nov 2025 13:01:04 INFO  [Epoch 25] Val_4 Results: OrderedDict([('ndcg@5', 0.019966766238212585), ('ndcg@10', 0.026233689859509468), ('recall@5', 0.031790245324373245), ('recall@10', 0.05125437304377556)])
+Tue 25 Nov 2025 13:01:04 INFO  [Epoch 25] Val_5 Results: OrderedDict([('ndcg@5', 0.01925859972834587), ('ndcg@10', 0.02487674355506897), ('recall@5', 0.030449694022536278), ('recall@10', 0.047859467566013336)])
+Tue 25 Nov 2025 13:01:35 INFO  [Epoch 26] Train Loss: 2.1152491784795413
+Tue 25 Nov 2025 13:04:04 INFO  [Epoch 26] Val Results: OrderedDict([('ndcg@5', np.float64(0.021211746769646805)), ('ndcg@10', np.float64(0.02684760590394338)), ('recall@5', np.float64(0.032681048226853214)), ('recall@10', np.float64(0.05025621379415194))])
+Tue 25 Nov 2025 13:04:04 INFO  [Epoch 26] Val_0 Results: OrderedDict([('ndcg@5', 0.02103777788579464), ('ndcg@10', 0.026358699426054955), ('recall@5', 0.03192952647805214), ('recall@10', 0.0485384501516819)])
+Tue 25 Nov 2025 13:04:04 INFO  [Epoch 26] Val_1 Results: OrderedDict([('ndcg@5', 0.021805739030241966), ('ndcg@10', 0.027590299025177956), ('recall@5', 0.03340935707092285), ('recall@10', 0.05142847076058388)])
+Tue 25 Nov 2025 13:04:04 INFO  [Epoch 26] Val_2 Results: OrderedDict([('ndcg@5', 0.021808596327900887), ('ndcg@10', 0.027606235817074776), ('recall@5', 0.033357128500938416), ('recall@10', 0.051411062479019165)])
+Tue 25 Nov 2025 13:04:04 INFO  [Epoch 26] Val_3 Results: OrderedDict([('ndcg@5', 0.02208113856613636), ('ndcg@10', 0.027600085362792015), ('recall@5', 0.03379237279295921), ('recall@10', 0.051045458763837814)])
+Tue 25 Nov 2025 13:04:04 INFO  [Epoch 26] Val_4 Results: OrderedDict([('ndcg@5', 0.02059617079794407), ('ndcg@10', 0.02653045952320099), ('recall@5', 0.03250404819846153), ('recall@10', 0.05099322646856308)])
+Tue 25 Nov 2025 13:04:04 INFO  [Epoch 26] Val_5 Results: OrderedDict([('ndcg@5', 0.0199410580098629), ('ndcg@10', 0.02539985626935959), ('recall@5', 0.031093856319785118), ('recall@10', 0.048120614141225815)])
+Tue 25 Nov 2025 13:04:35 INFO  [Epoch 27] Train Loss: 2.1101583374273156
+Tue 25 Nov 2025 13:07:04 INFO  [Epoch 27] Val Results: OrderedDict([('ndcg@5', np.float64(0.021281033133467037)), ('ndcg@10', np.float64(0.02712543463955323)), ('recall@5', np.float64(0.03272457203517357)), ('recall@10', np.float64(0.05087135980526606))])
+Tue 25 Nov 2025 13:07:04 INFO  [Epoch 27] Val_0 Results: OrderedDict([('ndcg@5', 0.02136259153485298), ('ndcg@10', 0.02683698758482933), ('recall@5', 0.032260309904813766), ('recall@10', 0.0492696613073349)])
+Tue 25 Nov 2025 13:07:04 INFO  [Epoch 27] Val_1 Results: OrderedDict([('ndcg@5', 0.02198135294020176), ('ndcg@10', 0.027936087921261787), ('recall@5', 0.033618275076150894), ('recall@10', 0.05209004506468773)])
+Tue 25 Nov 2025 13:07:04 INFO  [Epoch 27] Val_2 Results: OrderedDict([('ndcg@5', 0.021899523213505745), ('ndcg@10', 0.02779688686132431), ('recall@5', 0.033444177359342575), ('recall@10', 0.05174184963107109)])
+Tue 25 Nov 2025 13:07:04 INFO  [Epoch 27] Val_3 Results: OrderedDict([('ndcg@5', 0.022262979298830032), ('ndcg@10', 0.027970056980848312), ('recall@5', 0.03401869907975197), ('recall@10', 0.0517592579126358)])
+Tue 25 Nov 2025 13:07:04 INFO  [Epoch 27] Val_4 Results: OrderedDict([('ndcg@5', 0.02076752297580242), ('ndcg@10', 0.02701754868030548), ('recall@5', 0.032608505338430405), ('recall@10', 0.05198558419942856)])
+Tue 25 Nov 2025 13:07:04 INFO  [Epoch 27] Val_5 Results: OrderedDict([('ndcg@5', 0.01941222883760929), ('ndcg@10', 0.025195039808750153), ('recall@5', 0.030397465452551842), ('recall@10', 0.04838176071643829)])
+Tue 25 Nov 2025 13:07:04 INFO  [Epoch 27] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 13:07:35 INFO  [Epoch 28] Train Loss: 2.101944551780046
+Tue 25 Nov 2025 13:10:03 INFO  [Epoch 28] Val Results: OrderedDict([('ndcg@5', np.float64(0.021192698118587334)), ('ndcg@10', np.float64(0.02710675324002902)), ('recall@5', np.float64(0.03270135882000128)), ('recall@10', np.float64(0.05111799699564775))])
+Tue 25 Nov 2025 13:10:03 INFO  [Epoch 28] Val_0 Results: OrderedDict([('ndcg@5', 0.020990144461393356), ('ndcg@10', 0.02652936987578869), ('recall@5', 0.03168578818440437), ('recall@10', 0.048938874155282974)])
+Tue 25 Nov 2025 13:10:03 INFO  [Epoch 28] Val_1 Results: OrderedDict([('ndcg@5', 0.02189762331545353), ('ndcg@10', 0.027872251346707344), ('recall@5', 0.033618275076150894), ('recall@10', 0.05224673077464104)])
+Tue 25 Nov 2025 13:10:03 INFO  [Epoch 28] Val_2 Results: OrderedDict([('ndcg@5', 0.0217434111982584), ('ndcg@10', 0.02767229452729225), ('recall@5', 0.033339716494083405), ('recall@10', 0.05181148648262024)])
+Tue 25 Nov 2025 13:10:03 INFO  [Epoch 28] Val_3 Results: OrderedDict([('ndcg@5', 0.02207975834608078), ('ndcg@10', 0.0280451662838459), ('recall@5', 0.03368791192770004), ('recall@10', 0.05228155106306076)])
+Tue 25 Nov 2025 13:10:03 INFO  [Epoch 28] Val_4 Results: OrderedDict([('ndcg@5', 0.020463675260543823), ('ndcg@10', 0.026738202199339867), ('recall@5', 0.03241699934005737), ('recall@10', 0.051950763911008835)])
+Tue 25 Nov 2025 13:10:03 INFO  [Epoch 28] Val_5 Results: OrderedDict([('ndcg@5', 0.01998157612979412), ('ndcg@10', 0.02578323520720005), ('recall@5', 0.03145946189761162), ('recall@10', 0.049478575587272644)])
+Tue 25 Nov 2025 13:10:34 INFO  [Epoch 29] Train Loss: 2.0956195008943097
+Tue 25 Nov 2025 13:13:02 INFO  [Epoch 29] Val Results: OrderedDict([('ndcg@5', np.float64(0.021713960605363052)), ('ndcg@10', np.float64(0.0276461827258269)), ('recall@5', np.float64(0.03346738902231058)), ('recall@10', np.float64(0.05191304410497347))])
+Tue 25 Nov 2025 13:13:02 INFO  [Epoch 29] Val_0 Results: OrderedDict([('ndcg@5', 0.02105741947889328), ('ndcg@10', 0.02656066045165062), ('recall@5', 0.031981755048036575), ('recall@10', 0.04911297187209129)])
+Tue 25 Nov 2025 13:13:02 INFO  [Epoch 29] Val_1 Results: OrderedDict([('ndcg@5', 0.022175580263137817), ('ndcg@10', 0.02820124849677086), ('recall@5', 0.03408833593130112), ('recall@10', 0.05282125249505043)])
+Tue 25 Nov 2025 13:13:02 INFO  [Epoch 29] Val_2 Results: OrderedDict([('ndcg@5', 0.022139588370919228), ('ndcg@10', 0.028237279504537582), ('recall@5', 0.03387942165136337), ('recall@10', 0.052856072783470154)])
+Tue 25 Nov 2025 13:13:02 INFO  [Epoch 29] Val_3 Results: OrderedDict([('ndcg@5', 0.02231741137802601), ('ndcg@10', 0.028263680636882782), ('recall@5', 0.03414056822657585), ('recall@10', 0.0526297464966774)])
+Tue 25 Nov 2025 13:13:02 INFO  [Epoch 29] Val_4 Results: OrderedDict([('ndcg@5', 0.021561726927757263), ('ndcg@10', 0.02781091071665287), ('recall@5', 0.03379237279295921), ('recall@10', 0.0532216802239418)])
+Tue 25 Nov 2025 13:13:02 INFO  [Epoch 29] Val_5 Results: OrderedDict([('ndcg@5', 0.02103203721344471), ('ndcg@10', 0.026803316548466682), ('recall@5', 0.03292188048362732), ('recall@10', 0.05083654075860977)])
+Tue 25 Nov 2025 13:13:02 INFO  [Epoch 29] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 13:13:34 INFO  [Epoch 30] Train Loss: 2.090063067375941
+Tue 25 Nov 2025 13:16:02 INFO  [Epoch 30] Val Results: OrderedDict([('ndcg@5', np.float64(0.021884677931666374)), ('ndcg@10', np.float64(0.02779446728527546)), ('recall@5', np.float64(0.03393745236098766)), ('recall@10', np.float64(0.05232217349112034))])
+Tue 25 Nov 2025 13:16:02 INFO  [Epoch 30] Val_0 Results: OrderedDict([('ndcg@5', 0.021719999611377716), ('ndcg@10', 0.027271369472146034), ('recall@5', 0.032974112778902054), ('recall@10', 0.050227198749780655)])
+Tue 25 Nov 2025 13:16:02 INFO  [Epoch 30] Val_1 Results: OrderedDict([('ndcg@5', 0.02263191156089306), ('ndcg@10', 0.02868667244911194), ('recall@5', 0.03483695909380913), ('recall@10', 0.05367433279752731)])
+Tue 25 Nov 2025 13:16:02 INFO  [Epoch 30] Val_2 Results: OrderedDict([('ndcg@5', 0.022451533004641533), ('ndcg@10', 0.028498884290456772), ('recall@5', 0.03447135165333748), ('recall@10', 0.05329131707549095)])
+Tue 25 Nov 2025 13:16:02 INFO  [Epoch 30] Val_3 Results: OrderedDict([('ndcg@5', 0.022821888327598572), ('ndcg@10', 0.028706824406981468), ('recall@5', 0.03495882451534271), ('recall@10', 0.05327390879392624)])
+Tue 25 Nov 2025 13:16:02 INFO  [Epoch 30] Val_4 Results: OrderedDict([('ndcg@5', 0.021259604021906853), ('ndcg@10', 0.02756061591207981), ('recall@5', 0.03382718935608864), ('recall@10', 0.05343059450387955)])
+Tue 25 Nov 2025 13:16:02 INFO  [Epoch 30] Val_5 Results: OrderedDict([('ndcg@5', 0.020423131063580513), ('ndcg@10', 0.026042437180876732), ('recall@5', 0.03255627676844597), ('recall@10', 0.050035689026117325)])
+Tue 25 Nov 2025 13:16:02 INFO  [Epoch 30] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 13:16:33 INFO  [Epoch 31] Train Loss: 2.08241953995104
+Tue 25 Nov 2025 13:19:01 INFO  [Epoch 31] Val Results: OrderedDict([('ndcg@5', np.float64(0.021969832790394623)), ('ndcg@10', np.float64(0.027870545784632366)), ('recall@5', np.float64(0.03401289569834868)), ('recall@10', np.float64(0.052412124350667))])
+Tue 25 Nov 2025 13:19:01 INFO  [Epoch 31] Val_0 Results: OrderedDict([('ndcg@5', 0.022015642374753952), ('ndcg@10', 0.027508137747645378), ('recall@5', 0.033531226217746735), ('recall@10', 0.05069725960493088)])
+Tue 25 Nov 2025 13:19:01 INFO  [Epoch 31] Val_1 Results: OrderedDict([('ndcg@5', 0.022541102021932602), ('ndcg@10', 0.028605284169316292), ('recall@5', 0.034802138805389404), ('recall@10', 0.05370915308594704)])
+Tue 25 Nov 2025 13:19:01 INFO  [Epoch 31] Val_2 Results: OrderedDict([('ndcg@5', 0.02239677682518959), ('ndcg@10', 0.02837982214987278), ('recall@5', 0.03440171480178833), ('recall@10', 0.053047582507133484)])
+Tue 25 Nov 2025 13:19:01 INFO  [Epoch 31] Val_3 Results: OrderedDict([('ndcg@5', 0.022859323769807816), ('ndcg@10', 0.02878495678305626), ('recall@5', 0.03511551395058632), ('recall@10', 0.05362210422754288)])
+Tue 25 Nov 2025 13:19:01 INFO  [Epoch 31] Val_4 Results: OrderedDict([('ndcg@5', 0.02160641923546791), ('ndcg@10', 0.027787862345576286), ('recall@5', 0.034245025366544724), ('recall@10', 0.05351764336228371)])
+Tue 25 Nov 2025 13:19:01 INFO  [Epoch 31] Val_5 Results: OrderedDict([('ndcg@5', 0.020399732515215874), ('ndcg@10', 0.026157211512327194), ('recall@5', 0.031981755048036575), ('recall@10', 0.04987900331616402)])
+Tue 25 Nov 2025 13:19:01 INFO  [Epoch 31] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 13:19:32 INFO  [Epoch 32] Train Loss: 2.076275564746986
+Tue 25 Nov 2025 13:22:00 INFO  [Epoch 32] Val Results: OrderedDict([('ndcg@5', np.float64(0.02216086257249117)), ('ndcg@10', np.float64(0.02824996877461672)), ('recall@5', np.float64(0.03437850003441175)), ('recall@10', np.float64(0.05335805503030618))])
+Tue 25 Nov 2025 13:22:00 INFO  [Epoch 32] Val_0 Results: OrderedDict([('ndcg@5', 0.021904228255152702), ('ndcg@10', 0.027717484161257744), ('recall@5', 0.033339716494083405), ('recall@10', 0.0514632910490036)])
+Tue 25 Nov 2025 13:22:00 INFO  [Epoch 32] Val_1 Results: OrderedDict([('ndcg@5', 0.022794805467128754), ('ndcg@10', 0.029046159237623215), ('recall@5', 0.03515033423900604), ('recall@10', 0.05464927852153778)])
+Tue 25 Nov 2025 13:22:00 INFO  [Epoch 32] Val_2 Results: OrderedDict([('ndcg@5', 0.02270016446709633), ('ndcg@10', 0.028817899525165558), ('recall@5', 0.034889187663793564), ('recall@10', 0.053952887654304504)])
+Tue 25 Nov 2025 13:22:00 INFO  [Epoch 32] Val_3 Results: OrderedDict([('ndcg@5', 0.023126257583498955), ('ndcg@10', 0.02920064702630043), ('recall@5', 0.03539406880736351), ('recall@10', 0.054318495094776154)])
+Tue 25 Nov 2025 13:22:00 INFO  [Epoch 32] Val_4 Results: OrderedDict([('ndcg@5', 0.021602023392915726), ('ndcg@10', 0.028012793511152267), ('recall@5', 0.03438430279493332), ('recall@10', 0.05437072366476059)])
+Tue 25 Nov 2025 13:22:00 INFO  [Epoch 32] Val_5 Results: OrderedDict([('ndcg@5', 0.02083769626915455), ('ndcg@10', 0.026704829186201096), ('recall@5', 0.03311339020729065), ('recall@10', 0.05139365419745445)])
+Tue 25 Nov 2025 13:22:00 INFO  [Epoch 32] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 13:22:32 INFO  [Epoch 33] Train Loss: 2.0695748404509327
+Tue 25 Nov 2025 13:24:59 INFO  [Epoch 33] Val Results: OrderedDict([('ndcg@5', np.float64(0.022313864280780155)), ('ndcg@10', np.float64(0.028057697229087353)), ('recall@5', np.float64(0.03462804046769937)), ('recall@10', np.float64(0.05247015692293644))])
+Tue 25 Nov 2025 13:24:59 INFO  [Epoch 33] Val_0 Results: OrderedDict([('ndcg@5', 0.022045599296689034), ('ndcg@10', 0.02744549885392189), ('recall@5', 0.033722732216119766), ('recall@10', 0.050505753606557846)])
+Tue 25 Nov 2025 13:24:59 INFO  [Epoch 33] Val_1 Results: OrderedDict([('ndcg@5', 0.023159731179475784), ('ndcg@10', 0.028951136395335197), ('recall@5', 0.03579449653625488), ('recall@10', 0.05381361022591591)])
+Tue 25 Nov 2025 13:24:59 INFO  [Epoch 33] Val_2 Results: OrderedDict([('ndcg@5', 0.02292604371905327), ('ndcg@10', 0.02874213457107544), ('recall@5', 0.035341840237379074), ('recall@10', 0.05339577794075012)])
+Tue 25 Nov 2025 13:24:59 INFO  [Epoch 33] Val_3 Results: OrderedDict([('ndcg@5', 0.023155055940151215), ('ndcg@10', 0.02896767482161522), ('recall@5', 0.035446301102638245), ('recall@10', 0.05348282679915428)])
+Tue 25 Nov 2025 13:24:59 INFO  [Epoch 33] Val_4 Results: OrderedDict([('ndcg@5', 0.021764518693089485), ('ndcg@10', 0.02779354341328144), ('recall@5', 0.034540992230176926), ('recall@10', 0.05325649678707123)])
+Tue 25 Nov 2025 13:24:59 INFO  [Epoch 33] Val_5 Results: OrderedDict([('ndcg@5', 0.020832236856222153), ('ndcg@10', 0.02644619531929493), ('recall@5', 0.03292188048362732), ('recall@10', 0.05036647617816925)])
+Tue 25 Nov 2025 13:25:32 INFO  [Epoch 34] Train Loss: 2.062839564835783
+Tue 25 Nov 2025 13:28:00 INFO  [Epoch 34] Val Results: OrderedDict([('ndcg@5', np.float64(0.02221638026336829)), ('ndcg@10', np.float64(0.02838006801903248)), ('recall@5', np.float64(0.034401713560024895)), ('recall@10', np.float64(0.0536046934624513))])
+Tue 25 Nov 2025 13:28:00 INFO  [Epoch 34] Val_0 Results: OrderedDict([('ndcg@5', 0.02215227298438549), ('ndcg@10', 0.02810489572584629), ('recall@5', 0.033618275076150894), ('recall@10', 0.0521945022046566)])
+Tue 25 Nov 2025 13:28:00 INFO  [Epoch 34] Val_1 Results: OrderedDict([('ndcg@5', 0.02267415076494217), ('ndcg@10', 0.028979288414120674), ('recall@5', 0.034941416233778), ('recall@10', 0.054597049951553345)])
+Tue 25 Nov 2025 13:28:00 INFO  [Epoch 34] Val_2 Results: OrderedDict([('ndcg@5', 0.022635318338871002), ('ndcg@10', 0.028846217319369316), ('recall@5', 0.03485436737537384), ('recall@10', 0.05419662594795227)])
+Tue 25 Nov 2025 13:28:00 INFO  [Epoch 34] Val_3 Results: OrderedDict([('ndcg@5', 0.02294565923511982), ('ndcg@10', 0.0290793739259243), ('recall@5', 0.035185154527425766), ('recall@10', 0.05430108308792114)])
+Tue 25 Nov 2025 13:28:00 INFO  [Epoch 34] Val_4 Results: OrderedDict([('ndcg@5', 0.021884076297283173), ('ndcg@10', 0.028226613998413086), ('recall@5', 0.0346454493701458), ('recall@10', 0.05440554395318031)])
+Tue 25 Nov 2025 13:28:00 INFO  [Epoch 34] Val_5 Results: OrderedDict([('ndcg@5', 0.021006803959608078), ('ndcg@10', 0.027044018730521202), ('recall@5', 0.033165618777275085), ('recall@10', 0.05193335562944412)])
+Tue 25 Nov 2025 13:28:00 INFO  [Epoch 34] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 13:28:31 INFO  [Epoch 35] Train Loss: 2.057970389555593
+Tue 25 Nov 2025 13:30:59 INFO  [Epoch 35] Val Results: OrderedDict([('ndcg@5', np.float64(0.022048117282489937)), ('ndcg@10', np.float64(0.028050549638768036)), ('recall@5', np.float64(0.03416377926866213)), ('recall@10', np.float64(0.052853171403209366))])
+Tue 25 Nov 2025 13:30:59 INFO  [Epoch 35] Val_0 Results: OrderedDict([('ndcg@5', 0.021698156371712685), ('ndcg@10', 0.027416713535785675), ('recall@5', 0.0330437496304512), ('recall@10', 0.0508713573217392)])
+Tue 25 Nov 2025 13:30:59 INFO  [Epoch 35] Val_1 Results: OrderedDict([('ndcg@5', 0.02256268449127674), ('ndcg@10', 0.028723018243908882), ('recall@5', 0.034906595945358276), ('recall@10', 0.05407475680112839)])
+Tue 25 Nov 2025 13:30:59 INFO  [Epoch 35] Val_2 Results: OrderedDict([('ndcg@5', 0.02257971093058586), ('ndcg@10', 0.028647659346461296), ('recall@5', 0.034802138805389404), ('recall@10', 0.05370915308594704)])
+Tue 25 Nov 2025 13:30:59 INFO  [Epoch 35] Val_3 Results: OrderedDict([('ndcg@5', 0.02313096635043621), ('ndcg@10', 0.0290742926299572), ('recall@5', 0.03549852967262268), ('recall@10', 0.05400511994957924)])
+Tue 25 Nov 2025 13:30:59 INFO  [Epoch 35] Val_4 Results: OrderedDict([('ndcg@5', 0.021620651707053185), ('ndcg@10', 0.02791718952357769), ('recall@5', 0.034175384789705276), ('recall@10', 0.053778789937496185)])
+Tue 25 Nov 2025 13:30:59 INFO  [Epoch 35] Val_5 Results: OrderedDict([('ndcg@5', 0.02069653384387493), ('ndcg@10', 0.02652442455291748), ('recall@5', 0.03255627676844597), ('recall@10', 0.050679851323366165)])
+Tue 25 Nov 2025 13:31:30 INFO  [Epoch 36] Train Loss: 2.0517744315666215
+Tue 25 Nov 2025 13:33:57 INFO  [Epoch 36] Val Results: OrderedDict([('ndcg@5', np.float64(0.022185648791491985)), ('ndcg@10', np.float64(0.02833604843666156)), ('recall@5', np.float64(0.03436689389248689)), ('recall@10', np.float64(0.053491530319054924))])
+Tue 25 Nov 2025 13:33:57 INFO  [Epoch 36] Val_0 Results: OrderedDict([('ndcg@5', 0.021781759336590767), ('ndcg@10', 0.0275252815335989), ('recall@5', 0.03330489620566368), ('recall@10', 0.051149915903806686)])
+Tue 25 Nov 2025 13:33:57 INFO  [Epoch 36] Val_1 Results: OrderedDict([('ndcg@5', 0.022844908758997917), ('ndcg@10', 0.029090501368045807), ('recall@5', 0.035272203385829926), ('recall@10', 0.05471891909837723)])
+Tue 25 Nov 2025 13:33:57 INFO  [Epoch 36] Val_2 Results: OrderedDict([('ndcg@5', 0.022759899497032166), ('ndcg@10', 0.029031261801719666), ('recall@5', 0.03501105681061745), ('recall@10', 0.054510001093149185)])
+Tue 25 Nov 2025 13:33:57 INFO  [Epoch 36] Val_3 Results: OrderedDict([('ndcg@5', 0.023119784891605377), ('ndcg@10', 0.029380232095718384), ('recall@5', 0.03528961166739464), ('recall@10', 0.05475373938679695)])
+Tue 25 Nov 2025 13:33:57 INFO  [Epoch 36] Val_4 Results: OrderedDict([('ndcg@5', 0.021834731101989746), ('ndcg@10', 0.028316384181380272), ('recall@5', 0.03448876366019249), ('recall@10', 0.05463187023997307)])
+Tue 25 Nov 2025 13:33:57 INFO  [Epoch 36] Val_5 Results: OrderedDict([('ndcg@5', 0.02077280916273594), ('ndcg@10', 0.02667262963950634), ('recall@5', 0.03283483162522316), ('recall@10', 0.05118473619222641)])
+Tue 25 Nov 2025 13:34:28 INFO  [Epoch 37] Train Loss: 2.0453435510867872
+Tue 25 Nov 2025 13:36:56 INFO  [Epoch 37] Val Results: OrderedDict([('ndcg@5', np.float64(0.02255609631538391)), ('ndcg@10', np.float64(0.028824533335864544)), ('recall@5', np.float64(0.034680270279447235)), ('recall@10', np.float64(0.05416470766067505))])
+Tue 25 Nov 2025 13:36:56 INFO  [Epoch 37] Val_0 Results: OrderedDict([('ndcg@5', 0.02257521264255047), ('ndcg@10', 0.02859356440603733), ('recall@5', 0.03412315621972084), ('recall@10', 0.052856072783470154)])
+Tue 25 Nov 2025 13:36:56 INFO  [Epoch 37] Val_1 Results: OrderedDict([('ndcg@5', 0.023170340806245804), ('ndcg@10', 0.029622742906212807), ('recall@5', 0.035620398819446564), ('recall@10', 0.05567645654082298)])
+Tue 25 Nov 2025 13:36:56 INFO  [Epoch 37] Val_2 Results: OrderedDict([('ndcg@5', 0.023169735446572304), ('ndcg@10', 0.02951037883758545), ('recall@5', 0.035533349961042404), ('recall@10', 0.05522380396723747)])
+Tue 25 Nov 2025 13:36:56 INFO  [Epoch 37] Val_3 Results: OrderedDict([('ndcg@5', 0.02367645874619484), ('ndcg@10', 0.02983655221760273), ('recall@5', 0.0361078716814518), ('recall@10', 0.0552586205303669)])
+Tue 25 Nov 2025 13:36:56 INFO  [Epoch 37] Val_4 Results: OrderedDict([('ndcg@5', 0.021722348406910896), ('ndcg@10', 0.028227295726537704), ('recall@5', 0.03401869907975197), ('recall@10', 0.05424885451793671)])
+Tue 25 Nov 2025 13:36:56 INFO  [Epoch 37] Val_5 Results: OrderedDict([('ndcg@5', 0.021022481843829155), ('ndcg@10', 0.027156665921211243), ('recall@5', 0.03267814591526985), ('recall@10', 0.05172443762421608)])
+Tue 25 Nov 2025 13:36:56 INFO  [Epoch 37] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 13:37:27 INFO  [Epoch 38] Train Loss: 2.043886618474267
+Tue 25 Nov 2025 13:39:55 INFO  [Epoch 38] Val Results: OrderedDict([('ndcg@5', np.float64(0.022290167088309925)), ('ndcg@10', np.float64(0.028431349744399387)), ('recall@5', np.float64(0.03439010617633661)), ('recall@10', np.float64(0.0534364003688097))])
+Tue 25 Nov 2025 13:39:55 INFO  [Epoch 38] Val_0 Results: OrderedDict([('ndcg@5', 0.021827373653650284), ('ndcg@10', 0.027753572911024094), ('recall@5', 0.03313079848885536), ('recall@10', 0.05148070305585861)])
+Tue 25 Nov 2025 13:39:55 INFO  [Epoch 38] Val_1 Results: OrderedDict([('ndcg@5', 0.022870920598506927), ('ndcg@10', 0.02916550263762474), ('recall@5', 0.035080693662166595), ('recall@10', 0.054614461958408356)])
+Tue 25 Nov 2025 13:39:55 INFO  [Epoch 38] Val_2 Results: OrderedDict([('ndcg@5', 0.022937336936593056), ('ndcg@10', 0.029190266504883766), ('recall@5', 0.03521997109055519), ('recall@10', 0.054614461958408356)])
+Tue 25 Nov 2025 13:39:55 INFO  [Epoch 38] Val_3 Results: OrderedDict([('ndcg@5', 0.023296738043427467), ('ndcg@10', 0.029451679438352585), ('recall@5', 0.035620398819446564), ('recall@10', 0.054701510816812515)])
+Tue 25 Nov 2025 13:39:55 INFO  [Epoch 38] Val_4 Results: OrderedDict([('ndcg@5', 0.021854838356375694), ('ndcg@10', 0.028198642656207085), ('recall@5', 0.034453943371772766), ('recall@10', 0.05417921766638756)])
+Tue 25 Nov 2025 13:39:55 INFO  [Epoch 38] Val_5 Results: OrderedDict([('ndcg@5', 0.020953794941306114), ('ndcg@10', 0.026828434318304062), ('recall@5', 0.03283483162522316), ('recall@10', 0.0510280467569828)])
+Tue 25 Nov 2025 13:40:25 INFO  [Epoch 39] Train Loss: 2.0376928686826545
+Tue 25 Nov 2025 13:42:53 INFO  [Epoch 39] Val Results: OrderedDict([('ndcg@5', np.float64(0.02271634340286255)), ('ndcg@10', np.float64(0.028912529659767944)), ('recall@5', np.float64(0.03496172775824865)), ('recall@10', np.float64(0.05421693747242292))])
+Tue 25 Nov 2025 13:42:53 INFO  [Epoch 39] Val_0 Results: OrderedDict([('ndcg@5', 0.02252833917737007), ('ndcg@10', 0.028261389583349228), ('recall@5', 0.03441912308335304), ('recall@10', 0.05226414278149605)])
+Tue 25 Nov 2025 13:42:53 INFO  [Epoch 39] Val_1 Results: OrderedDict([('ndcg@5', 0.02336992882192135), ('ndcg@10', 0.029688633978366852), ('recall@5', 0.035898953676223755), ('recall@10', 0.055519767105579376)])
+Tue 25 Nov 2025 13:42:53 INFO  [Epoch 39] Val_2 Results: OrderedDict([('ndcg@5', 0.023266615346074104), ('ndcg@10', 0.02961559034883976), ('recall@5', 0.03551593795418739), ('recall@10', 0.05522380396723747)])
+Tue 25 Nov 2025 13:42:53 INFO  [Epoch 39] Val_3 Results: OrderedDict([('ndcg@5', 0.023464757949113846), ('ndcg@10', 0.029623840004205704), ('recall@5', 0.03570744767785072), ('recall@10', 0.05484078824520111)])
+Tue 25 Nov 2025 13:42:53 INFO  [Epoch 39] Val_4 Results: OrderedDict([('ndcg@5', 0.022159717977046967), ('ndcg@10', 0.028692949563264847), ('recall@5', 0.03466286137700081), ('recall@10', 0.054980065673589706)])
+Tue 25 Nov 2025 13:42:53 INFO  [Epoch 39] Val_5 Results: OrderedDict([('ndcg@5', 0.021508701145648956), ('ndcg@10', 0.027592774480581284), ('recall@5', 0.03356604278087616), ('recall@10', 0.05247305706143379)])
+Tue 25 Nov 2025 13:42:53 INFO  [Epoch 39] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 13:43:24 INFO  [Epoch 40] Train Loss: 2.0333534818201517
+Tue 25 Nov 2025 13:45:52 INFO  [Epoch 40] Val Results: OrderedDict([('ndcg@5', np.float64(0.022568206613262493)), ('ndcg@10', np.float64(0.028652573314805824)), ('recall@5', np.float64(0.0348688755184412)), ('recall@10', np.float64(0.05381070946653684))])
+Tue 25 Nov 2025 13:45:52 INFO  [Epoch 40] Val_0 Results: OrderedDict([('ndcg@5', 0.022058803588151932), ('ndcg@10', 0.027942005544900894), ('recall@5', 0.03368791192770004), ('recall@10', 0.05200299620628357)])
+Tue 25 Nov 2025 13:45:52 INFO  [Epoch 40] Val_1 Results: OrderedDict([('ndcg@5', 0.023202741518616676), ('ndcg@10', 0.029471755027770996), ('recall@5', 0.03574226424098015), ('recall@10', 0.05527603253722191)])
+Tue 25 Nov 2025 13:45:52 INFO  [Epoch 40] Val_2 Results: OrderedDict([('ndcg@5', 0.023086940869688988), ('ndcg@10', 0.02929050847887993), ('recall@5', 0.03558557853102684), ('recall@10', 0.05491042509675026)])
+Tue 25 Nov 2025 13:45:52 INFO  [Epoch 40] Val_3 Results: OrderedDict([('ndcg@5', 0.023536276072263718), ('ndcg@10', 0.029406802728772163), ('recall@5', 0.03605564311146736), ('recall@10', 0.054335903376340866)])
+Tue 25 Nov 2025 13:45:52 INFO  [Epoch 40] Val_4 Results: OrderedDict([('ndcg@5', 0.022140901535749435), ('ndcg@10', 0.028501711785793304), ('recall@5', 0.03473249822854996), ('recall@10', 0.054510001093149185)])
+Tue 25 Nov 2025 13:45:52 INFO  [Epoch 40] Val_5 Results: OrderedDict([('ndcg@5', 0.021383576095104218), ('ndcg@10', 0.027302656322717667), ('recall@5', 0.03340935707092285), ('recall@10', 0.05182889848947525)])
+Tue 25 Nov 2025 13:46:24 INFO  [Epoch 41] Train Loss: 2.028530634014655
+Tue 25 Nov 2025 13:48:51 INFO  [Epoch 41] Val Results: OrderedDict([('ndcg@5', np.float64(0.022725873937209446)), ('ndcg@10', np.float64(0.029078960108260315)), ('recall@5', np.float64(0.03493271147211393)), ('recall@10', np.float64(0.05469860757390658))])
+Tue 25 Nov 2025 13:48:51 INFO  [Epoch 41] Val_0 Results: OrderedDict([('ndcg@5', 0.022595373913645744), ('ndcg@10', 0.028620710596442223), ('recall@5', 0.03419279679656029), ('recall@10', 0.05294312164187431)])
+Tue 25 Nov 2025 13:48:51 INFO  [Epoch 41] Val_1 Results: OrderedDict([('ndcg@5', 0.02324042282998562), ('ndcg@10', 0.029910041019320488), ('recall@5', 0.035620398819446564), ('recall@10', 0.05637284740805626)])
+Tue 25 Nov 2025 13:48:51 INFO  [Epoch 41] Val_2 Results: OrderedDict([('ndcg@5', 0.02326037734746933), ('ndcg@10', 0.02970069833099842), ('recall@5', 0.03560298681259155), ('recall@10', 0.05567645654082298)])
+Tue 25 Nov 2025 13:48:51 INFO  [Epoch 41] Val_3 Results: OrderedDict([('ndcg@5', 0.023888833820819855), ('ndcg@10', 0.030187709257006645), ('recall@5', 0.03638642653822899), ('recall@10', 0.05600724369287491)])
+Tue 25 Nov 2025 13:48:51 INFO  [Epoch 41] Val_4 Results: OrderedDict([('ndcg@5', 0.022231541574001312), ('ndcg@10', 0.028779521584510803), ('recall@5', 0.03481954708695412), ('recall@10', 0.055154163390398026)])
+Tue 25 Nov 2025 13:48:51 INFO  [Epoch 41] Val_5 Results: OrderedDict([('ndcg@5', 0.021138694137334824), ('ndcg@10', 0.027275079861283302), ('recall@5', 0.032974112778902054), ('recall@10', 0.052037812769412994)])
+Tue 25 Nov 2025 13:48:51 INFO  [Epoch 41] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 13:49:23 INFO  [Epoch 42] Train Loss: 2.022111919878837
+Tue 25 Nov 2025 13:51:50 INFO  [Epoch 42] Val Results: OrderedDict([('ndcg@5', np.float64(0.023084634604553383)), ('ndcg@10', np.float64(0.02922684730341037)), ('recall@5', np.float64(0.03587283877034982)), ('recall@10', np.float64(0.054968458910783134))])
+Tue 25 Nov 2025 13:51:50 INFO  [Epoch 42] Val_0 Results: OrderedDict([('ndcg@5', 0.022928614169359207), ('ndcg@10', 0.02878550812602043), ('recall@5', 0.03502846509218216), ('recall@10', 0.0532216802239418)])
+Tue 25 Nov 2025 13:51:50 INFO  [Epoch 42] Val_1 Results: OrderedDict([('ndcg@5', 0.02360815554857254), ('ndcg@10', 0.029788266867399216), ('recall@5', 0.03673462197184563), ('recall@10', 0.055972423404455185)])
+Tue 25 Nov 2025 13:51:50 INFO  [Epoch 42] Val_2 Results: OrderedDict([('ndcg@5', 0.02369011752307415), ('ndcg@10', 0.029963403940200806), ('recall@5', 0.036630164831876755), ('recall@10', 0.05616392940282822)])
+Tue 25 Nov 2025 13:51:50 INFO  [Epoch 42] Val_3 Results: OrderedDict([('ndcg@5', 0.02415730245411396), ('ndcg@10', 0.030202433466911316), ('recall@5', 0.037082817405462265), ('recall@10', 0.055867962539196014)])
+Tue 25 Nov 2025 13:51:50 INFO  [Epoch 42] Val_4 Results: OrderedDict([('ndcg@5', 0.022467415779829025), ('ndcg@10', 0.02897687628865242), ('recall@5', 0.03548111766576767), ('recall@10', 0.055693864822387695)])
+Tue 25 Nov 2025 13:51:50 INFO  [Epoch 42] Val_5 Results: OrderedDict([('ndcg@5', 0.021656202152371407), ('ndcg@10', 0.027644595131278038), ('recall@5', 0.03427984565496445), ('recall@10', 0.05289089307188988)])
+Tue 25 Nov 2025 13:51:50 INFO  [Epoch 42] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 13:52:22 INFO  [Epoch 43] Train Loss: 2.0206106204211576
+Tue 25 Nov 2025 13:54:50 INFO  [Epoch 43] Val Results: OrderedDict([('ndcg@5', np.float64(0.022936373949050903)), ('ndcg@10', np.float64(0.029138030173877876)), ('recall@5', np.float64(0.03538536528746287)), ('recall@10', np.float64(0.05464347700277964))])
+Tue 25 Nov 2025 13:54:50 INFO  [Epoch 43] Val_0 Results: OrderedDict([('ndcg@5', 0.02256929874420166), ('ndcg@10', 0.02838900126516819), ('recall@5', 0.03431466594338417), ('recall@10', 0.052403420209884644)])
+Tue 25 Nov 2025 13:54:50 INFO  [Epoch 43] Val_1 Results: OrderedDict([('ndcg@5', 0.023521101102232933), ('ndcg@10', 0.029834993183612823), ('recall@5', 0.036073051393032074), ('recall@10', 0.05567645654082298)])
+Tue 25 Nov 2025 13:54:50 INFO  [Epoch 43] Val_2 Results: OrderedDict([('ndcg@5', 0.023531021550297737), ('ndcg@10', 0.02980833128094673), ('recall@5', 0.03600341081619263), ('recall@10', 0.05546753853559494)])
+Tue 25 Nov 2025 13:54:50 INFO  [Epoch 43] Val_3 Results: OrderedDict([('ndcg@5', 0.023965904489159584), ('ndcg@10', 0.030134031549096107), ('recall@5', 0.036543115973472595), ('recall@10', 0.055711276829242706)])
+Tue 25 Nov 2025 13:54:50 INFO  [Epoch 43] Val_4 Results: OrderedDict([('ndcg@5', 0.022464921697974205), ('ndcg@10', 0.0289660282433033), ('recall@5', 0.03548111766576767), ('recall@10', 0.05567645654082298)])
+Tue 25 Nov 2025 13:54:50 INFO  [Epoch 43] Val_5 Results: OrderedDict([('ndcg@5', 0.0215659961104393), ('ndcg@10', 0.0276957955211401), ('recall@5', 0.033896829932928085), ('recall@10', 0.0529257133603096)])
+Tue 25 Nov 2025 13:55:21 INFO  [Epoch 44] Train Loss: 2.0175632378317703
+Tue 25 Nov 2025 13:57:48 INFO  [Epoch 44] Val Results: OrderedDict([('ndcg@5', np.float64(0.02278293048342069)), ('ndcg@10', np.float64(0.02909885160624981)), ('recall@5', np.float64(0.03487467889984449)), ('recall@10', np.float64(0.05445487052202225))])
+Tue 25 Nov 2025 13:57:48 INFO  [Epoch 44] Val_0 Results: OrderedDict([('ndcg@5', 0.02236085943877697), ('ndcg@10', 0.028317980468273163), ('recall@5', 0.03365309163928032), ('recall@10', 0.05207263305783272)])
+Tue 25 Nov 2025 13:57:48 INFO  [Epoch 44] Val_1 Results: OrderedDict([('ndcg@5', 0.02337735705077648), ('ndcg@10', 0.029836952686309814), ('recall@5', 0.03549852967262268), ('recall@10', 0.055519767105579376)])
+Tue 25 Nov 2025 13:57:48 INFO  [Epoch 44] Val_2 Results: OrderedDict([('ndcg@5', 0.023362720385193825), ('ndcg@10', 0.02978702448308468), ('recall@5', 0.03541148081421852), ('recall@10', 0.055328261107206345)])
+Tue 25 Nov 2025 13:57:48 INFO  [Epoch 44] Val_3 Results: OrderedDict([('ndcg@5', 0.023766648024320602), ('ndcg@10', 0.03001493029296398), ('recall@5', 0.03605564311146736), ('recall@10', 0.05546753853559494)])
+Tue 25 Nov 2025 13:57:48 INFO  [Epoch 44] Val_4 Results: OrderedDict([('ndcg@5', 0.02242717333137989), ('ndcg@10', 0.029061265289783478), ('recall@5', 0.03520256280899048), ('recall@10', 0.055798325687646866)])
+Tue 25 Nov 2025 13:57:48 INFO  [Epoch 44] Val_5 Results: OrderedDict([('ndcg@5', 0.02140282467007637), ('ndcg@10', 0.02757495641708374), ('recall@5', 0.033426765352487564), ('recall@10', 0.05254269763827324)])
+Tue 25 Nov 2025 13:58:20 INFO  [Epoch 45] Train Loss: 2.014670523510022
+Tue 25 Nov 2025 14:00:48 INFO  [Epoch 45] Val Results: OrderedDict([('ndcg@5', np.float64(0.02279650264730056)), ('ndcg@10', np.float64(0.02896529684464137)), ('recall@5', np.float64(0.03526930014292399)), ('recall@10', np.float64(0.054443263759215675))])
+Tue 25 Nov 2025 14:00:48 INFO  [Epoch 45] Val_0 Results: OrderedDict([('ndcg@5', 0.02243969216942787), ('ndcg@10', 0.028398945927619934), ('recall@5', 0.03414056822657585), ('recall@10', 0.052699387073516846)])
+Tue 25 Nov 2025 14:00:48 INFO  [Epoch 45] Val_1 Results: OrderedDict([('ndcg@5', 0.023396186530590057), ('ndcg@10', 0.029787518084049225), ('recall@5', 0.03600341081619263), ('recall@10', 0.05590278282761574)])
+Tue 25 Nov 2025 14:00:48 INFO  [Epoch 45] Val_2 Results: OrderedDict([('ndcg@5', 0.023376191034913063), ('ndcg@10', 0.02965729311108589), ('recall@5', 0.035898953676223755), ('recall@10', 0.05543271824717522)])
+Tue 25 Nov 2025 14:00:48 INFO  [Epoch 45] Val_3 Results: OrderedDict([('ndcg@5', 0.023679226636886597), ('ndcg@10', 0.029787389561533928), ('recall@5', 0.03628196939826012), ('recall@10', 0.0552586205303669)])
+Tue 25 Nov 2025 14:00:48 INFO  [Epoch 45] Val_4 Results: OrderedDict([('ndcg@5', 0.022435437887907028), ('ndcg@10', 0.02875676192343235), ('recall@5', 0.03555075824260712), ('recall@10', 0.055154163390398026)])
+Tue 25 Nov 2025 14:00:48 INFO  [Epoch 45] Val_5 Results: OrderedDict([('ndcg@5', 0.02145228162407875), ('ndcg@10', 0.027403872460126877), ('recall@5', 0.03374014049768448), ('recall@10', 0.052211910486221313)])
+Tue 25 Nov 2025 14:01:19 INFO  [Epoch 46] Train Loss: 2.007586404109378
+Tue 25 Nov 2025 14:03:47 INFO  [Epoch 46] Val Results: OrderedDict([('ndcg@5', np.float64(0.02294075582176447)), ('ndcg@10', np.float64(0.029251345122853916)), ('recall@5', np.float64(0.03504877599577109)), ('recall@10', np.float64(0.05468700143198172))])
+Tue 25 Nov 2025 14:03:47 INFO  [Epoch 46] Val_0 Results: OrderedDict([('ndcg@5', 0.022873541340231895), ('ndcg@10', 0.028817221522331238), ('recall@5', 0.03440171480178833), ('recall@10', 0.0529257133603096)])
+Tue 25 Nov 2025 14:03:47 INFO  [Epoch 46] Val_1 Results: OrderedDict([('ndcg@5', 0.02347455359995365), ('ndcg@10', 0.030038069933652878), ('recall@5', 0.03584672510623932), ('recall@10', 0.05632061883807182)])
+Tue 25 Nov 2025 14:03:47 INFO  [Epoch 46] Val_2 Results: OrderedDict([('ndcg@5', 0.023419303819537163), ('ndcg@10', 0.02992163598537445), ('recall@5', 0.03560298681259155), ('recall@10', 0.0558505542576313)])
+Tue 25 Nov 2025 14:03:47 INFO  [Epoch 46] Val_3 Results: OrderedDict([('ndcg@5', 0.02389814890921116), ('ndcg@10', 0.030245887115597725), ('recall@5', 0.036090459674596786), ('recall@10', 0.05581573396921158)])
+Tue 25 Nov 2025 14:03:47 INFO  [Epoch 46] Val_4 Results: OrderedDict([('ndcg@5', 0.022347554564476013), ('ndcg@10', 0.028937820345163345), ('recall@5', 0.03478472679853439), ('recall@10', 0.05527603253722191)])
+Tue 25 Nov 2025 14:03:47 INFO  [Epoch 46] Val_5 Results: OrderedDict([('ndcg@5', 0.021631432697176933), ('ndcg@10', 0.027547435835003853), ('recall@5', 0.03356604278087616), ('recall@10', 0.05193335562944412)])
+Tue 25 Nov 2025 14:03:47 INFO  [Epoch 46] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 14:04:18 INFO  [Epoch 47] Train Loss: 2.0031116584622835
+Tue 25 Nov 2025 14:06:46 INFO  [Epoch 47] Val Results: OrderedDict([('ndcg@5', np.float64(0.02294593087087075)), ('ndcg@10', np.float64(0.029193857374290626)), ('recall@5', np.float64(0.03536795576413473)), ('recall@10', np.float64(0.0548059685776631))])
+Tue 25 Nov 2025 14:06:46 INFO  [Epoch 47] Val_0 Results: OrderedDict([('ndcg@5', 0.022738302126526833), ('ndcg@10', 0.02870476245880127), ('recall@5', 0.03448876366019249), ('recall@10', 0.053047582507133484)])
+Tue 25 Nov 2025 14:06:46 INFO  [Epoch 47] Val_1 Results: OrderedDict([('ndcg@5', 0.023612093180418015), ('ndcg@10', 0.029972275719046593), ('recall@5', 0.036351606249809265), ('recall@10', 0.056146521121263504)])
+Tue 25 Nov 2025 14:06:46 INFO  [Epoch 47] Val_2 Results: OrderedDict([('ndcg@5', 0.02359963022172451), ('ndcg@10', 0.029959283769130707), ('recall@5', 0.036073051393032074), ('recall@10', 0.0558505542576313)])
+Tue 25 Nov 2025 14:06:46 INFO  [Epoch 47] Val_3 Results: OrderedDict([('ndcg@5', 0.02397851273417473), ('ndcg@10', 0.03016645833849907), ('recall@5', 0.03673462197184563), ('recall@10', 0.05602465197443962)])
+Tue 25 Nov 2025 14:06:46 INFO  [Epoch 47] Val_4 Results: OrderedDict([('ndcg@5', 0.022463098168373108), ('ndcg@10', 0.0289678405970335), ('recall@5', 0.03528961166739464), ('recall@10', 0.05553717911243439)])
+Tue 25 Nov 2025 14:06:46 INFO  [Epoch 47] Val_5 Results: OrderedDict([('ndcg@5', 0.0212839487940073), ('ndcg@10', 0.027392523363232613), ('recall@5', 0.033270079642534256), ('recall@10', 0.052229322493076324)])
+Tue 25 Nov 2025 14:07:17 INFO  [Epoch 48] Train Loss: 1.9995141685950837
+Tue 25 Nov 2025 14:09:44 INFO  [Epoch 48] Val Results: OrderedDict([('ndcg@5', np.float64(0.02308403669546048)), ('ndcg@10', np.float64(0.029223536762098472)), ('recall@5', np.float64(0.03549562767148018)), ('recall@10', np.float64(0.05457093504567941))])
+Tue 25 Nov 2025 14:09:44 INFO  [Epoch 48] Val_0 Results: OrderedDict([('ndcg@5', 0.022814301773905754), ('ndcg@10', 0.028584519401192665), ('recall@5', 0.03448876366019249), ('recall@10', 0.052420828491449356)])
+Tue 25 Nov 2025 14:09:44 INFO  [Epoch 48] Val_1 Results: OrderedDict([('ndcg@5', 0.023673040792346), ('ndcg@10', 0.029904620721936226), ('recall@5', 0.03619492053985596), ('recall@10', 0.0555545873939991)])
+Tue 25 Nov 2025 14:09:44 INFO  [Epoch 48] Val_2 Results: OrderedDict([('ndcg@5', 0.02358551137149334), ('ndcg@10', 0.029778871685266495), ('recall@5', 0.03588154539465904), ('recall@10', 0.0551193431019783)])
+Tue 25 Nov 2025 14:09:44 INFO  [Epoch 48] Val_3 Results: OrderedDict([('ndcg@5', 0.02408972755074501), ('ndcg@10', 0.030128657817840576), ('recall@5', 0.03668239340186119), ('recall@10', 0.05543271824717522)])
+Tue 25 Nov 2025 14:09:44 INFO  [Epoch 48] Val_4 Results: OrderedDict([('ndcg@5', 0.02262803725898266), ('ndcg@10', 0.029132062569260597), ('recall@5', 0.03556816652417183), ('recall@10', 0.055780913680791855)])
+Tue 25 Nov 2025 14:09:44 INFO  [Epoch 48] Val_5 Results: OrderedDict([('ndcg@5', 0.021713601425290108), ('ndcg@10', 0.02781248837709427), ('recall@5', 0.034157976508140564), ('recall@10', 0.05311721935868263)])
+Tue 25 Nov 2025 14:10:14 INFO  [Epoch 49] Train Loss: 1.994998717146587
+Tue 25 Nov 2025 14:12:42 INFO  [Epoch 49] Val Results: OrderedDict([('ndcg@5', np.float64(0.023319194714228313)), ('ndcg@10', np.float64(0.02930794997761647)), ('recall@5', np.float64(0.035774183770020805)), ('recall@10', np.float64(0.05441134671370188))])
+Tue 25 Nov 2025 14:12:42 INFO  [Epoch 49] Val_0 Results: OrderedDict([('ndcg@5', 0.02284940518438816), ('ndcg@10', 0.028400862589478493), ('recall@5', 0.03441912308335304), ('recall@10', 0.051672209054231644)])
+Tue 25 Nov 2025 14:12:42 INFO  [Epoch 49] Val_1 Results: OrderedDict([('ndcg@5', 0.02366289123892784), ('ndcg@10', 0.02979452721774578), ('recall@5', 0.03628196939826012), ('recall@10', 0.05538048967719078)])
+Tue 25 Nov 2025 14:12:42 INFO  [Epoch 49] Val_2 Results: OrderedDict([('ndcg@5', 0.023774247616529465), ('ndcg@10', 0.02984009124338627), ('recall@5', 0.03621232882142067), ('recall@10', 0.0551193431019783)])
+Tue 25 Nov 2025 14:12:42 INFO  [Epoch 49] Val_3 Results: OrderedDict([('ndcg@5', 0.024170322343707085), ('ndcg@10', 0.03026491031050682), ('recall@5', 0.03666498512029648), ('recall@10', 0.05557199940085411)])
+Tue 25 Nov 2025 14:12:42 INFO  [Epoch 49] Val_4 Results: OrderedDict([('ndcg@5', 0.02314290590584278), ('ndcg@10', 0.029412411153316498), ('recall@5', 0.036160100251436234), ('recall@10', 0.05565904825925827)])
+Tue 25 Nov 2025 14:12:42 INFO  [Epoch 49] Val_5 Results: OrderedDict([('ndcg@5', 0.02231539599597454), ('ndcg@10', 0.028134897351264954), ('recall@5', 0.034906595945358276), ('recall@10', 0.053064990788698196)])
+Tue 25 Nov 2025 14:12:42 INFO  [Epoch 49] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 14:13:14 INFO  [Epoch 50] Train Loss: 1.996960997043291
+Tue 25 Nov 2025 14:15:42 INFO  [Epoch 50] Val Results: OrderedDict([('ndcg@5', np.float64(0.023116149629155796)), ('ndcg@10', np.float64(0.029277548814813297)), ('recall@5', np.float64(0.035759675626953445)), ('recall@10', np.float64(0.05491913172105948))])
+Tue 25 Nov 2025 14:15:42 INFO  [Epoch 50] Val_0 Results: OrderedDict([('ndcg@5', 0.022778989747166634), ('ndcg@10', 0.02862383797764778), ('recall@5', 0.03468026965856552), ('recall@10', 0.052856072783470154)])
+Tue 25 Nov 2025 14:15:42 INFO  [Epoch 50] Val_1 Results: OrderedDict([('ndcg@5', 0.023484427481889725), ('ndcg@10', 0.029857400804758072), ('recall@5', 0.03619492053985596), ('recall@10', 0.05600724369287491)])
+Tue 25 Nov 2025 14:15:42 INFO  [Epoch 50] Val_2 Results: OrderedDict([('ndcg@5', 0.02357669547200203), ('ndcg@10', 0.029797572642564774), ('recall@5', 0.036456067115068436), ('recall@10', 0.055798325687646866)])
+Tue 25 Nov 2025 14:15:42 INFO  [Epoch 50] Val_3 Results: OrderedDict([('ndcg@5', 0.024104194715619087), ('ndcg@10', 0.03026328608393669), ('recall@5', 0.03692613169550896), ('recall@10', 0.056059472262859344)])
+Tue 25 Nov 2025 14:15:42 INFO  [Epoch 50] Val_4 Results: OrderedDict([('ndcg@5', 0.022873902693390846), ('ndcg@10', 0.029313277453184128), ('recall@5', 0.03600341081619263), ('recall@10', 0.056042060256004333)])
+Tue 25 Nov 2025 14:15:42 INFO  [Epoch 50] Val_5 Results: OrderedDict([('ndcg@5', 0.021878687664866447), ('ndcg@10', 0.02780991792678833), ('recall@5', 0.03429725393652916), ('recall@10', 0.05275161564350128)])
+Tue 25 Nov 2025 14:16:12 INFO  [Epoch 51] Train Loss: 1.992065761213109
+Tue 25 Nov 2025 14:18:40 INFO  [Epoch 51] Val Results: OrderedDict([('ndcg@5', np.float64(0.023273238601783913)), ('ndcg@10', np.float64(0.02959162959208091)), ('recall@5', np.float64(0.035701642433802284)), ('recall@10', np.float64(0.05528763805826505))])
+Tue 25 Nov 2025 14:18:40 INFO  [Epoch 51] Val_0 Results: OrderedDict([('ndcg@5', 0.022751526907086372), ('ndcg@10', 0.02889850176870823), ('recall@5', 0.03419279679656029), ('recall@10', 0.05325649678707123)])
+Tue 25 Nov 2025 14:18:40 INFO  [Epoch 51] Val_1 Results: OrderedDict([('ndcg@5', 0.023767512291669846), ('ndcg@10', 0.030139775946736336), ('recall@5', 0.03628196939826012), ('recall@10', 0.056059472262859344)])
+Tue 25 Nov 2025 14:18:40 INFO  [Epoch 51] Val_2 Results: OrderedDict([('ndcg@5', 0.02372000366449356), ('ndcg@10', 0.030037589371204376), ('recall@5', 0.03612527996301651), ('recall@10', 0.055693864822387695)])
+Tue 25 Nov 2025 14:18:40 INFO  [Epoch 51] Val_3 Results: OrderedDict([('ndcg@5', 0.024330249056220055), ('ndcg@10', 0.03058040142059326), ('recall@5', 0.03687389940023422), ('recall@10', 0.05626839026808739)])
+Tue 25 Nov 2025 14:18:40 INFO  [Epoch 51] Val_4 Results: OrderedDict([('ndcg@5', 0.022981276735663414), ('ndcg@10', 0.029589137062430382), ('recall@5', 0.03603823110461235), ('recall@10', 0.05649471655488014)])
+Tue 25 Nov 2025 14:18:40 INFO  [Epoch 51] Val_5 Results: OrderedDict([('ndcg@5', 0.02208886295557022), ('ndcg@10', 0.02830437198281288), ('recall@5', 0.034697677940130234), ('recall@10', 0.053952887654304504)])
+Tue 25 Nov 2025 14:18:40 INFO  [Epoch 51] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 14:19:11 INFO  [Epoch 52] Train Loss: 1.9876861704122402
+Tue 25 Nov 2025 14:21:40 INFO  [Epoch 52] Val Results: OrderedDict([('ndcg@5', np.float64(0.02326236634204785)), ('ndcg@10', np.float64(0.029620983948310215)), ('recall@5', np.float64(0.03555946300427119)), ('recall@10', np.float64(0.055278933296600975))])
+Tue 25 Nov 2025 14:21:40 INFO  [Epoch 52] Val_0 Results: OrderedDict([('ndcg@5', 0.022991206496953964), ('ndcg@10', 0.028922950848937035), ('recall@5', 0.03455840051174164), ('recall@10', 0.05297794193029404)])
+Tue 25 Nov 2025 14:21:40 INFO  [Epoch 52] Val_1 Results: OrderedDict([('ndcg@5', 0.023696592077612877), ('ndcg@10', 0.030261103063821793), ('recall@5', 0.035986002534627914), ('recall@10', 0.05632061883807182)])
+Tue 25 Nov 2025 14:21:40 INFO  [Epoch 52] Val_2 Results: OrderedDict([('ndcg@5', 0.0237155482172966), ('ndcg@10', 0.030156521126627922), ('recall@5', 0.03602082282304764), ('recall@10', 0.0559898316860199)])
+Tue 25 Nov 2025 14:21:40 INFO  [Epoch 52] Val_3 Results: OrderedDict([('ndcg@5', 0.02420196495950222), ('ndcg@10', 0.030575107783079147), ('recall@5', 0.03659534454345703), ('recall@10', 0.05637284740805626)])
+Tue 25 Nov 2025 14:21:40 INFO  [Epoch 52] Val_4 Results: OrderedDict([('ndcg@5', 0.022985700517892838), ('ndcg@10', 0.029645565897226334), ('recall@5', 0.03582931309938431), ('recall@10', 0.05647730454802513)])
+Tue 25 Nov 2025 14:21:40 INFO  [Epoch 52] Val_5 Results: OrderedDict([('ndcg@5', 0.021983185783028603), ('ndcg@10', 0.028164654970169067), ('recall@5', 0.03436689451336861), ('recall@10', 0.05353505536913872)])
+Tue 25 Nov 2025 14:21:40 INFO  [Epoch 52] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 14:22:10 INFO  [Epoch 53] Train Loss: 1.9870895548275846
+Tue 25 Nov 2025 14:24:37 INFO  [Epoch 53] Val Results: OrderedDict([('ndcg@5', np.float64(0.023391809004048508)), ('ndcg@10', np.float64(0.029785219579935074)), ('recall@5', np.float64(0.035762577007214226)), ('recall@10', np.float64(0.055641637494166694))])
+Tue 25 Nov 2025 14:24:37 INFO  [Epoch 53] Val_0 Results: OrderedDict([('ndcg@5', 0.022961057722568512), ('ndcg@10', 0.028939055278897285), ('recall@5', 0.0346454493701458), ('recall@10', 0.05325649678707123)])
+Tue 25 Nov 2025 14:24:37 INFO  [Epoch 53] Val_1 Results: OrderedDict([('ndcg@5', 0.0237500611692667), ('ndcg@10', 0.030259571969509125), ('recall@5', 0.03624714910984039), ('recall@10', 0.05649471655488014)])
+Tue 25 Nov 2025 14:24:37 INFO  [Epoch 53] Val_2 Results: OrderedDict([('ndcg@5', 0.023844776675105095), ('ndcg@10', 0.030264664441347122), ('recall@5', 0.03631678968667984), ('recall@10', 0.05632061883807182)])
+Tue 25 Nov 2025 14:24:37 INFO  [Epoch 53] Val_3 Results: OrderedDict([('ndcg@5', 0.024273261427879333), ('ndcg@10', 0.03073308803141117), ('recall@5', 0.036543115973472595), ('recall@10', 0.0565817654132843)])
+Tue 25 Nov 2025 14:24:37 INFO  [Epoch 53] Val_4 Results: OrderedDict([('ndcg@5', 0.02320275828242302), ('ndcg@10', 0.029937636107206345), ('recall@5', 0.036177508533000946), ('recall@10', 0.05710405856370926)])
+Tue 25 Nov 2025 14:24:37 INFO  [Epoch 53] Val_5 Results: OrderedDict([('ndcg@5', 0.022318938747048378), ('ndcg@10', 0.028577301651239395), ('recall@5', 0.0346454493701458), ('recall@10', 0.0540921688079834)])
+Tue 25 Nov 2025 14:24:37 INFO  [Epoch 53] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 14:25:09 INFO  [Epoch 54] Train Loss: 1.9818620972385794
+Tue 25 Nov 2025 14:27:38 INFO  [Epoch 54] Val Results: OrderedDict([('ndcg@5', np.float64(0.02333037741482258)), ('ndcg@10', np.float64(0.029644614706436794)), ('recall@5', np.float64(0.03595988762875398)), ('recall@10', np.float64(0.05556619477768739))])
+Tue 25 Nov 2025 14:27:38 INFO  [Epoch 54] Val_0 Results: OrderedDict([('ndcg@5', 0.0231174249202013), ('ndcg@10', 0.029135752469301224), ('recall@5', 0.035167742520570755), ('recall@10', 0.05383102223277092)])
+Tue 25 Nov 2025 14:27:38 INFO  [Epoch 54] Val_1 Results: OrderedDict([('ndcg@5', 0.024010993540287018), ('ndcg@10', 0.030421169474720955), ('recall@5', 0.03687389940023422), ('recall@10', 0.05675586313009262)])
+Tue 25 Nov 2025 14:27:38 INFO  [Epoch 54] Val_2 Results: OrderedDict([('ndcg@5', 0.023928027600049973), ('ndcg@10', 0.030379826202988625), ('recall@5', 0.03666498512029648), ('recall@10', 0.056686222553253174)])
+Tue 25 Nov 2025 14:27:38 INFO  [Epoch 54] Val_3 Results: OrderedDict([('ndcg@5', 0.024274002760648727), ('ndcg@10', 0.030533941462635994), ('recall@5', 0.036908719688653946), ('recall@10', 0.05637284740805626)])
+Tue 25 Nov 2025 14:27:38 INFO  [Epoch 54] Val_4 Results: OrderedDict([('ndcg@5', 0.022885480895638466), ('ndcg@10', 0.029452119022607803), ('recall@5', 0.0359685942530632), ('recall@10', 0.05637284740805626)])
+Tue 25 Nov 2025 14:27:38 INFO  [Epoch 54] Val_5 Results: OrderedDict([('ndcg@5', 0.021766334772109985), ('ndcg@10', 0.027944879606366158), ('recall@5', 0.034175384789705276), ('recall@10', 0.05337836593389511)])
+Tue 25 Nov 2025 14:28:09 INFO  [Epoch 55] Train Loss: 1.9786565739737139
+Tue 25 Nov 2025 14:30:36 INFO  [Epoch 55] Val Results: OrderedDict([('ndcg@5', np.float64(0.023428667336702347)), ('ndcg@10', np.float64(0.029692322947084904)), ('recall@5', np.float64(0.03589605229596297)), ('recall@10', np.float64(0.05533116186658541))])
+Tue 25 Nov 2025 14:30:36 INFO  [Epoch 55] Val_0 Results: OrderedDict([('ndcg@5', 0.023307109251618385), ('ndcg@10', 0.029243633151054382), ('recall@5', 0.03528961166739464), ('recall@10', 0.05372656136751175)])
+Tue 25 Nov 2025 14:30:36 INFO  [Epoch 55] Val_1 Results: OrderedDict([('ndcg@5', 0.023894628509879112), ('ndcg@10', 0.0303632915019989), ('recall@5', 0.03638642653822899), ('recall@10', 0.05645989626646042)])
+Tue 25 Nov 2025 14:30:36 INFO  [Epoch 55] Val_2 Results: OrderedDict([('ndcg@5', 0.023809093981981277), ('ndcg@10', 0.030208194628357887), ('recall@5', 0.03614269196987152), ('recall@10', 0.055955011397600174)])
+Tue 25 Nov 2025 14:30:36 INFO  [Epoch 55] Val_3 Results: OrderedDict([('ndcg@5', 0.024382442235946655), ('ndcg@10', 0.030646026134490967), ('recall@5', 0.03689131140708923), ('recall@10', 0.056338027119636536)])
+Tue 25 Nov 2025 14:30:36 INFO  [Epoch 55] Val_4 Results: OrderedDict([('ndcg@5', 0.023061765357851982), ('ndcg@10', 0.029451392590999603), ('recall@5', 0.03621232882142067), ('recall@10', 0.056042060256004333)])
+Tue 25 Nov 2025 14:30:36 INFO  [Epoch 55] Val_5 Results: OrderedDict([('ndcg@5', 0.02211696468293667), ('ndcg@10', 0.02824139967560768), ('recall@5', 0.034453943371772766), ('recall@10', 0.05346541479229927)])
+Tue 25 Nov 2025 14:31:07 INFO  [Epoch 56] Train Loss: 1.9804361447792829
+Tue 25 Nov 2025 14:33:35 INFO  [Epoch 56] Val Results: OrderedDict([('ndcg@5', np.float64(0.023388624812165897)), ('ndcg@10', np.float64(0.029823397596677143)), ('recall@5', np.float64(0.03579739605387052)), ('recall@10', np.float64(0.055818636591235794))])
+Tue 25 Nov 2025 14:33:35 INFO  [Epoch 56] Val_0 Results: OrderedDict([('ndcg@5', 0.023199278861284256), ('ndcg@10', 0.02929895557463169), ('recall@5', 0.034906595945358276), ('recall@10', 0.05393547937273979)])
+Tue 25 Nov 2025 14:33:35 INFO  [Epoch 56] Val_1 Results: OrderedDict([('ndcg@5', 0.023943688720464706), ('ndcg@10', 0.03052547574043274), ('recall@5', 0.036612752825021744), ('recall@10', 0.05710405856370926)])
+Tue 25 Nov 2025 14:33:35 INFO  [Epoch 56] Val_2 Results: OrderedDict([('ndcg@5', 0.02387503907084465), ('ndcg@10', 0.03041941300034523), ('recall@5', 0.03638642653822899), ('recall@10', 0.0567210428416729)])
+Tue 25 Nov 2025 14:33:35 INFO  [Epoch 56] Val_3 Results: OrderedDict([('ndcg@5', 0.02446572855114937), ('ndcg@10', 0.03080977499485016), ('recall@5', 0.03704799711704254), ('recall@10', 0.05675586313009262)])
+Tue 25 Nov 2025 14:33:35 INFO  [Epoch 56] Val_4 Results: OrderedDict([('ndcg@5', 0.02283945493400097), ('ndcg@10', 0.02958494797348976), ('recall@5', 0.03558557853102684), ('recall@10', 0.0565817654132843)])
+Tue 25 Nov 2025 14:33:35 INFO  [Epoch 56] Val_5 Results: OrderedDict([('ndcg@5', 0.022008558735251427), ('ndcg@10', 0.028301818296313286), ('recall@5', 0.034245025366544724), ('recall@10', 0.05381361022591591)])
+Tue 25 Nov 2025 14:33:35 INFO  [Epoch 56] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 14:34:06 INFO  [Epoch 57] Train Loss: 1.9733026003460852
+Tue 25 Nov 2025 14:36:34 INFO  [Epoch 57] Val Results: OrderedDict([('ndcg@5', np.float64(0.023486632853746414)), ('ndcg@10', np.float64(0.02968540197859208)), ('recall@5', np.float64(0.036102067679166794)), ('recall@10', np.float64(0.055386293679475784))])
+Tue 25 Nov 2025 14:36:34 INFO  [Epoch 57] Val_0 Results: OrderedDict([('ndcg@5', 0.023014163598418236), ('ndcg@10', 0.028856320306658745), ('recall@5', 0.03492400795221329), ('recall@10', 0.05309981107711792)])
+Tue 25 Nov 2025 14:36:34 INFO  [Epoch 57] Val_1 Results: OrderedDict([('ndcg@5', 0.023945225402712822), ('ndcg@10', 0.03037063404917717), ('recall@5', 0.03659534454345703), ('recall@10', 0.0565817654132843)])
+Tue 25 Nov 2025 14:36:34 INFO  [Epoch 57] Val_2 Results: OrderedDict([('ndcg@5', 0.02401857264339924), ('ndcg@10', 0.03021695651113987), ('recall@5', 0.036804262548685074), ('recall@10', 0.05611170083284378)])
+Tue 25 Nov 2025 14:36:34 INFO  [Epoch 57] Val_3 Results: OrderedDict([('ndcg@5', 0.024296419695019722), ('ndcg@10', 0.030527636408805847), ('recall@5', 0.03703058883547783), ('recall@10', 0.056425075978040695)])
+Tue 25 Nov 2025 14:36:34 INFO  [Epoch 57] Val_4 Results: OrderedDict([('ndcg@5', 0.023363104090094566), ('ndcg@10', 0.029810365289449692), ('recall@5', 0.03656052425503731), ('recall@10', 0.056599173694849014)])
+Tue 25 Nov 2025 14:36:34 INFO  [Epoch 57] Val_5 Results: OrderedDict([('ndcg@5', 0.0222823116928339), ('ndcg@10', 0.028330499306321144), ('recall@5', 0.034697677940130234), ('recall@10', 0.053500235080718994)])
+Tue 25 Nov 2025 14:37:05 INFO  [Epoch 58] Train Loss: 1.9719765805229377
+Tue 25 Nov 2025 14:39:33 INFO  [Epoch 58] Val Results: OrderedDict([('ndcg@5', np.float64(0.023611072450876236)), ('ndcg@10', np.float64(0.029946002488334972)), ('recall@5', np.float64(0.03622683696448803)), ('recall@10', np.float64(0.05591439021130403))])
+Tue 25 Nov 2025 14:39:33 INFO  [Epoch 58] Val_0 Results: OrderedDict([('ndcg@5', 0.023458773270249367), ('ndcg@10', 0.029463760554790497), ('recall@5', 0.03548111766576767), ('recall@10', 0.054144397377967834)])
+Tue 25 Nov 2025 14:39:33 INFO  [Epoch 58] Val_1 Results: OrderedDict([('ndcg@5', 0.02423764020204544), ('ndcg@10', 0.03072989173233509), ('recall@5', 0.037082817405462265), ('recall@10', 0.057243335992097855)])
+Tue 25 Nov 2025 14:39:33 INFO  [Epoch 58] Val_2 Results: OrderedDict([('ndcg@5', 0.02425304986536503), ('ndcg@10', 0.030683908611536026), ('recall@5', 0.036995768547058105), ('recall@10', 0.05696478113532066)])
+Tue 25 Nov 2025 14:39:33 INFO  [Epoch 58] Val_3 Results: OrderedDict([('ndcg@5', 0.024382799863815308), ('ndcg@10', 0.030780427157878876), ('recall@5', 0.03694353997707367), ('recall@10', 0.05682549998164177)])
+Tue 25 Nov 2025 14:39:33 INFO  [Epoch 58] Val_4 Results: OrderedDict([('ndcg@5', 0.023100564256310463), ('ndcg@10', 0.02966860495507717), ('recall@5', 0.03612527996301651), ('recall@10', 0.05656435340642929)])
+Tue 25 Nov 2025 14:39:33 INFO  [Epoch 58] Val_5 Results: OrderedDict([('ndcg@5', 0.02223360724747181), ('ndcg@10', 0.02834942191839218), ('recall@5', 0.03473249822854996), ('recall@10', 0.05374397337436676)])
+Tue 25 Nov 2025 14:39:33 INFO  [Epoch 58] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 14:40:04 INFO  [Epoch 59] Train Loss: 1.9689294027151965
+Tue 25 Nov 2025 14:42:31 INFO  [Epoch 59] Val Results: OrderedDict([('ndcg@5', np.float64(0.02357197894404332)), ('ndcg@10', np.float64(0.02971541229635477)), ('recall@5', np.float64(0.036087559536099434)), ('recall@10', np.float64(0.05518027829627196))])
+Tue 25 Nov 2025 14:42:31 INFO  [Epoch 59] Val_0 Results: OrderedDict([('ndcg@5', 0.02303348295390606), ('ndcg@10', 0.029043687507510185), ('recall@5', 0.034715089946985245), ('recall@10', 0.053413186222314835)])
+Tue 25 Nov 2025 14:42:31 INFO  [Epoch 59] Val_1 Results: OrderedDict([('ndcg@5', 0.02406041882932186), ('ndcg@10', 0.030389072373509407), ('recall@5', 0.03673462197184563), ('recall@10', 0.05639025568962097)])
+Tue 25 Nov 2025 14:42:31 INFO  [Epoch 59] Val_2 Results: OrderedDict([('ndcg@5', 0.023991523310542107), ('ndcg@10', 0.030285470187664032), ('recall@5', 0.03656052425503731), ('recall@10', 0.05609429255127907)])
+Tue 25 Nov 2025 14:42:31 INFO  [Epoch 59] Val_3 Results: OrderedDict([('ndcg@5', 0.02445104718208313), ('ndcg@10', 0.030512962490320206), ('recall@5', 0.03697836026549339), ('recall@10', 0.05583314597606659)])
+Tue 25 Nov 2025 14:42:31 INFO  [Epoch 59] Val_4 Results: OrderedDict([('ndcg@5', 0.023413607850670815), ('ndcg@10', 0.029689062386751175), ('recall@5', 0.03650829568505287), ('recall@10', 0.05600724369287491)])
+Tue 25 Nov 2025 14:42:31 INFO  [Epoch 59] Val_5 Results: OrderedDict([('ndcg@5', 0.02248179353773594), ('ndcg@10', 0.02837221883237362), ('recall@5', 0.03502846509218216), ('recall@10', 0.05334354564547539)])
+Tue 25 Nov 2025 14:43:02 INFO  [Epoch 60] Train Loss: 1.9709865296129179
+Tue 25 Nov 2025 14:45:30 INFO  [Epoch 60] Val Results: OrderedDict([('ndcg@5', np.float64(0.023714552943905193)), ('ndcg@10', np.float64(0.029973340220749378)), ('recall@5', np.float64(0.03638642653822899)), ('recall@10', np.float64(0.05587376654148102))])
+Tue 25 Nov 2025 14:45:30 INFO  [Epoch 60] Val_0 Results: OrderedDict([('ndcg@5', 0.023427795618772507), ('ndcg@10', 0.029268737882375717), ('recall@5', 0.03555075824260712), ('recall@10', 0.053778789937496185)])
+Tue 25 Nov 2025 14:45:30 INFO  [Epoch 60] Val_1 Results: OrderedDict([('ndcg@5', 0.024292947724461555), ('ndcg@10', 0.03081064485013485), ('recall@5', 0.03704799711704254), ('recall@10', 0.05729556456208229)])
+Tue 25 Nov 2025 14:45:30 INFO  [Epoch 60] Val_2 Results: OrderedDict([('ndcg@5', 0.02437206543982029), ('ndcg@10', 0.03067944385111332), ('recall@5', 0.03703058883547783), ('recall@10', 0.05665140226483345)])
+Tue 25 Nov 2025 14:45:30 INFO  [Epoch 60] Val_3 Results: OrderedDict([('ndcg@5', 0.02454371191561222), ('ndcg@10', 0.030816005542874336), ('recall@5', 0.037256915122270584), ('recall@10', 0.05677327141165733)])
+Tue 25 Nov 2025 14:45:30 INFO  [Epoch 60] Val_4 Results: OrderedDict([('ndcg@5', 0.023337019607424736), ('ndcg@10', 0.029857080429792404), ('recall@5', 0.03656052425503731), ('recall@10', 0.05686032027006149)])
+Tue 25 Nov 2025 14:45:30 INFO  [Epoch 60] Val_5 Results: OrderedDict([('ndcg@5', 0.02231377735733986), ('ndcg@10', 0.028408128768205643), ('recall@5', 0.03487177565693855), ('recall@10', 0.053883250802755356)])
+Tue 25 Nov 2025 14:45:30 INFO  [Epoch 60] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 14:46:01 INFO  [Epoch 61] Train Loss: 1.9640383036895477
+Tue 25 Nov 2025 14:48:29 INFO  [Epoch 61] Val Results: OrderedDict([('ndcg@5', np.float64(0.023623133078217506)), ('ndcg@10', np.float64(0.029701847893496353)), ('recall@5', np.float64(0.0363864271591107)), ('recall@10', np.float64(0.05529053943852583))])
+Tue 25 Nov 2025 14:48:29 INFO  [Epoch 61] Val_0 Results: OrderedDict([('ndcg@5', 0.02344769611954689), ('ndcg@10', 0.029260840266942978), ('recall@5', 0.03546370938420296), ('recall@10', 0.05355246365070343)])
+Tue 25 Nov 2025 14:48:29 INFO  [Epoch 61] Val_1 Results: OrderedDict([('ndcg@5', 0.02419316954910755), ('ndcg@10', 0.030548185110092163), ('recall@5', 0.03703058883547783), ('recall@10', 0.05675586313009262)])
+Tue 25 Nov 2025 14:48:29 INFO  [Epoch 61] Val_2 Results: OrderedDict([('ndcg@5', 0.024249935522675514), ('ndcg@10', 0.03044719062745571), ('recall@5', 0.03704799711704254), ('recall@10', 0.05630320683121681)])
+Tue 25 Nov 2025 14:48:29 INFO  [Epoch 61] Val_3 Results: OrderedDict([('ndcg@5', 0.024456173181533813), ('ndcg@10', 0.030529173091053963), ('recall@5', 0.03732655569911003), ('recall@10', 0.05621615797281265)])
+Tue 25 Nov 2025 14:48:29 INFO  [Epoch 61] Val_4 Results: OrderedDict([('ndcg@5', 0.0232028067111969), ('ndcg@10', 0.029509181156754494), ('recall@5', 0.036543115973472595), ('recall@10', 0.05618134140968323)])
+Tue 25 Nov 2025 14:48:29 INFO  [Epoch 61] Val_5 Results: OrderedDict([('ndcg@5', 0.02218901738524437), ('ndcg@10', 0.027916517108678818), ('recall@5', 0.034906595945358276), ('recall@10', 0.05273420363664627)])
+Tue 25 Nov 2025 14:49:01 INFO  [Epoch 62] Train Loss: 1.96413101757084
+Tue 25 Nov 2025 14:51:28 INFO  [Epoch 62] Val Results: OrderedDict([('ndcg@5', np.float64(0.023655510197083156)), ('ndcg@10', np.float64(0.029935226465264957)), ('recall@5', np.float64(0.03639223054051399)), ('recall@10', np.float64(0.05589407806595167))])
+Tue 25 Nov 2025 14:51:28 INFO  [Epoch 62] Val_0 Results: OrderedDict([('ndcg@5', 0.02336977981030941), ('ndcg@10', 0.029379311949014664), ('recall@5', 0.035272203385829926), ('recall@10', 0.053952887654304504)])
+Tue 25 Nov 2025 14:51:28 INFO  [Epoch 62] Val_1 Results: OrderedDict([('ndcg@5', 0.024211103096604347), ('ndcg@10', 0.030663590878248215), ('recall@5', 0.03704799711704254), ('recall@10', 0.05710405856370926)])
+Tue 25 Nov 2025 14:51:28 INFO  [Epoch 62] Val_2 Results: OrderedDict([('ndcg@5', 0.02410549856722355), ('ndcg@10', 0.03055710718035698), ('recall@5', 0.03675203397870064), ('recall@10', 0.05677327141165733)])
+Tue 25 Nov 2025 14:51:28 INFO  [Epoch 62] Val_3 Results: OrderedDict([('ndcg@5', 0.024541979655623436), ('ndcg@10', 0.030831627547740936), ('recall@5', 0.03732655569911003), ('recall@10', 0.05686032027006149)])
+Tue 25 Nov 2025 14:51:28 INFO  [Epoch 62] Val_4 Results: OrderedDict([('ndcg@5', 0.023341989144682884), ('ndcg@10', 0.02979215607047081), ('recall@5', 0.03678685054183006), ('recall@10', 0.05680809170007706)])
+Tue 25 Nov 2025 14:51:28 INFO  [Epoch 62] Val_5 Results: OrderedDict([('ndcg@5', 0.022362710908055305), ('ndcg@10', 0.028387565165758133), ('recall@5', 0.035167742520570755), ('recall@10', 0.053865838795900345)])
+Tue 25 Nov 2025 14:52:00 INFO  [Epoch 63] Train Loss: 1.9620724784601353
+Tue 25 Nov 2025 14:54:27 INFO  [Epoch 63] Val Results: OrderedDict([('ndcg@5', np.float64(0.023706151793400448)), ('ndcg@10', np.float64(0.029851201300819714)), ('recall@5', np.float64(0.03623844434817632)), ('recall@10', np.float64(0.05524701625108719))])
+Tue 25 Nov 2025 14:54:27 INFO  [Epoch 63] Val_0 Results: OrderedDict([('ndcg@5', 0.02335525117814541), ('ndcg@10', 0.029207993298768997), ('recall@5', 0.035098105669021606), ('recall@10', 0.0532216802239418)])
+Tue 25 Nov 2025 14:54:27 INFO  [Epoch 63] Val_1 Results: OrderedDict([('ndcg@5', 0.024236615747213364), ('ndcg@10', 0.030545568093657494), ('recall@5', 0.036908719688653946), ('recall@10', 0.05640766769647598)])
+Tue 25 Nov 2025 14:54:27 INFO  [Epoch 63] Val_2 Results: OrderedDict([('ndcg@5', 0.024367263540625572), ('ndcg@10', 0.030602693557739258), ('recall@5', 0.03689131140708923), ('recall@10', 0.056146521121263504)])
+Tue 25 Nov 2025 14:54:27 INFO  [Epoch 63] Val_3 Results: OrderedDict([('ndcg@5', 0.024796290323138237), ('ndcg@10', 0.03090425580739975), ('recall@5', 0.03748324140906334), ('recall@10', 0.05639025568962097)])
+Tue 25 Nov 2025 14:54:27 INFO  [Epoch 63] Val_4 Results: OrderedDict([('ndcg@5', 0.0232706218957901), ('ndcg@10', 0.029671672731637955), ('recall@5', 0.036369018256664276), ('recall@10', 0.05618134140968323)])
+Tue 25 Nov 2025 14:54:27 INFO  [Epoch 63] Val_5 Results: OrderedDict([('ndcg@5', 0.022210868075489998), ('ndcg@10', 0.028175024315714836), ('recall@5', 0.03468026965856552), ('recall@10', 0.05313463136553764)])
+Tue 25 Nov 2025 14:54:59 INFO  [Epoch 64] Train Loss: 1.9566803842312057
+Tue 25 Nov 2025 14:57:27 INFO  [Epoch 64] Val Results: OrderedDict([('ndcg@5', np.float64(0.023736670302848022)), ('ndcg@10', np.float64(0.030004927267630894)), ('recall@5', np.float64(0.03637191901604334)), ('recall@10', np.float64(0.05578091492255529))])
+Tue 25 Nov 2025 14:57:27 INFO  [Epoch 64] Val_0 Results: OrderedDict([('ndcg@5', 0.023442240431904793), ('ndcg@10', 0.029333190992474556), ('recall@5', 0.03539406880736351), ('recall@10', 0.05367433279752731)])
+Tue 25 Nov 2025 14:57:27 INFO  [Epoch 64] Val_1 Results: OrderedDict([('ndcg@5', 0.024295169860124588), ('ndcg@10', 0.030710237100720406), ('recall@5', 0.03697836026549339), ('recall@10', 0.05682549998164177)])
+Tue 25 Nov 2025 14:57:27 INFO  [Epoch 64] Val_2 Results: OrderedDict([('ndcg@5', 0.024274125695228577), ('ndcg@10', 0.030498070642352104), ('recall@5', 0.03685649111866951), ('recall@10', 0.05607688054442406)])
+Tue 25 Nov 2025 14:57:27 INFO  [Epoch 64] Val_3 Results: OrderedDict([('ndcg@5', 0.024744495749473572), ('ndcg@10', 0.03096606768667698), ('recall@5', 0.037639930844306946), ('recall@10', 0.05694736912846565)])
+Tue 25 Nov 2025 14:57:27 INFO  [Epoch 64] Val_4 Results: OrderedDict([('ndcg@5', 0.023466991260647774), ('ndcg@10', 0.03001009300351143), ('recall@5', 0.03676944226026535), ('recall@10', 0.0570170097053051)])
+Tue 25 Nov 2025 14:57:27 INFO  [Epoch 64] Val_5 Results: OrderedDict([('ndcg@5', 0.022196998819708824), ('ndcg@10', 0.028511904180049896), ('recall@5', 0.03459322080016136), ('recall@10', 0.054144397377967834)])
+Tue 25 Nov 2025 14:57:27 INFO  [Epoch 64] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 14:57:58 INFO  [Epoch 65] Train Loss: 1.957690947211892
+Tue 25 Nov 2025 15:00:26 INFO  [Epoch 65] Val Results: OrderedDict([('ndcg@5', np.float64(0.02375665958970785)), ('ndcg@10', np.float64(0.030215416103601456)), ('recall@5', np.float64(0.036197821299235024)), ('recall@10', np.float64(0.05625388088325659))])
+Tue 25 Nov 2025 15:00:26 INFO  [Epoch 65] Val_0 Results: OrderedDict([('ndcg@5', 0.02339891903102398), ('ndcg@10', 0.02960537187755108), ('recall@5', 0.03521997109055519), ('recall@10', 0.05454482138156891)])
+Tue 25 Nov 2025 15:00:26 INFO  [Epoch 65] Val_1 Results: OrderedDict([('ndcg@5', 0.02434869483113289), ('ndcg@10', 0.030907178297638893), ('recall@5', 0.03687389940023422), ('recall@10', 0.05720851570367813)])
+Tue 25 Nov 2025 15:00:26 INFO  [Epoch 65] Val_2 Results: OrderedDict([('ndcg@5', 0.024358436465263367), ('ndcg@10', 0.030891407281160355), ('recall@5', 0.03687389940023422), ('recall@10', 0.05713887885212898)])
+Tue 25 Nov 2025 15:00:26 INFO  [Epoch 65] Val_3 Results: OrderedDict([('ndcg@5', 0.024598082527518272), ('ndcg@10', 0.031105615198612213), ('recall@5', 0.037013180553913116), ('recall@10', 0.05720851570367813)])
+Tue 25 Nov 2025 15:00:26 INFO  [Epoch 65] Val_4 Results: OrderedDict([('ndcg@5', 0.023407546803355217), ('ndcg@10', 0.03012092597782612), ('recall@5', 0.036403838545084), ('recall@10', 0.057243335992097855)])
+Tue 25 Nov 2025 15:00:26 INFO  [Epoch 65] Val_5 Results: OrderedDict([('ndcg@5', 0.022428277879953384), ('ndcg@10', 0.028661997988820076), ('recall@5', 0.034802138805389404), ('recall@10', 0.05417921766638756)])
+Tue 25 Nov 2025 15:00:26 INFO  [Epoch 65] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 15:00:57 INFO  [Epoch 66] Train Loss: 1.959088229164313
+Tue 25 Nov 2025 15:03:24 INFO  [Epoch 66] Val Results: OrderedDict([('ndcg@5', np.float64(0.023680236500998337)), ('ndcg@10', np.float64(0.029911198032399017)), ('recall@5', np.float64(0.03621813344458739)), ('recall@10', np.float64(0.05554878463347753))])
+Tue 25 Nov 2025 15:03:24 INFO  [Epoch 66] Val_0 Results: OrderedDict([('ndcg@5', 0.023368025198578835), ('ndcg@10', 0.029430175200104713), ('recall@5', 0.03511551395058632), ('recall@10', 0.05390065908432007)])
+Tue 25 Nov 2025 15:03:24 INFO  [Epoch 66] Val_1 Results: OrderedDict([('ndcg@5', 0.024198653176426888), ('ndcg@10', 0.030560271814465523), ('recall@5', 0.03685649111866951), ('recall@10', 0.05656435340642929)])
+Tue 25 Nov 2025 15:03:24 INFO  [Epoch 66] Val_2 Results: OrderedDict([('ndcg@5', 0.02427300624549389), ('ndcg@10', 0.030500350520014763), ('recall@5', 0.03685649111866951), ('recall@10', 0.05616392940282822)])
+Tue 25 Nov 2025 15:03:24 INFO  [Epoch 66] Val_3 Results: OrderedDict([('ndcg@5', 0.02461968921124935), ('ndcg@10', 0.030862726271152496), ('recall@5', 0.037274327129125595), ('recall@10', 0.056686222553253174)])
+Tue 25 Nov 2025 15:03:24 INFO  [Epoch 66] Val_4 Results: OrderedDict([('ndcg@5', 0.023347601294517517), ('ndcg@10', 0.02977651171386242), ('recall@5', 0.036543115973472595), ('recall@10', 0.05649471655488014)])
+Tue 25 Nov 2025 15:03:24 INFO  [Epoch 66] Val_5 Results: OrderedDict([('ndcg@5', 0.02227444387972355), ('ndcg@10', 0.028337152674794197), ('recall@5', 0.03466286137700081), ('recall@10', 0.05348282679915428)])
+Tue 25 Nov 2025 15:03:56 INFO  [Epoch 67] Train Loss: 1.955157356391373
+Tue 25 Nov 2025 15:06:23 INFO  [Epoch 67] Val Results: OrderedDict([('ndcg@5', np.float64(0.023827464940647285)), ('ndcg@10', np.float64(0.03018242586404085)), ('recall@5', np.float64(0.03637772239744663)), ('recall@10', np.float64(0.056073980405926704))])
+Tue 25 Nov 2025 15:06:23 INFO  [Epoch 67] Val_0 Results: OrderedDict([('ndcg@5', 0.023686015978455544), ('ndcg@10', 0.029658591374754906), ('recall@5', 0.035637807101011276), ('recall@10', 0.054144397377967834)])
+Tue 25 Nov 2025 15:06:23 INFO  [Epoch 67] Val_1 Results: OrderedDict([('ndcg@5', 0.024271996691823006), ('ndcg@10', 0.030863840132951736), ('recall@5', 0.03687389940023422), ('recall@10', 0.05729556456208229)])
+Tue 25 Nov 2025 15:06:23 INFO  [Epoch 67] Val_2 Results: OrderedDict([('ndcg@5', 0.02439114637672901), ('ndcg@10', 0.03090851940214634), ('recall@5', 0.036804262548685074), ('recall@10', 0.05699960142374039)])
+Tue 25 Nov 2025 15:06:23 INFO  [Epoch 67] Val_3 Results: OrderedDict([('ndcg@5', 0.024836478754878044), ('ndcg@10', 0.031232135370373726), ('recall@5', 0.037361375987529755), ('recall@10', 0.057173699140548706)])
+Tue 25 Nov 2025 15:06:23 INFO  [Epoch 67] Val_4 Results: OrderedDict([('ndcg@5', 0.0234304741024971), ('ndcg@10', 0.029924258589744568), ('recall@5', 0.03664757311344147), ('recall@10', 0.05677327141165733)])
+Tue 25 Nov 2025 15:06:23 INFO  [Epoch 67] Val_5 Results: OrderedDict([('ndcg@5', 0.022348677739501), ('ndcg@10', 0.028507210314273834), ('recall@5', 0.034941416233778), ('recall@10', 0.054057348519563675)])
+Tue 25 Nov 2025 15:06:55 INFO  [Epoch 68] Train Loss: 1.9555760282964254
+Tue 25 Nov 2025 15:09:23 INFO  [Epoch 68] Val Results: OrderedDict([('ndcg@5', np.float64(0.023692534305155277)), ('ndcg@10', np.float64(0.030087059674163658)), ('recall@5', np.float64(0.03629647629956404)), ('recall@10', np.float64(0.05613781573871771))])
+Tue 25 Nov 2025 15:09:23 INFO  [Epoch 68] Val_0 Results: OrderedDict([('ndcg@5', 0.023504016920924187), ('ndcg@10', 0.029678933322429657), ('recall@5', 0.03549852967262268), ('recall@10', 0.054684098809957504)])
+Tue 25 Nov 2025 15:09:23 INFO  [Epoch 68] Val_1 Results: OrderedDict([('ndcg@5', 0.02431529387831688), ('ndcg@10', 0.030780289322137833), ('recall@5', 0.0371350459754467), ('recall@10', 0.057173699140548706)])
+Tue 25 Nov 2025 15:09:23 INFO  [Epoch 68] Val_2 Results: OrderedDict([('ndcg@5', 0.024324655532836914), ('ndcg@10', 0.03080529160797596), ('recall@5', 0.03696094825863838), ('recall@10', 0.05703441798686981)])
+Tue 25 Nov 2025 15:09:23 INFO  [Epoch 68] Val_3 Results: OrderedDict([('ndcg@5', 0.02460912987589836), ('ndcg@10', 0.030956314876675606), ('recall@5', 0.03732655569911003), ('recall@10', 0.05705182999372482)])
+Tue 25 Nov 2025 15:09:23 INFO  [Epoch 68] Val_4 Results: OrderedDict([('ndcg@5', 0.02326243557035923), ('ndcg@10', 0.02988053672015667), ('recall@5', 0.03633419796824455), ('recall@10', 0.05686032027006149)])
+Tue 25 Nov 2025 15:09:23 INFO  [Epoch 68] Val_5 Results: OrderedDict([('ndcg@5', 0.022139674052596092), ('ndcg@10', 0.02842099219560623), ('recall@5', 0.034523580223321915), ('recall@10', 0.05402252823114395)])
+Tue 25 Nov 2025 15:09:54 INFO  [Epoch 69] Train Loss: 1.9516665825187218
+Tue 25 Nov 2025 15:12:21 INFO  [Epoch 69] Val Results: OrderedDict([('ndcg@5', np.float64(0.02392272682239612)), ('ndcg@10', np.float64(0.03023401430497567)), ('recall@5', np.float64(0.036740425353248916)), ('recall@10', np.float64(0.05639315831164519))])
+Tue 25 Nov 2025 15:12:21 INFO  [Epoch 69] Val_0 Results: OrderedDict([('ndcg@5', 0.02376570738852024), ('ndcg@10', 0.02977476269006729), ('recall@5', 0.035898953676223755), ('recall@10', 0.054597049951553345)])
+Tue 25 Nov 2025 15:12:21 INFO  [Epoch 69] Val_1 Results: OrderedDict([('ndcg@5', 0.024400237947702408), ('ndcg@10', 0.030819272622466087), ('recall@5', 0.03746583312749863), ('recall@10', 0.05750448256731033)])
+Tue 25 Nov 2025 15:12:21 INFO  [Epoch 69] Val_2 Results: OrderedDict([('ndcg@5', 0.024504883214831352), ('ndcg@10', 0.030808158218860626), ('recall@5', 0.03751806169748306), ('recall@10', 0.057156287133693695)])
+Tue 25 Nov 2025 15:12:21 INFO  [Epoch 69] Val_3 Results: OrderedDict([('ndcg@5', 0.02501419000327587), ('ndcg@10', 0.03130519017577171), ('recall@5', 0.03795330598950386), ('recall@10', 0.05759153142571449)])
+Tue 25 Nov 2025 15:12:21 INFO  [Epoch 69] Val_4 Results: OrderedDict([('ndcg@5', 0.023507799953222275), ('ndcg@10', 0.030094727873802185), ('recall@5', 0.03673462197184563), ('recall@10', 0.05720851570367813)])
+Tue 25 Nov 2025 15:12:21 INFO  [Epoch 69] Val_5 Results: OrderedDict([('ndcg@5', 0.02234354242682457), ('ndcg@10', 0.02860197424888611), ('recall@5', 0.03487177565693855), ('recall@10', 0.05430108308792114)])
+Tue 25 Nov 2025 15:12:21 INFO  [Epoch 69] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 15:12:53 INFO  [Epoch 70] Train Loss: 1.949816079764011
+Tue 25 Nov 2025 15:15:20 INFO  [Epoch 70] Val Results: OrderedDict([('ndcg@5', np.float64(0.023800757403175037)), ('ndcg@10', np.float64(0.030105117087562878)), ('recall@5', np.float64(0.03655762349565824)), ('recall@10', np.float64(0.05608558654785156))])
+Tue 25 Nov 2025 15:15:20 INFO  [Epoch 70] Val_0 Results: OrderedDict([('ndcg@5', 0.02324465662240982), ('ndcg@10', 0.029405998066067696), ('recall@5', 0.03504587337374687), ('recall@10', 0.054126985371112823)])
+Tue 25 Nov 2025 15:15:20 INFO  [Epoch 70] Val_1 Results: OrderedDict([('ndcg@5', 0.024178821593523026), ('ndcg@10', 0.030563142150640488), ('recall@5', 0.037100229412317276), ('recall@10', 0.056877732276916504)])
+Tue 25 Nov 2025 15:15:20 INFO  [Epoch 70] Val_2 Results: OrderedDict([('ndcg@5', 0.02430027909576893), ('ndcg@10', 0.03067661076784134), ('recall@5', 0.037100229412317276), ('recall@10', 0.05684291198849678)])
+Tue 25 Nov 2025 15:15:20 INFO  [Epoch 70] Val_3 Results: OrderedDict([('ndcg@5', 0.024735573679208755), ('ndcg@10', 0.031068328768014908), ('recall@5', 0.037639930844306946), ('recall@10', 0.057243335992097855)])
+Tue 25 Nov 2025 15:15:20 INFO  [Epoch 70] Val_4 Results: OrderedDict([('ndcg@5', 0.023735610768198967), ('ndcg@10', 0.030250176787376404), ('recall@5', 0.03711763769388199), ('recall@10', 0.0573129765689373)])
+Tue 25 Nov 2025 15:15:20 INFO  [Epoch 70] Val_5 Results: OrderedDict([('ndcg@5', 0.02260960265994072), ('ndcg@10', 0.02866644598543644), ('recall@5', 0.035341840237379074), ('recall@10', 0.05410957708954811)])
+Tue 25 Nov 2025 15:15:51 INFO  [Epoch 71] Train Loss: 1.9495049763479297
+Tue 25 Nov 2025 15:18:18 INFO  [Epoch 71] Val Results: OrderedDict([('ndcg@5', np.float64(0.02379675457874934)), ('ndcg@10', np.float64(0.030063897371292114)), ('recall@5', np.float64(0.03642995158831278)), ('recall@10', np.float64(0.0559230949729681))])
+Tue 25 Nov 2025 15:18:18 INFO  [Epoch 71] Val_0 Results: OrderedDict([('ndcg@5', 0.02351982705295086), ('ndcg@10', 0.02947160415351391), ('recall@5', 0.03549852967262268), ('recall@10', 0.05402252823114395)])
+Tue 25 Nov 2025 15:18:18 INFO  [Epoch 71] Val_1 Results: OrderedDict([('ndcg@5', 0.024145694449543953), ('ndcg@10', 0.030514255166053772), ('recall@5', 0.036821670830249786), ('recall@10', 0.056599173694849014)])
+Tue 25 Nov 2025 15:18:18 INFO  [Epoch 71] Val_2 Results: OrderedDict([('ndcg@5', 0.024287711828947067), ('ndcg@10', 0.030658943578600883), ('recall@5', 0.03689131140708923), ('recall@10', 0.05666881427168846)])
+Tue 25 Nov 2025 15:18:18 INFO  [Epoch 71] Val_3 Results: OrderedDict([('ndcg@5', 0.024760404601693153), ('ndcg@10', 0.031044157221913338), ('recall@5', 0.0375702902674675), ('recall@10', 0.057156287133693695)])
+Tue 25 Nov 2025 15:18:18 INFO  [Epoch 71] Val_4 Results: OrderedDict([('ndcg@5', 0.02355329319834709), ('ndcg@10', 0.030029920861124992), ('recall@5', 0.03673462197184563), ('recall@10', 0.056877732276916504)])
+Tue 25 Nov 2025 15:18:18 INFO  [Epoch 71] Val_5 Results: OrderedDict([('ndcg@5', 0.02251359634101391), ('ndcg@10', 0.02866450324654579), ('recall@5', 0.03506328538060188), ('recall@10', 0.05421403422951698)])
+Tue 25 Nov 2025 15:18:49 INFO  [Epoch 72] Train Loss: 1.9494236191024092
+Tue 25 Nov 2025 15:21:16 INFO  [Epoch 72] Val Results: OrderedDict([('ndcg@5', np.float64(0.0239141412700216)), ('ndcg@10', np.float64(0.030190061467389267)), ('recall@5', np.float64(0.0365315085897843)), ('recall@10', np.float64(0.05598112754523754))])
+Tue 25 Nov 2025 15:21:16 INFO  [Epoch 72] Val_0 Results: OrderedDict([('ndcg@5', 0.023731505498290062), ('ndcg@10', 0.02970881387591362), ('recall@5', 0.03565521538257599), ('recall@10', 0.05419662594795227)])
+Tue 25 Nov 2025 15:21:16 INFO  [Epoch 72] Val_1 Results: OrderedDict([('ndcg@5', 0.02444327622652054), ('ndcg@10', 0.03087582439184189), ('recall@5', 0.03723950684070587), ('recall@10', 0.057156287133693695)])
+Tue 25 Nov 2025 15:21:16 INFO  [Epoch 72] Val_2 Results: OrderedDict([('ndcg@5', 0.024572448804974556), ('ndcg@10', 0.03087572380900383), ('recall@5', 0.03723950684070587), ('recall@10', 0.05675586313009262)])
+Tue 25 Nov 2025 15:21:16 INFO  [Epoch 72] Val_3 Results: OrderedDict([('ndcg@5', 0.02470140904188156), ('ndcg@10', 0.031092634424567223), ('recall@5', 0.03730914369225502), ('recall@10', 0.05710405856370926)])
+Tue 25 Nov 2025 15:21:16 INFO  [Epoch 72] Val_4 Results: OrderedDict([('ndcg@5', 0.02358141541481018), ('ndcg@10', 0.029992708936333656), ('recall@5', 0.03675203397870064), ('recall@10', 0.056599173694849014)])
+Tue 25 Nov 2025 15:21:16 INFO  [Epoch 72] Val_5 Results: OrderedDict([('ndcg@5', 0.022454792633652687), ('ndcg@10', 0.028594663366675377), ('recall@5', 0.034993644803762436), ('recall@10', 0.05407475680112839)])
+Tue 25 Nov 2025 15:21:47 INFO  [Epoch 73] Train Loss: 1.9451935285908375
+Tue 25 Nov 2025 15:24:15 INFO  [Epoch 73] Val Results: OrderedDict([('ndcg@5', np.float64(0.023784853518009186)), ('ndcg@10', np.float64(0.03022052471836408)), ('recall@5', np.float64(0.03641544344524542)), ('recall@10', np.float64(0.05639025755226612))])
+Tue 25 Nov 2025 15:24:15 INFO  [Epoch 73] Val_0 Results: OrderedDict([('ndcg@5', 0.023312129080295563), ('ndcg@10', 0.029418565332889557), ('recall@5', 0.03521997109055519), ('recall@10', 0.05417921766638756)])
+Tue 25 Nov 2025 15:24:15 INFO  [Epoch 73] Val_1 Results: OrderedDict([('ndcg@5', 0.024286553263664246), ('ndcg@10', 0.030903642997145653), ('recall@5', 0.03706540912389755), ('recall@10', 0.05755671113729477)])
+Tue 25 Nov 2025 15:24:15 INFO  [Epoch 73] Val_2 Results: OrderedDict([('ndcg@5', 0.024415217339992523), ('ndcg@10', 0.030947767198085785), ('recall@5', 0.03715245798230171), ('recall@10', 0.057417433708906174)])
+Tue 25 Nov 2025 15:24:15 INFO  [Epoch 73] Val_3 Results: OrderedDict([('ndcg@5', 0.024538351222872734), ('ndcg@10', 0.03100818209350109), ('recall@5', 0.037256915122270584), ('recall@10', 0.057347796857357025)])
+Tue 25 Nov 2025 15:24:15 INFO  [Epoch 73] Val_4 Results: OrderedDict([('ndcg@5', 0.02359546720981598), ('ndcg@10', 0.03022056445479393), ('recall@5', 0.03676944226026535), ('recall@10', 0.05736520513892174)])
+Tue 25 Nov 2025 15:24:15 INFO  [Epoch 73] Val_5 Results: OrderedDict([('ndcg@5', 0.02256140299141407), ('ndcg@10', 0.028824426233768463), ('recall@5', 0.03502846509218216), ('recall@10', 0.05447518080472946)])
+Tue 25 Nov 2025 15:24:46 INFO  [Epoch 74] Train Loss: 1.9463388761064
+Tue 25 Nov 2025 15:27:14 INFO  [Epoch 74] Val Results: OrderedDict([('ndcg@5', np.float64(0.023852817403773468)), ('ndcg@10', np.float64(0.03027315561970075)), ('recall@5', np.float64(0.03670850768685341)), ('recall@10', np.float64(0.056674616411328316))])
+Tue 25 Nov 2025 15:27:14 INFO  [Epoch 74] Val_0 Results: OrderedDict([('ndcg@5', 0.023566661402583122), ('ndcg@10', 0.029619211331009865), ('recall@5', 0.03577708452939987), ('recall@10', 0.054597049951553345)])
+Tue 25 Nov 2025 15:27:14 INFO  [Epoch 74] Val_1 Results: OrderedDict([('ndcg@5', 0.02441389672458172), ('ndcg@10', 0.03104315511882305), ('recall@5', 0.03737878426909447), ('recall@10', 0.057974547147750854)])
+Tue 25 Nov 2025 15:27:14 INFO  [Epoch 74] Val_2 Results: OrderedDict([('ndcg@5', 0.024498989805579185), ('ndcg@10', 0.03107416443526745), ('recall@5', 0.03730914369225502), ('recall@10', 0.05773080885410309)])
+Tue 25 Nov 2025 15:27:14 INFO  [Epoch 74] Val_3 Results: OrderedDict([('ndcg@5', 0.024851132184267044), ('ndcg@10', 0.03134484589099884), ('recall@5', 0.03784884884953499), ('recall@10', 0.05807900428771973)])
+Tue 25 Nov 2025 15:27:14 INFO  [Epoch 74] Val_4 Results: OrderedDict([('ndcg@5', 0.02343868650496006), ('ndcg@10', 0.03003302961587906), ('recall@5', 0.03678685054183006), ('recall@10', 0.05727815628051758)])
+Tue 25 Nov 2025 15:27:14 INFO  [Epoch 74] Val_5 Results: OrderedDict([('ndcg@5', 0.02234753780066967), ('ndcg@10', 0.028524527326226234), ('recall@5', 0.03515033423900604), ('recall@10', 0.0543881319463253)])
+Tue 25 Nov 2025 15:27:14 INFO  [Epoch 74] Saved model checkpoint to ckpt/Musical_Instruments/Nov-25-2025_11-45-9c0efb/Nov-25-2025_11-45-9c0efb.pth
+Tue 25 Nov 2025 15:27:46 INFO  [Epoch 75] Train Loss: 1.9420483717799994
+Tue 25 Nov 2025 15:30:13 INFO  [Epoch 75] Val Results: OrderedDict([('ndcg@5', np.float64(0.02379244565963745)), ('ndcg@10', np.float64(0.03012558228025834)), ('recall@5', np.float64(0.03658083640038967)), ('recall@10', np.float64(0.05623937274018923))])
+Tue 25 Nov 2025 15:30:13 INFO  [Epoch 75] Val_0 Results: OrderedDict([('ndcg@5', 0.023487960919737816), ('ndcg@10', 0.02948811650276184), ('recall@5', 0.03549852967262268), ('recall@10', 0.0540921688079834)])
+Tue 25 Nov 2025 15:30:13 INFO  [Epoch 75] Val_1 Results: OrderedDict([('ndcg@5', 0.024142157286405563), ('ndcg@10', 0.03069244511425495), ('recall@5', 0.03692613169550896), ('recall@10', 0.057243335992097855)])
+Tue 25 Nov 2025 15:30:13 INFO  [Epoch 75] Val_2 Results: OrderedDict([('ndcg@5', 0.024266500025987625), ('ndcg@10', 0.030622193589806557), ('recall@5', 0.037082817405462265), ('recall@10', 0.05682549998164177)])
+Tue 25 Nov 2025 15:30:13 INFO  [Epoch 75] Val_3 Results: OrderedDict([('ndcg@5', 0.024742599576711655), ('ndcg@10', 0.03114190325140953), ('recall@5', 0.037639930844306946), ('recall@10', 0.057521894574165344)])
+Tue 25 Nov 2025 15:30:13 INFO  [Epoch 75] Val_4 Results: OrderedDict([('ndcg@5', 0.023553360253572464), ('ndcg@10', 0.030074717476963997), ('recall@5', 0.03696094825863838), ('recall@10', 0.05719110742211342)])
+Tue 25 Nov 2025 15:30:13 INFO  [Epoch 75] Val_5 Results: OrderedDict([('ndcg@5', 0.022562095895409584), ('ndcg@10', 0.02873411774635315), ('recall@5', 0.0353766605257988), ('recall@10', 0.05456222966313362)])
+Tue 25 Nov 2025 15:30:44 INFO  [Epoch 76] Train Loss: 1.9387173886761977
+Tue 25 Nov 2025 15:33:12 INFO  [Epoch 76] Val Results: OrderedDict([('ndcg@5', np.float64(0.02385639554510514)), ('ndcg@10', np.float64(0.030246504582464695)), ('recall@5', np.float64(0.03647347539663315)), ('recall@10', np.float64(0.05629740531245867))])
+Tue 25 Nov 2025 15:33:12 INFO  [Epoch 76] Val_0 Results: OrderedDict([('ndcg@5', 0.02359183505177498), ('ndcg@10', 0.029691588133573532), ('recall@5', 0.03546370938420296), ('recall@10', 0.05437072366476059)])
+Tue 25 Nov 2025 15:33:12 INFO  [Epoch 76] Val_1 Results: OrderedDict([('ndcg@5', 0.024335289373993874), ('ndcg@10', 0.030819442123174667), ('recall@5', 0.0371350459754467), ('recall@10', 0.057260747998952866)])
+Tue 25 Nov 2025 15:33:12 INFO  [Epoch 76] Val_2 Results: OrderedDict([('ndcg@5', 0.02437315136194229), ('ndcg@10', 0.030733507126569748), ('recall@5', 0.03704799711704254), ('recall@10', 0.05675586313009262)])
+Tue 25 Nov 2025 15:33:12 INFO  [Epoch 76] Val_3 Results: OrderedDict([('ndcg@5', 0.024642406031489372), ('ndcg@10', 0.03103204257786274), ('recall@5', 0.03729173541069031), ('recall@10', 0.05710405856370926)])
+Tue 25 Nov 2025 15:33:12 INFO  [Epoch 76] Val_4 Results: OrderedDict([('ndcg@5', 0.02361934632062912), ('ndcg@10', 0.030339807271957397), ('recall@5', 0.03676944226026535), ('recall@10', 0.05764375999569893)])
+Tue 25 Nov 2025 15:33:12 INFO  [Epoch 76] Val_5 Results: OrderedDict([('ndcg@5', 0.0225763451308012), ('ndcg@10', 0.028862640261650085), ('recall@5', 0.03513292223215103), ('recall@10', 0.05464927852153778)])
+Tue 25 Nov 2025 15:33:44 INFO  [Epoch 77] Train Loss: 1.9396735731150712
+Tue 25 Nov 2025 15:36:12 INFO  [Epoch 77] Val Results: OrderedDict([('ndcg@5', np.float64(0.023874415084719658)), ('ndcg@10', np.float64(0.030181569668153923)), ('recall@5', np.float64(0.03644155773023764)), ('recall@10', np.float64(0.055966620023051895))])
+Tue 25 Nov 2025 15:36:12 INFO  [Epoch 77] Val_0 Results: OrderedDict([('ndcg@5', 0.02359362505376339), ('ndcg@10', 0.02962816134095192), ('recall@5', 0.035428889095783234), ('recall@10', 0.054144397377967834)])
+Tue 25 Nov 2025 15:36:12 INFO  [Epoch 77] Val_1 Results: OrderedDict([('ndcg@5', 0.024313760921359062), ('ndcg@10', 0.030738836154341698), ('recall@5', 0.036995768547058105), ('recall@10', 0.056877732276916504)])
+Tue 25 Nov 2025 15:36:12 INFO  [Epoch 77] Val_2 Results: OrderedDict([('ndcg@5', 0.02432151511311531), ('ndcg@10', 0.030754532665014267), ('recall@5', 0.03685649111866951), ('recall@10', 0.05677327141165733)])
+Tue 25 Nov 2025 15:36:12 INFO  [Epoch 77] Val_3 Results: OrderedDict([('ndcg@5', 0.02486458048224449), ('ndcg@10', 0.031163841485977173), ('recall@5', 0.03760511055588722), ('recall@10', 0.05713887885212898)])
+Tue 25 Nov 2025 15:36:12 INFO  [Epoch 77] Val_4 Results: OrderedDict([('ndcg@5', 0.023657795041799545), ('ndcg@10', 0.0301608107984066), ('recall@5', 0.03676944226026535), ('recall@10', 0.05686032027006149)])
+Tue 25 Nov 2025 15:36:12 INFO  [Epoch 77] Val_5 Results: OrderedDict([('ndcg@5', 0.022495213896036148), ('ndcg@10', 0.028643235564231873), ('recall@5', 0.034993644803762436), ('recall@10', 0.05400511994957924)])
+Tue 25 Nov 2025 15:36:43 INFO  [Epoch 78] Train Loss: 1.9397407988124185
+Tue 25 Nov 2025 15:39:11 INFO  [Epoch 78] Val Results: OrderedDict([('ndcg@5', np.float64(0.023701146245002747)), ('ndcg@10', np.float64(0.030114697602887947)), ('recall@5', np.float64(0.03623264034589132)), ('recall@10', np.float64(0.056132012978196144))])
+Tue 25 Nov 2025 15:39:11 INFO  [Epoch 78] Val_0 Results: OrderedDict([('ndcg@5', 0.023363368585705757), ('ndcg@10', 0.02943071909248829), ('recall@5', 0.03511551395058632), ('recall@10', 0.05391807109117508)])
+Tue 25 Nov 2025 15:39:11 INFO  [Epoch 78] Val_1 Results: OrderedDict([('ndcg@5', 0.024129927158355713), ('ndcg@10', 0.03071669116616249), ('recall@5', 0.03678685054183006), ('recall@10', 0.05719110742211342)])
+Tue 25 Nov 2025 15:39:11 INFO  [Epoch 78] Val_2 Results: OrderedDict([('ndcg@5', 0.024190273135900497), ('ndcg@10', 0.030611978843808174), ('recall@5', 0.036821670830249786), ('recall@10', 0.05675586313009262)])
+Tue 25 Nov 2025 15:39:11 INFO  [Epoch 78] Val_3 Results: OrderedDict([('ndcg@5', 0.02470528334379196), ('ndcg@10', 0.03116222470998764), ('recall@5', 0.03730914369225502), ('recall@10', 0.05736520513892174)])
+Tue 25 Nov 2025 15:39:11 INFO  [Epoch 78] Val_4 Results: OrderedDict([('ndcg@5', 0.023470187559723854), ('ndcg@10', 0.030122237280011177), ('recall@5', 0.03649088740348816), ('recall@10', 0.05712146684527397)])
+Tue 25 Nov 2025 15:39:11 INFO  [Epoch 78] Val_5 Results: OrderedDict([('ndcg@5', 0.022347837686538696), ('ndcg@10', 0.02864433452486992), ('recall@5', 0.03487177565693855), ('recall@10', 0.05444036424160004)])
+Tue 25 Nov 2025 15:39:43 INFO  [Epoch 79] Train Loss: 1.9411619890893286

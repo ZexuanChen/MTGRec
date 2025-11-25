@@ -1,0 +1,238 @@
+Wed 19 Nov 2025 19:38:12 INFO  Device: cuda
+Wed 19 Nov 2025 19:38:12 INFO  Config: {'rand_seed': 2024, 'reproducibility': True, 'num_proc': 1, 'data_dir': 'datasets/Musical_Instruments', 'log_dir': 'run_logs/', 'tensorboard_log_dir': 'tensorboard/', 'ckpt_dir': 'ckpt/Musical_Instruments/Nov-19-2025_19-38-ede6f1', 'stage': 'pretrain', 'pretrained_model': '', 'epoch_per_stage': [60, 20, 20, 20, 20, 20, 20], 'tau': 5.0, 'load_best_for_next_stage': False, 'train_batch_size': 256, 'eval_batch_size': 256, 'lr': 0.005, 'weight_decay': 0.05, 'warmup_steps': 10000, 'steps': None, 'epochs': 200, 'max_grad_norm': 1.0, 'eval_interval': 1, 'save_interval': 10, 'patience': 50, 'topk': [5, 10], 'metrics': ['ndcg', 'recall'], 'val_metric': 'ndcg@10', 'val_ratio': 1.0, 'val_delay': 199, 'n_codebooks': 3, 'codebook_size': 256, 'expand_final': True, 'token_prefix': 'rqvae/sentence-t5-base_256,256,256,256', 'token_suffix': 'sem_ids', 'n_user_tokens': 1, 'max_item_seq_len': 20, 'num_beams': 20, 'test_num_beams': None, 'num_layers': 6, 'num_decoder_layers': 6, 'd_model': 128, 'd_ff': 512, 'num_heads': 4, 'd_kv': 64, 'dropout_rate': 0.1, 'activation_function': 'relu', 'feed_forward_proj': 'relu', 'results_dir': None, 'sem_id_epochs': [9976, 9977, 9978, 9979, 9980, 9981, 9982, 9983, 9984, 9985, 9986, 9987, 9988, 9989, 9990, 9991, 9992, 9993, 9994, 9995, 9996, 9997, 9998, 9999, 10000], 'run_local_time': 'Nov-19-2025_19-38', 'ckpt_name': 'Nov-19-2025_19-38-ede6f1', 'dataset': 'Musical_Instruments', 'device': device(type='cuda'), 'use_ddp': False, 'accelerator': <accelerate.accelerator.Accelerator object at 0x7740885ab9d0>}
+Wed 19 Nov 2025 19:38:12 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9976.sem_ids...
+Wed 19 Nov 2025 19:38:12 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9977.sem_ids...
+Wed 19 Nov 2025 19:38:12 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9978.sem_ids...
+Wed 19 Nov 2025 19:38:12 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9979.sem_ids...
+Wed 19 Nov 2025 19:38:12 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9980.sem_ids...
+Wed 19 Nov 2025 19:38:13 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9981.sem_ids...
+Wed 19 Nov 2025 19:38:13 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9982.sem_ids...
+Wed 19 Nov 2025 19:38:13 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9983.sem_ids...
+Wed 19 Nov 2025 19:38:13 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9984.sem_ids...
+Wed 19 Nov 2025 19:38:13 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9985.sem_ids...
+Wed 19 Nov 2025 19:38:13 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9986.sem_ids...
+Wed 19 Nov 2025 19:38:13 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9987.sem_ids...
+Wed 19 Nov 2025 19:38:13 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9988.sem_ids...
+Wed 19 Nov 2025 19:38:14 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9989.sem_ids...
+Wed 19 Nov 2025 19:38:14 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9990.sem_ids...
+Wed 19 Nov 2025 19:38:14 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9991.sem_ids...
+Wed 19 Nov 2025 19:38:14 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9992.sem_ids...
+Wed 19 Nov 2025 19:38:14 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9993.sem_ids...
+Wed 19 Nov 2025 19:38:14 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9994.sem_ids...
+Wed 19 Nov 2025 19:38:14 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9995.sem_ids...
+Wed 19 Nov 2025 19:38:14 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9996.sem_ids...
+Wed 19 Nov 2025 19:38:15 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9997.sem_ids...
+Wed 19 Nov 2025 19:38:15 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9998.sem_ids...
+Wed 19 Nov 2025 19:38:15 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_9999.sem_ids...
+Wed 19 Nov 2025 19:38:15 INFO  [TOKENIZER] Loading semantic IDs from datasets/Musical_Instruments/rqvae/sentence-t5-base_256,256,256,256_10000.sem_ids...
+Wed 19 Nov 2025 19:38:18 INFO  MTGRec(
+  (t5): T5ForConditionalGeneration(
+    (shared): Embedding(1027, 128)
+    (encoder): T5Stack(
+      (embed_tokens): Embedding(1027, 128)
+      (block): ModuleList(
+        (0): T5Block(
+          (layer): ModuleList(
+            (0): T5LayerSelfAttention(
+              (SelfAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+                (relative_attention_bias): Embedding(32, 4)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (1): T5LayerFF(
+              (DenseReluDense): T5DenseActDense(
+                (wi): Linear(in_features=128, out_features=512, bias=False)
+                (wo): Linear(in_features=512, out_features=128, bias=False)
+                (dropout): Dropout(p=0.1, inplace=False)
+                (act): ReLU()
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (1-5): 5 x T5Block(
+          (layer): ModuleList(
+            (0): T5LayerSelfAttention(
+              (SelfAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (1): T5LayerFF(
+              (DenseReluDense): T5DenseActDense(
+                (wi): Linear(in_features=128, out_features=512, bias=False)
+                (wo): Linear(in_features=512, out_features=128, bias=False)
+                (dropout): Dropout(p=0.1, inplace=False)
+                (act): ReLU()
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+      )
+      (final_layer_norm): T5LayerNorm()
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (decoder): T5Stack(
+      (embed_tokens): Embedding(1027, 128)
+      (block): ModuleList(
+        (0): T5Block(
+          (layer): ModuleList(
+            (0): T5LayerSelfAttention(
+              (SelfAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+                (relative_attention_bias): Embedding(32, 4)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (1): T5LayerCrossAttention(
+              (EncDecAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (2): T5LayerFF(
+              (DenseReluDense): T5DenseActDense(
+                (wi): Linear(in_features=128, out_features=512, bias=False)
+                (wo): Linear(in_features=512, out_features=128, bias=False)
+                (dropout): Dropout(p=0.1, inplace=False)
+                (act): ReLU()
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+        (1-5): 5 x T5Block(
+          (layer): ModuleList(
+            (0): T5LayerSelfAttention(
+              (SelfAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (1): T5LayerCrossAttention(
+              (EncDecAttention): T5Attention(
+                (q): Linear(in_features=128, out_features=256, bias=False)
+                (k): Linear(in_features=128, out_features=256, bias=False)
+                (v): Linear(in_features=128, out_features=256, bias=False)
+                (o): Linear(in_features=256, out_features=128, bias=False)
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (2): T5LayerFF(
+              (DenseReluDense): T5DenseActDense(
+                (wi): Linear(in_features=128, out_features=512, bias=False)
+                (wo): Linear(in_features=512, out_features=128, bias=False)
+                (dropout): Dropout(p=0.1, inplace=False)
+                (act): ReLU()
+              )
+              (layer_norm): T5LayerNorm()
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+      )
+      (final_layer_norm): T5LayerNorm()
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (lm_head): Linear(in_features=128, out_features=1027, bias=False)
+  )
+)
+Wed 19 Nov 2025 19:38:18 INFO  #Embedding parameters: 131456
+#Non-embedding parameters: 3936512
+#Total trainable parameters: 4067968
+
+Wed 19 Nov 2025 19:39:59 INFO  [Epoch 1] Train Loss: 3.720107695170606
+Wed 19 Nov 2025 19:41:34 INFO  [Epoch 2] Train Loss: 2.747522684534241
+Wed 19 Nov 2025 19:43:11 INFO  [Epoch 3] Train Loss: 2.5393304912866106
+Wed 19 Nov 2025 19:44:41 INFO  [Epoch 4] Train Loss: 2.4170190838826
+Wed 19 Nov 2025 19:46:15 INFO  [Epoch 5] Train Loss: 2.3448485541181987
+Wed 19 Nov 2025 19:47:54 INFO  [Epoch 6] Train Loss: 2.3182473964231214
+Wed 19 Nov 2025 19:49:36 INFO  [Epoch 7] Train Loss: 2.2942707725458784
+Wed 19 Nov 2025 19:51:10 INFO  [Epoch 8] Train Loss: 2.270003493782624
+Wed 19 Nov 2025 19:52:40 INFO  [Epoch 9] Train Loss: 2.2443644752516816
+Wed 19 Nov 2025 19:54:19 INFO  [Epoch 10] Train Loss: 2.2178103133261247
+Wed 19 Nov 2025 19:54:19 INFO  [Epoch 10] Saved model checkpoint to ckpt/Musical_Instruments/Nov-19-2025_19-38-ede6f1/Nov-19-2025_19-38-ede6f1_10.pth
+Wed 19 Nov 2025 19:55:55 INFO  [Epoch 11] Train Loss: 2.204419012076889
+Wed 19 Nov 2025 19:57:33 INFO  [Epoch 12] Train Loss: 2.1905502663937924
+Wed 19 Nov 2025 19:59:12 INFO  [Epoch 13] Train Loss: 2.1799560284919997
+Wed 19 Nov 2025 20:00:40 INFO  [Epoch 14] Train Loss: 2.1708927910940576
+Wed 19 Nov 2025 20:02:17 INFO  [Epoch 15] Train Loss: 2.165569611752761
+Wed 19 Nov 2025 20:03:58 INFO  [Epoch 16] Train Loss: 2.1578013302243195
+Wed 19 Nov 2025 20:05:34 INFO  [Epoch 17] Train Loss: 2.1531851058088933
+Wed 19 Nov 2025 20:07:10 INFO  [Epoch 18] Train Loss: 2.1505318338384103
+Wed 19 Nov 2025 20:08:40 INFO  [Epoch 19] Train Loss: 2.14633678006515
+Wed 19 Nov 2025 20:10:15 INFO  [Epoch 20] Train Loss: 2.1434377026719624
+Wed 19 Nov 2025 20:10:15 INFO  [Epoch 20] Saved model checkpoint to ckpt/Musical_Instruments/Nov-19-2025_19-38-ede6f1/Nov-19-2025_19-38-ede6f1_20.pth
+Wed 19 Nov 2025 20:11:52 INFO  [Epoch 21] Train Loss: 2.137698792656652
+Wed 19 Nov 2025 20:13:32 INFO  [Epoch 22] Train Loss: 2.1350275588915952
+Wed 19 Nov 2025 20:15:10 INFO  [Epoch 23] Train Loss: 2.134971196254394
+Wed 19 Nov 2025 20:16:40 INFO  [Epoch 24] Train Loss: 2.130265966787676
+Wed 19 Nov 2025 20:18:17 INFO  [Epoch 25] Train Loss: 2.127564528514859
+Wed 19 Nov 2025 20:19:55 INFO  [Epoch 26] Train Loss: 2.1304207406910005
+Wed 19 Nov 2025 20:21:32 INFO  [Epoch 27] Train Loss: 2.1263620513852772
+Wed 19 Nov 2025 20:23:09 INFO  [Epoch 28] Train Loss: 2.1231926976960676
+Wed 19 Nov 2025 20:24:41 INFO  [Epoch 29] Train Loss: 2.1221987975658827
+Wed 19 Nov 2025 20:26:13 INFO  [Epoch 30] Train Loss: 2.1199237705624543
+Wed 19 Nov 2025 20:26:13 INFO  [Epoch 30] Saved model checkpoint to ckpt/Musical_Instruments/Nov-19-2025_19-38-ede6f1/Nov-19-2025_19-38-ede6f1_30.pth
+Wed 19 Nov 2025 20:27:52 INFO  [Epoch 31] Train Loss: 2.1183790273026766
+Wed 19 Nov 2025 20:29:33 INFO  [Epoch 32] Train Loss: 2.1158793459463228
+Wed 19 Nov 2025 20:31:07 INFO  [Epoch 33] Train Loss: 2.1169991101550267
+Wed 19 Nov 2025 20:32:40 INFO  [Epoch 34] Train Loss: 2.112792432353114
+Wed 19 Nov 2025 20:34:15 INFO  [Epoch 35] Train Loss: 2.110792346708561
+Wed 19 Nov 2025 20:35:51 INFO  [Epoch 36] Train Loss: 2.112656833358339
+Wed 19 Nov 2025 20:37:29 INFO  [Epoch 37] Train Loss: 2.10860333877483
+Wed 19 Nov 2025 20:39:07 INFO  [Epoch 38] Train Loss: 2.108800799665185
+Wed 19 Nov 2025 20:40:38 INFO  [Epoch 39] Train Loss: 2.1116164646924847
+Wed 19 Nov 2025 20:42:12 INFO  [Epoch 40] Train Loss: 2.10652090205945
+Wed 19 Nov 2025 20:42:12 INFO  [Epoch 40] Saved model checkpoint to ckpt/Musical_Instruments/Nov-19-2025_19-38-ede6f1/Nov-19-2025_19-38-ede6f1_40.pth
+Wed 19 Nov 2025 20:43:52 INFO  [Epoch 41] Train Loss: 2.106551451079362
+Wed 19 Nov 2025 20:45:31 INFO  [Epoch 42] Train Loss: 2.10477315912412
+Wed 19 Nov 2025 20:47:06 INFO  [Epoch 43] Train Loss: 2.1030492116925226
+Wed 19 Nov 2025 20:48:39 INFO  [Epoch 44] Train Loss: 2.1025655001020107
+Wed 19 Nov 2025 20:50:13 INFO  [Epoch 45] Train Loss: 2.1012652318281795
+Wed 19 Nov 2025 20:51:49 INFO  [Epoch 46] Train Loss: 2.099064964680359
+Wed 19 Nov 2025 20:53:29 INFO  [Epoch 47] Train Loss: 2.0983821945075443
+Wed 19 Nov 2025 20:55:05 INFO  [Epoch 48] Train Loss: 2.096527810732763
+Wed 19 Nov 2025 20:56:36 INFO  [Epoch 49] Train Loss: 2.0942003092733468
+Wed 19 Nov 2025 20:58:13 INFO  [Epoch 50] Train Loss: 2.093412179199483
+Wed 19 Nov 2025 20:58:13 INFO  [Epoch 50] Saved model checkpoint to ckpt/Musical_Instruments/Nov-19-2025_19-38-ede6f1/Nov-19-2025_19-38-ede6f1_50.pth
+Wed 19 Nov 2025 20:59:49 INFO  [Epoch 51] Train Loss: 2.091416919599733
+Wed 19 Nov 2025 21:01:26 INFO  [Epoch 52] Train Loss: 2.0901309939911243
+Wed 19 Nov 2025 21:03:03 INFO  [Epoch 53] Train Loss: 2.0916579565610216
+Wed 19 Nov 2025 21:04:33 INFO  [Epoch 54] Train Loss: 2.088414252298437
+Wed 19 Nov 2025 21:06:08 INFO  [Epoch 55] Train Loss: 2.0853374479584166
+Wed 19 Nov 2025 21:07:45 INFO  [Epoch 56] Train Loss: 2.0849781402898357
+Wed 19 Nov 2025 21:09:25 INFO  [Epoch 57] Train Loss: 2.0875635400425696
+Wed 19 Nov 2025 21:11:00 INFO  [Epoch 58] Train Loss: 2.082702865704793
+Wed 19 Nov 2025 21:12:31 INFO  [Epoch 59] Train Loss: 2.0800679092040704
+Wed 19 Nov 2025 21:14:10 INFO  [Epoch 60] Train Loss: 2.07864716911819
+Wed 19 Nov 2025 21:14:10 INFO  [Epoch 60] Saved model checkpoint to ckpt/Musical_Instruments/Nov-19-2025_19-38-ede6f1/Nov-19-2025_19-38-ede6f1_60.pth
+Wed 19 Nov 2025 21:14:10 INFO  Best epoch: 0, Best val score: -1
+Wed 19 Nov 2025 21:14:10 INFO  [Epoch 61] Saved model checkpoint to ckpt/Musical_Instruments/Nov-19-2025_19-38-ede6f1/Nov-19-2025_19-38-ede6f1.pth
+Wed 19 Nov 2025 21:14:10 INFO  Validation scores for all tokenizers: [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
