@@ -72,7 +72,7 @@ if __name__ == '__main__':
         from sklearn.decomposition import PCA
 
         pca = PCA(n_components=config['sent_emb_pca'], whiten=True)
-        sent_embs = pca.fit_transform(sent_embs) # 
+        sent_embs = pca.fit_transform(sent_embs)
 
     log(f'[TOKENIZER] Sentence embeddings shape: {sent_embs.shape}', config['accelerator'], logger)
 
